@@ -25,15 +25,19 @@ security:
                 #Here authentication will happen (token generation)
                 check_path: /api/login_check
                 # Handle successful authentication
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                # Handle authentication failure (invalid credentials, no credentials, etc).
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
+#                success_handler: lexik_jwt_authentication.handler.authentication_success
+#                # Handle authentication failure (invalid credentials, no credentials, etc).
+#                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+#            guard:
+#                authenticators:
+
                 # entry_point: lexik_jwt_authentication.jwt_token_authenticator
 
         main:
+            pattern: ^/
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
+            logout: true
             anonymous: true
 
             # activate different ways to authenticate
@@ -49,4 +53,4 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,       roles: [ IS_AUTHENTICATED_ANONYMOUSLY ] }

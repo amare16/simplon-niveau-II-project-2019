@@ -50,14 +50,14 @@ class Addresses
      */
     private $zip_code;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="addresses")
-     */
-    private $users;
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="addresses")
+//     */
+//    private $users;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        //$this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,35 +137,35 @@ class Addresses
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setAddresses($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getAddresses() === $this) {
-                $user->setAddresses(null);
-            }
-        }
-
-        return $this;
-    }
+//    /**
+//     * @return Collection|User[]
+//     */
+//    public function getUsers(): Collection
+//    {
+//        return $this->users;
+//    }
+//
+//    public function addUser(User $user): self
+//    {
+//        if (!$this->users->contains($user)) {
+//            $this->users[] = $user;
+//            $user->setAddresses($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeUser(User $user): self
+//    {
+//        if ($this->users->contains($user)) {
+//            $this->users->removeElement($user);
+//            // set the owning side to null (unless already changed)
+//            if ($user->getAddresses() === $this) {
+//                $user->setAddresses(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
 }

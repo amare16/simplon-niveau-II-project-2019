@@ -72,11 +72,10 @@ class UserController extends AbstractFOSRestController
         $email = $data['email'];
         //$password = $data['password'];
         $telephone = $data['telephone'];
-        $addresses = $data['addresses'];
+        $city = $data['city'];
+        $zipCode = $data['zip_code'];
         $user_type = $data['userType'];
 
-        $address_city = $addressesRepository->findOneBy(['city' => $addresses]);
-        $address_zip_code = $addressesRepository->findOneBy(['zip_code' => $addresses]);
         $user_type_name = $userTypeRepository->findOneBy(['name' => $user_type]);
 
         $user = new User();
@@ -89,8 +88,8 @@ class UserController extends AbstractFOSRestController
             $data['password'])
         );
         $user->setTelephone($telephone);
-        $user->setAddresses($address_city);
-        $user->setAddresses($address_zip_code);
+        $user->setCity($city);
+        $user->setZipCode($zipCode);
         $user->addUserType($user_type_name);
         //dd($user);
         $manager->persist($user);
@@ -102,6 +101,19 @@ class UserController extends AbstractFOSRestController
 
         return new JsonResponse(["Success" => $user->getUsername(). " has been registered!"], 200);
 
+    }
+
+    /**
+     * @Route(name="login", path="/api/login_check")
+     * @return JsonResponse
+     */
+    public function login(): JsonResponse
+    {
+        $user = $this->getUser();
+        return $this->json(array(
+            'username' => $user->getUsername(),
+            'roles' => $user->getRoles(),
+        ));
     }
 
 

@@ -52,6 +52,16 @@ class User implements UserInterface
      */
     private $telephone;
 
+    /**
+     * @ORM\Column(type="string", length=255, name="city", nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=5, name="zip_code", nullable=true)
+     */
+    private $zip_code;
+
     // we won't at Column annotation because we don't want this field in the database
     /**
      * @Assert\NotBlank()
@@ -69,10 +79,10 @@ class User implements UserInterface
      */
     private $user_type;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Addresses", inversedBy="users")
-     */
-    private $addresses;
+//    /**
+//     * @ORM\ManyToOne(targetEntity="App\Entity\Addresses", inversedBy="users")
+//     */
+//    private $addresses;
 
     public function __construct()
     {
@@ -90,7 +100,7 @@ class User implements UserInterface
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
 
@@ -102,7 +112,7 @@ class User implements UserInterface
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -114,7 +124,7 @@ class User implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -126,7 +136,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -138,7 +148,7 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -150,10 +160,44 @@ class User implements UserInterface
         return $this->telephone;
     }
 
-    public function setTelephone(string $telephone): self
+    public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZipCode(): ?string
+    {
+        return $this->zip_code;
+    }
+
+    /**
+     * @param mixed $zip_code
+     */
+    public function setZipCode(?string $zip_code): self
+    {
+        $this->zip_code = $zip_code;
         return $this;
     }
 
@@ -272,15 +316,15 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
-    public function getAddresses(): ?Addresses
-    {
-        return $this->addresses;
-    }
-
-    public function setAddresses(?Addresses $addresses): self
-    {
-        $this->addresses = $addresses;
-
-        return $this;
-    }
+//    public function getAddresses(): ?Addresses
+//    {
+//        return $this->addresses;
+//    }
+//
+//    public function setAddresses(?Addresses $addresses): self
+//    {
+//        $this->addresses = $addresses;
+//
+//        return $this;
+//    }
 }
