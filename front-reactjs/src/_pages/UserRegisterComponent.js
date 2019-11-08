@@ -1,7 +1,9 @@
 import React from "react";
 import PlacesAutocomplete, {
-  geocodeByAddress, geocodeByPlaceId, getLatLng
-} from 'react-places-autocomplete';
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng
+} from "react-places-autocomplete";
 
 import { NavbarComponent } from "../_components/NavbarComponent";
 
@@ -10,21 +12,21 @@ class UserRegisterComponent extends React.Component {
     super(props);
 
     this.state = {
-        firstName: "",
-        lastName: "",
-        username: "",
-        email: "",
-        password: "",
-        repeatedPassword: "",
-        telephone: "",
-        city: "",
-        zip_code: "",
-        userType: {
-          name:""
-        }, 
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+      repeatedPassword: "",
+      telephone: "",
+      city: "",
+      zip_code: "",
+      userType: {
+        name: ""
+      },
       submitted: false,
       userTypeList: [],
-      error:false
+      error: false
     };
     //console.log("this state gives: ", this.state)
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +39,8 @@ class UserRegisterComponent extends React.Component {
   }
 
   componentDidMount() {
-   // console.log("Hey, my component is mounted");
+    // console.log("Hey, my component is mounted");
+    // this is to test without filling the form
     // let user = {
     //   firstName: "Bajejjebi",
     //   lastName: "Edkekkeu",
@@ -52,25 +55,21 @@ class UserRegisterComponent extends React.Component {
     //   }
     // }
     // console.log("user gives: ", user);
-    
+
     fetch(`http://localhost:8000/api/usertype`, {
       method: "GET",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
         // 'Content-Type': 'application/x-www-form-urlencoded',
-      }, 
-    }).then(
-      data => {
-        return data.json();
       }
-    ).then(response => {
-      this.setState({userTypeList: response});
-      console.log(response);
     })
-  
-    
-    
-   
+      .then(data => {
+        return data.json();
+      })
+      .then(response => {
+        this.setState({ userTypeList: response });
+        console.log(response);
+      });
   }
 
   handleChange(event) {
@@ -79,68 +78,94 @@ class UserRegisterComponent extends React.Component {
     this.setState({
       [name]: value
     });
-   
+
     //this.setState({value: event.target.value});
   }
 
   handleUsertypeChange(event) {
     console.log(event.target.value);
     this.setState({
-        userType: {
-            name: event.target.value
-        }
-    })
-}
+      userType: {
+        name: event.target.value
+      }
+    });
+  }
 
   handleAddressChange = city => {
     this.setState({ city });
     //console.log(city);
-  }
+  };
 
   handSelect = city => {
     geocodeByAddress(city);
     //console.log("select: " + geocodeByAddress(city));
-  }
+  };
 
   handleSubmit(event) {
-    
     event.preventDefault();
-    
+
     console.log(event);
     let user = {
-      firstName:this.state.firstName,
-      lastName:this.state.lastName,
-      username:this.state.username,
-      email:this.state.email,
-      password:this.state.password,
-      telephone:this.state.telephone,
-      city:this.state.city,
-      zip_code:this.state.zip_code,
-      userType:this.state.userType,
-  }
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password,
+      repeatedPassword: this.state.repeatedPassword,
+      telephone: this.state.telephone,
+      city: this.state.city,
+      zip_code: this.state.zip_code,
+      userType: this.state.userType
+    };
 
-  console.log('user submitted :', user)
+    console.log("user submitted :", user);
 
     // this.setState({ submitted: true });
     // console.log("Submitted:", this.state.submitted);
 
-    fetch(`http://localhost:8000/api/register`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user),
-    }).then(data => {
-      data.json().then(results => {
-        console.log(results);
-    })
-    
-    })
+    let password1 = document.getElementById("password");
+    let password2 = document.getElementById("repeatedPassword");
+    let successColor = "#66cc66";
+    let dangerColor = "#ff6666";
+    let message = document.getElementById("errorPassword");
 
+    if (
+      this.state.password.length > 5 &&
+      this.state.repeatedPassword.length > 5
+    ) {
+      password1.style.backgroundColor = successColor;
+      message.style.color = successColor;
+      message.innerHTML = "Character length is Ok!";
+
+      if (this.state.password == this.state.repeatedPassword) {
+        password2.style.backgroundColor = successColor;
+        message.style.color = successColor;
+        message.innerHTML = "Matched!";
+
+        fetch(`http://localhost:8000/api/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(user)
+        }).then(data => {
+          data.json().then(results => {
+            console.log(results);
+          });
+        });
+      } else {
+        password2.style.backgroundColor = dangerColor;
+        message.style.color = dangerColor;
+        message.innerHTML = "The Password is not matched!";
+      }
+    } else {
+        password1.style.backgroundColor = dangerColor;
+        message.style.color = dangerColor;
+        message.innerHTML = "You have to enter at least 6 characters!";
+    }
   }
 
   render() {
-  
     return (
       <div className="container">
         <NavbarComponent />
@@ -163,7 +188,6 @@ class UserRegisterComponent extends React.Component {
                 value={this.state.firstName}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-                
               />
             </div>
             <div className="form-group input-group">
@@ -180,7 +204,6 @@ class UserRegisterComponent extends React.Component {
                 value={this.state.lastName}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-               
               />
             </div>
             <div className="form-group input-group">
@@ -197,7 +220,6 @@ class UserRegisterComponent extends React.Component {
                 value={this.state.username}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-               
               />
             </div>
             <div className="form-group input-group">
@@ -214,7 +236,6 @@ class UserRegisterComponent extends React.Component {
                 value={this.state.email}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-                
               />
             </div>
             <div className="form-group input-group">
@@ -227,12 +248,13 @@ class UserRegisterComponent extends React.Component {
                 type="password"
                 name="password"
                 className="form-control"
+                id="password"
                 placeholder="Password"
                 value={this.state.password}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-                
-              />
+              /><br></br>
+              <div id="errorPassword"></div>
             </div>
             <div className="form-group input-group">
               <div className="input-group-prepend">
@@ -244,11 +266,11 @@ class UserRegisterComponent extends React.Component {
                 type="password"
                 name="repeatedPassword"
                 className="form-control"
+                id="repeatedPassword"
                 placeholder="Repeated password"
                 value={this.state.repeatedPassword}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-                
               />
             </div>
             <div className="form-group input-group">
@@ -265,13 +287,12 @@ class UserRegisterComponent extends React.Component {
                 value={this.state.telephone}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-                
               />
             </div>
             <div class="form-group input-group">
-            <div className="input-group-prepend">
+              <div className="input-group-prepend">
                 <span className="input-group-text">
-                <i class="fa fa-check-circle"></i>
+                  <i class="fa fa-check-circle"></i>
                 </span>
               </div>
               <select
@@ -283,8 +304,10 @@ class UserRegisterComponent extends React.Component {
                 <option value="select">Select who you are</option>
                 {this.state.userTypeList.map(usertype => {
                   return (
-                    <option key={usertype.name} value={usertype.name}>{usertype.name}</option>
-                  )
+                    <option key={usertype.name} value={usertype.name}>
+                      {usertype.name}
+                    </option>
+                  );
                 })}
                 {/* <option value="farmer">Agriculture</option>
                 <option value="gardener">Jardiere</option>
@@ -300,29 +323,42 @@ class UserRegisterComponent extends React.Component {
                   <i className="far fa-car-building"></i>
                 </span>
               </div>
-              <PlacesAutocomplete 
-                value={this.state.city} 
-                onChange={this.handleAddressChange} 
-                onSelect={this.handSelect}>
-                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => 
+              <PlacesAutocomplete
+                value={this.state.city}
+                onChange={this.handleAddressChange}
+                onSelect={this.handSelect}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading
+                }) => (
                   <div>
-                    <input {...getInputProps({ placeholder: "Type Your City" })}  className="form-control"/>
+                    <input
+                      {...getInputProps({ placeholder: "Type Your City" })}
+                      className="form-control"
+                    />
                     <div>
-                      {loading ? <div>...loading</div> : null }
-                      
+                      {loading ? <div>...loading</div> : null}
+
                       {suggestions.map(suggestion => {
                         const style = {
-                          backgroundColor: suggestion.active ? "#ca1cca" : "#fff" 
+                          backgroundColor: suggestion.active
+                            ? "#ca1cca"
+                            : "#fff"
                         };
                         return (
-                          <div {...getSuggestionItemProps(suggestion, { style})}>
-                           {suggestion.description}
+                          <div
+                            {...getSuggestionItemProps(suggestion, { style })}
+                          >
+                            {suggestion.description}
                           </div>
-                        )
+                        );
                       })}
                     </div>
-                  </div>}
-
+                  </div>
+                )}
               </PlacesAutocomplete>
               {/* <input
                 type="text"
@@ -349,7 +385,6 @@ class UserRegisterComponent extends React.Component {
                 value={this.state.zip_code}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
-                
               />
             </div>
             <div class="form-group">
