@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { directive } from '@babel/types';
 
+
+
+
 class WelcomePageComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -16,10 +19,11 @@ class WelcomePageComponent extends React.Component {
     render() {
         return(
           <div>
-            <div class="card mb-3" onClick={this.routeChange}>
+            
+            <div className="card mb-3" onClick={this.routeChange}>
               
-              <div class="card-body">
-                <h1 class="card-title">Bienvenue <br></br>chez <br></br>Agro Interest</h1>
+              <div className="card-body">
+                <h1 className="card-title">Bienvenue <br></br>chez <br></br>Agro Interest</h1>
                 
               </div>
             </div>
@@ -29,6 +33,8 @@ class WelcomePageComponent extends React.Component {
         );
     }
 
+    
+
 }
 
-export { WelcomePageComponent };
+export {WelcomePageComponent}

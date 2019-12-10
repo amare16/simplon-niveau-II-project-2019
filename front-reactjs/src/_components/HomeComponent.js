@@ -1,5 +1,6 @@
 import React from "react";
 
+
 class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -8,6 +9,7 @@ class HomeComponent extends React.Component {
   render() {
     return (
       <div>
+        
         <div class="jumbotron">
           <p class="lead">
             <b>Agro Interest</b> est un site pour rencontrer un agriculteur ou qui a un
@@ -31,6 +33,8 @@ class HomeComponent extends React.Component {
       </div>
     );
   }
+
+  
 }
 
-export { HomeComponent };
+export {HomeComponent};

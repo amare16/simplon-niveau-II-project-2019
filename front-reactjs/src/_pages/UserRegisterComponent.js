@@ -68,7 +68,9 @@ class UserRegisterComponent extends React.Component {
       })
       .then(response => {
         this.setState({ userTypeList: response });
-        console.log(response);
+        console.log("test response ", response);
+        return response;
+        
       });
   }
 
@@ -289,20 +291,21 @@ class UserRegisterComponent extends React.Component {
                 submitted={this.state.submitted ? 1 : 0}
               />
             </div>
-            <div class="form-group input-group">
+            <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
-                  <i class="fa fa-check-circle"></i>
+                  <i className="fa fa-check-circle"></i>
                 </span>
               </div>
               <select
                 className="custom-select my-1 mr-sm-2"
                 id="inlineFormCustomSelectPref"
-                value={this.state.value}
+                
                 onChange={this.handleUsertypeChange}
               >
                 <option value="select">Select who you are</option>
                 {this.state.userTypeList.map(usertype => {
+                  //console.log('try : ', this.state.userTypeList);
                   return (
                     <option key={usertype.name} value={usertype.name}>
                       {usertype.name}
@@ -387,8 +390,8 @@ class UserRegisterComponent extends React.Component {
                 submitted={this.state.submitted ? 1 : 0}
               />
             </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-secondary btn-block">
+            <div className="form-group">
+              <button type="submit" className="btn btn-secondary btn-block">
                 Register
               </button>
             </div>

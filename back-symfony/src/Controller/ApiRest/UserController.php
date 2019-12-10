@@ -16,11 +16,11 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Flex\Response;
 use FOS\RestBundle\View\View;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class UserController extends AbstractFOSRestController
@@ -104,16 +104,34 @@ class UserController extends AbstractFOSRestController
     }
 
     /**
-     * @Route(name="login", path="/api/login_check")
-     * @return JsonResponse
+     * @Rest\Post("/login", name="api_login")
      */
-    public function login(): JsonResponse
+    public function login()
     {
-        $user = $this->getUser();
-        return $this->json(array(
-            'username' => $user->getUsername(),
-            'roles' => $user->getRoles(),
-        ));
+        //dd($this->getUser());
+        return $this->json([
+            'user' => $this->getUser()
+        ]);
+        
+
+    }
+
+    /**
+     * @Rest\Post("/profile", name="api_profile")
+     * @IsGranted("ROLE_USER")
+     */
+    public function profile() {
+        return $this->json([
+            'user' => $this->getUser()
+        ]);
+
+    }
+
+    /* @Rest\Post("/logout", name="api_logout")
+    */
+    public function logout()
+    {
+
     }
 
 

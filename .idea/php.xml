@@ -106,6 +106,7 @@
       <path value="$PROJECT_DIR$/back-symfony/vendor/nelmio/cors-bundle" />
       <path value="$PROJECT_DIR$/back-symfony/vendor/api-platform/api-pack" />
       <path value="$PROJECT_DIR$/back-symfony/vendor/api-platform/core" />
+      <path value="$PROJECT_DIR$/back-symfony/vendor/sensio/framework-extra-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
