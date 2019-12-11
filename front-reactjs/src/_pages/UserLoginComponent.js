@@ -1,7 +1,7 @@
 import React from "react";
-import AuthService from '../_services/AuthService.js';
 import Router from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { AuthService } from '../_services/AuthService';
 
 import { NavbarComponent } from "../_components/NavbarComponent";
 
@@ -9,15 +9,18 @@ class UserLoginComponent extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      username: '',
+      password: ''
+    }
+    //console.log('this state value: ', this.state)
+
     this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.Auth = new AuthService();
+    this.handleFormSubmit = this.handleSubmit.bind(this);
+    
   }
 
-  componentWillMount() {
-    if(this.Auth.loggedIn())
-      this.props.history.replace('/');
-  }
+ 
 
   handleChange(e) {
     const { name, value } = e.target;
@@ -27,16 +30,13 @@ class UserLoginComponent extends React.Component {
     console.log(name, value);
   }
 
-  handleFormSubmit(e){
-    e.preventDefault();
-  
-    this.Auth.login(this.state.username,this.state.password)
-        .then(res =>{
-           this.props.history.replace('/');
-        })
-        .catch(err =>{
-            alert(err);
-        })
+  handleSubmit(){
+
+    // call Auth function
+    AuthService(this.state).then((result) => {
+      let responseJson = result; 
+      console.log('response json: ', responseJson);
+    });
 }
   
 
@@ -57,7 +57,7 @@ class UserLoginComponent extends React.Component {
               </div>
             </div>
             <div className="d-flex justify-content-center form_container">
-              <form onSubmit={this.handleFormSubmit}>
+              <form onSubmit={this.handleSubmit}>
                 <div className="input-group mb-3">
                   <div className="input-group-append">
                     <span className="input-group-text">
@@ -105,7 +105,7 @@ class UserLoginComponent extends React.Component {
                   {/* <button type="button" name="button" className="btn btn-success login_btn">
                     Login
                   </button> */}
-                  <input className="form-submit" type="submit" value="Login"/>
+                  <input className="form-submit btn btn-success" type="submit" value="Login"/>
                 </div>
               </form>
             </div>

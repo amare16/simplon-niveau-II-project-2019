@@ -18,25 +18,15 @@ import '../styles/style.css';
 
 
 import { HomeComponent } from "../_components/HomeComponent";
-import AuthService from '../_services/AuthService'
-import withAuth from '../_services/withAuth';
 import { WelcomePageComponent } from "../_components/WelcomePageComponent";
 
-
-const Auth = new AuthService();
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
         <LogoComponent />
-        <div className="App-header">
-              
-              <h2>Welcome {this.props.user.username}</h2>
-            </div>
-            <p className="App-intro">
-                <button type="button" className="form-submit" onClick={this.handleLogout.bind(this)}>Logout</button>
-            </p>
+        
         <Router>
           <div className="app">
             <Route path="/welcome" component={WelcomePageComponent} />
@@ -54,10 +44,7 @@ class App extends React.Component {
     );
   }
 
-  handleLogout() {
-    Auth.logout();
-    this.props.history.replace('/login');
-  }
+  
 }
 
-export default withAuth(App);
+export {App};
