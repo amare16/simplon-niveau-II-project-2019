@@ -30,8 +30,8 @@ class UserLoginComponent extends React.Component {
     console.log(name, value);
   }
 
-  handleSubmit(){
-
+  handleSubmit(e){
+    e.preventDefault();
     // call Auth function
     AuthService(this.state).then((result) => {
       let responseJson = result; 
