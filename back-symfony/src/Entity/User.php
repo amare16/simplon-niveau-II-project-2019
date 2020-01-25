@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
@@ -19,48 +19,63 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_user")
+     * @Groups("group_userType")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups("group_user")
+     * @Groups("group_article")
+     * @Groups("group_userType")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups("group_user")
+     * @Groups("group_article")
+     * @Groups("group_userType")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=45, unique=true)
+     * @Groups("group_user")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
+     * @Groups("group_user")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups("group_user")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Groups("group_user")
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255, name="city", nullable=true)
+     * @Groups("group_user")
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=5, name="zip_code", nullable=true)
+     * @Groups("group_user")
      */
     private $zip_code;
+
 
     // we won't at Column annotation because we don't want this field in the database
     /**
@@ -76,6 +91,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\UserType", inversedBy="user")
+     * @Groups("group_user")
      */
     private $user_type;
 
@@ -86,7 +102,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
+        //$this->articles = new ArrayCollection();
         $this->user_type = new ArrayCollection();
     }
 

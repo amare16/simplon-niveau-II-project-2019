@@ -1,4 +1,5 @@
 import React from "react";
+import { NavbarComponent } from './NavbarComponent';
 
 
 class HomeComponent extends React.Component {
@@ -9,7 +10,7 @@ class HomeComponent extends React.Component {
   render() {
     return (
       <div>
-        
+        <NavbarComponent /><br /><br />
         <div class="jumbotron">
           <p class="lead">
             <b>Agro Interest</b> est un site pour rencontrer un agriculteur ou qui a un

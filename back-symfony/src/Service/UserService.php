@@ -4,12 +4,11 @@
 namespace App\Service;
 
 
-use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Entity\Addresses;
 use App\Entity\User;
 use App\Repository\AddressesRepository;
 use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+
 
 class UserService
 {
@@ -18,26 +17,29 @@ class UserService
      * @var AddressesRepository
      */
     private $addressesRepository;
-    /**
-     * @var ObjectManager
-     */
-    private $manager;
+
     /**
      * @var UserRepository
      */
     private $userRepository;
     /**
-     * @var ValidatorInterface
+     * @var \Doctrine\Common\Persistence\ManagerRegistry
      */
-    private $validator;
+    private $managerRegistry;
+
 
     public function __construct(UserRepository $userRepository, AddressesRepository $addressesRepository,
-                                ObjectManager $manager, ValidatorInterface $validator)
+                                \Doctrine\Common\Persistence\ManagerRegistry $managerRegistry)
     {
         $this->addressesRepository = $addressesRepository;
-        $this->manager = $manager;
         $this->userRepository = $userRepository;
-        $this->validator = $validator;
+
+        $this->managerRegistry = $managerRegistry;
+    }
+
+    public function getAllUsers()
+    {
+        return $this->userRepository->findAll();
     }
 
     public function addUser($firstName, $lastName, $username, $email, $password, $telephone, $addresses)

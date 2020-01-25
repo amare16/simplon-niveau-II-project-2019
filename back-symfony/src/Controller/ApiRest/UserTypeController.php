@@ -24,6 +24,7 @@ class UserTypeController extends AbstractFOSRestController
 
     /**
      * @Rest\Get("/usertype", name="api.usertype")
+     * @Rest\View(serializerGroups={"group_userType"})
      */
     public function getAllUserType(): View
     {

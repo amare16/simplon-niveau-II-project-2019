@@ -1,11 +1,10 @@
 
-
-
-
-
 /* logo */
-
-/* Welcome Component */
+.img-logo {
+  display: block;
+  margin: 0 auto;
+}
+/* App Component */
 .card {
     width: 50%;
     background: #e6ffe6;
@@ -47,6 +46,7 @@ b {
 
 .copyright {
     margin-top: 10px;
+    text-align: center;
 }
 
 /* Register Component */
@@ -75,6 +75,10 @@ html {
     height: 100%;
     background: #60a3bc !important;
 } */
+
+.h-100 {
+    margin-top: 110px;
+}
 .user_card {
     height: 400px;
     width: 350px;
@@ -145,7 +149,7 @@ html {
 }
 
 .login-container {
-    margin-top: 100px;
+    margin-top: 5px;
     margin-bottom: 150px;
 }
 
@@ -154,4 +158,70 @@ html {
     font-size: 27px;
     font-weight: bold;
     color: antiquewhite;
+}
+
+/* CreateArticleComponent */
+.create-article-container {
+    margin-bottom: 100px;
+    background-color: #b3ecff;
+}
+.create-article-h1, .create-article-h3 {
+    text-align: left;
+}
+
+/* FarmersListComponent */
+
+.user-type-list {
+    margin-bottom: 100px;
+}
+
+    /* search bar - user type */
+    .d-flex {
+        margin-bottom: 35px;
+    }
+    .searchbar{
+        margin-bottom: auto;
+        margin-top: auto;
+        height: 60px;
+        background-color:#008755;
+        border-radius: 30px;
+        padding: 10px;
+        }
+        .search_input{
+            color: white;
+            border: 0;
+            outline: 0;
+            background: none;
+            width: 0;
+            caret-color:transparent;
+            line-height: 40px;
+            transition: width 0.4s linear;
+            }
+        
+        .searchbar:hover > .search_input{
+            padding: 0 10px;
+            width: 450px;
+            caret-color:red;
+            transition: width 0.4s linear;
+            }
+        
+        .searchbar:hover > .search_icon{
+            background: white;
+            color: #e74c3c;
+            }
+            .search_icon{
+                height: 40px;
+                width: 40px;
+                float: right;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                color:white;
+                text-decoration:none;
+                }
+
+/* Contact Component */
+.contact-container {
+    margin-top: 50px;
 }

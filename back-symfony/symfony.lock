@@ -1,21 +1,4 @@
 {
-    "api-platform/api-pack": {
-        "version": "v1.2.0"
-    },
-    "api-platform/core": {
-        "version": "2.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "a93061567140e386f107be75340ac2aee3f86cbf"
-        },
-        "files": [
-            "./config/packages/api_platform.yaml",
-            "./config/routes/api_platform.yaml",
-            "./src/Entity/.gitignore"
-        ]
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -55,9 +38,6 @@
             "./src/Repository/.gitignore"
         ]
     },
-    "doctrine/doctrine-cache-bundle": {
-        "version": "1.3.5"
-    },
     "doctrine/doctrine-migrations-bundle": {
         "version": "1.2",
         "recipe": {
@@ -95,8 +75,8 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
-    "fig/link-util": {
-        "version": "1.0.0"
+    "egulias/email-validator": {
+        "version": "2.1.15"
     },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
@@ -109,9 +89,6 @@
         "files": [
             "./config/packages/fos_rest.yaml"
         ]
-    },
-    "gesdinet/jwt-refresh-token-bundle": {
-        "version": "v0.8.2"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -149,7 +126,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.5",
-            "ref": "6e1f64cc0f55362be49764634e8f14ce34a033c6"
+            "ref": "6388de23860284db9acce0a7a5d9d13153bcb571"
         },
         "files": [
             "./config/packages/nelmio_cors.yaml"
@@ -163,6 +140,9 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
+    },
+    "php": {
+        "version": "7.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.0.0"
@@ -182,9 +162,6 @@
     "psr/container": {
         "version": "1.0.0"
     },
-    "psr/link": {
-        "version": "1.0.0"
-    },
     "psr/log": {
         "version": "1.1.0"
     },
@@ -202,9 +179,6 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
-    },
-    "symfony/asset": {
-        "version": "v4.3.5"
     },
     "symfony/cache": {
         "version": "v4.3.5"
@@ -245,9 +219,6 @@
     },
     "symfony/event-dispatcher-contracts": {
         "version": "v1.1.7"
-    },
-    "symfony/expression-language": {
-        "version": "v4.3.5"
     },
     "symfony/filesystem": {
         "version": "v4.3.5"
@@ -300,6 +271,18 @@
     },
     "symfony/intl": {
         "version": "v4.3.5"
+    },
+    "symfony/mailer": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "15658c2a0176cda2e7dba66276a2030b52bd81b2"
+        },
+        "files": [
+            "./config/packages/mailer.yaml"
+        ]
     },
     "symfony/maker-bundle": {
         "version": "1.0",
@@ -361,7 +344,7 @@
         "version": "v4.3.5"
     },
     "symfony/property-info": {
-        "version": "v4.3.5"
+        "version": "v4.3.9"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -405,13 +388,13 @@
     "symfony/serializer": {
         "version": "v4.3.5"
     },
+    "symfony/serializer-pack": {
+        "version": "v1.0.2"
+    },
     "symfony/service-contracts": {
         "version": "v1.1.7"
     },
     "symfony/stopwatch": {
-        "version": "v4.3.5"
-    },
-    "symfony/templating": {
         "version": "v4.3.5"
     },
     "symfony/translation-contracts": {
@@ -453,9 +436,6 @@
     "symfony/var-exporter": {
         "version": "v4.3.5"
     },
-    "symfony/web-link": {
-        "version": "v4.3.5"
-    },
     "symfony/web-profiler-bundle": {
         "version": "3.3",
         "recipe": {
@@ -486,7 +466,7 @@
         "version": "v2.12.0"
     },
     "webmozart/assert": {
-        "version": "1.5.0"
+        "version": "1.6.0"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"

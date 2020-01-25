@@ -16,6 +16,7 @@ fos_rest:
         view_response_listener: 'force'
         formats:
           json: true
+          jsonld: true
 #    exception:
 #        enabled: true
 #        codes:

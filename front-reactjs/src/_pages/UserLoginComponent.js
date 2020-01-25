@@ -1,9 +1,5 @@
 import React from "react";
-import Router from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { AuthService } from '../_services/AuthService';
-
-import { NavbarComponent } from "../_components/NavbarComponent";
+//import { NavbarComponent } from "../_components/NavbarComponent";
 
 class UserLoginComponent extends React.Component {
   constructor(props) {
@@ -16,7 +12,7 @@ class UserLoginComponent extends React.Component {
     //console.log('this state value: ', this.state)
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     
   }
 
@@ -32,11 +28,59 @@ class UserLoginComponent extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    // call Auth function
-    AuthService(this.state).then((result) => {
-      let responseJson = result; 
-      console.log('response json: ', responseJson);
-    });
+    let userData = {
+      username: this.state.username,
+      password: this.state.password
+    };
+
+    const { history } = this.props; 
+
+
+    fetch(`http://localhost:8000/api/login_check`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userData)
+        }).then(data => {
+          data.json()
+          .then(results => {
+            
+            console.log(this.state.username, "is logged in successfuly!", results);
+            history.push("/home");
+          })
+          .catch(err => {
+            console.log("Error", err);
+          })
+        });
+
+        
+    // // call Auth function
+    // if(this.state.username && this.state.password) {
+    //   AuthService(this.state).then((result) => {
+    //     console.log("value of result: ", result)
+    //   });
+    // }
+   
+
+
+    // let user = {
+    //   username: this.state.username,
+    //   password: this.state.password
+    // };
+    // fetch(`http://localhost:8000/api/login_check`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       },
+    //       body: JSON.stringify(user)
+          
+    //     }).then(data => {
+    //       data.json().then(results => {
+    //         console.log('what is results; ', results);
+    //       });
+    //     });
+    //     console.log('data: ', this.data)
 }
   
 
@@ -44,6 +88,7 @@ class UserLoginComponent extends React.Component {
     
     return (
       <div className="container login-container h-100">
+        
         <div className="d-flex justify-content-center h-100">
           <div className="user_card">
             <div className="d-flex justify-content-center">

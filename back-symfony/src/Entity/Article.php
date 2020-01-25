@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
 class Article
@@ -15,27 +15,33 @@ class Article
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_article")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("group_article")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("group_article")
      */
     private $content;
 
     /**
+     * @var \DateTime
      * @ORM\Column(type="datetime")
+     * @Groups("group_article")
      */
     private $publishedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("group_article")
      */
     private $user;
 
@@ -68,11 +74,18 @@ class Article
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getPublishedAt(): ?\DateTimeInterface
     {
         return $this->publishedAt;
     }
 
+    /**
+     * @param \DateTimeInterface $publishedAt
+     * @return Article
+     */
     public function setPublishedAt(\DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;

@@ -1,16 +1,20 @@
+/*global google*/
 import React from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   geocodeByPlaceId,
   getLatLng
 } from "react-places-autocomplete";
+import Geosuggest, { Suggest } from 'react-geosuggest';
+import MapGl from "react-map-gl";
+import { Redirect } from "react-router-dom";
 
-import { NavbarComponent } from "../_components/NavbarComponent";
+//import { NavbarComponent } from "../_components/NavbarComponent";
 
 class UserRegisterComponent extends React.Component {
   constructor(props) {
     super(props);
-
+ 
     this.state = {
       firstName: "",
       lastName: "",
@@ -26,14 +30,15 @@ class UserRegisterComponent extends React.Component {
       },
       submitted: false,
       userTypeList: [],
-      error: false
+      error: false,
+      redirect: false
     };
     //console.log("this state gives: ", this.state)
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUsertypeChange = this.handleUsertypeChange.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
-    this.handSelect = this.handSelect.bind(this);
+    this.onSuggestSelect = this.onSuggestSelect.bind(this);
     // console.log("handle change method " + this.handleChange);
     // console.log("handle submit method " + this.handleSubmit);
   }
@@ -98,10 +103,9 @@ class UserRegisterComponent extends React.Component {
     //console.log(city);
   };
 
-  handSelect = city => {
-    geocodeByAddress(city);
-    //console.log("select: " + geocodeByAddress(city));
-  };
+  onSuggestSelect(place: Suggest) {
+    console.log(place);
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -122,7 +126,7 @@ class UserRegisterComponent extends React.Component {
 
     console.log("user submitted :", user);
 
-    // this.setState({ submitted: true });
+     
     // console.log("Submitted:", this.state.submitted);
 
     let password1 = document.getElementById("password");
@@ -152,9 +156,10 @@ class UserRegisterComponent extends React.Component {
           body: JSON.stringify(user)
         }).then(data => {
           data.json().then(results => {
-            console.log(results);
+            console.log("Successfully ", this.state.username, "registered: ", results);
           });
-        });
+        }).then(() => this.setState({ redirect: true }))
+        
       } else {
         password2.style.backgroundColor = dangerColor;
         message.style.color = dangerColor;
@@ -168,9 +173,14 @@ class UserRegisterComponent extends React.Component {
   }
 
   render() {
+    
+    if (this.state.redirect == true) {
+      return <Redirect to="/login"/>
+    }
+
     return (
       <div className="container">
-        <NavbarComponent />
+        
         <div>
           <h1>Inscription</h1>
         </div>
@@ -326,43 +336,17 @@ class UserRegisterComponent extends React.Component {
                   <i className="far fa-car-building"></i>
                 </span>
               </div>
-              <PlacesAutocomplete
+              <Geosuggest
                 value={this.state.city}
                 onChange={this.handleAddressChange}
-                onSelect={this.handSelect}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading
-                }) => (
-                  <div>
-                    <input
-                      {...getInputProps({ placeholder: "Type Your City" })}
-                      className="form-control"
-                    />
-                    <div>
-                      {loading ? <div>...loading</div> : null}
-
-                      {suggestions.map(suggestion => {
-                        const style = {
-                          backgroundColor: suggestion.active
-                            ? "#ca1cca"
-                            : "#fff"
-                        };
-                        return (
-                          <div
-                            {...getSuggestionItemProps(suggestion, { style })}
-                          >
-                            {suggestion.description}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </PlacesAutocomplete>
+                
+                placeholder="Start typing!"
+                
+                onSuggestSelect={this.onSuggestSelect}
+                location={new google.maps.LatLng(53.558572, 9.9278215)}
+                radius="20"
+              />
+                
               {/* <input
                 type="text"
                 name="city"
