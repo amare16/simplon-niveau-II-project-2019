@@ -20,6 +20,7 @@ class FarmersListComponent extends React.Component {
     // this.filterUsersByCity = this.filterUsersByCity.bind(this);
   }
 
+  // fetch the users and its corresponding fields
   componentDidMount() {
     return fetch("http://localhost:8000/api/users", {
       method: "GET",

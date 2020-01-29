@@ -2,16 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d990d50a-5d5b-4f90-9a25-3c14c2862ea4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/back-symfony/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ContactController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserTypeController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Form/UserType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Service/ArticlesService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Service/ContactService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Service/UserService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-symfony/src/Service/UserTypeService.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/config/env.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/config/jest/cssTransform.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/config/jest/fileTransform.js" afterDir="false" />
@@ -24,29 +14,6 @@
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/start.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/.env" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/packages/api_platform.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/routes/annotations.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/routes/annotations.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/routes/api_platform.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/public/ile_de_france_depts_villes.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ContactController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ContactController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ImportExcelFileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ImportExcelFileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/Contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/Contact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/LocationFrance.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/Addresses.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Migrations/Version20191014213535.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Migrations/Version20191020145139.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Repository/LocationFranceRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Repository/AddressesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Service/ContactService.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Service/ContactService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/symfony.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/public/index.html" afterDir="false" />
@@ -356,7 +323,7 @@
       <path value="$PROJECT_DIR$/back-symfony/vendor/egulias/email-validator" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1556" />
     <option name="y" value="139" />
     <option name="width" value="1550" />
@@ -489,15 +456,15 @@
       <workItem from="1579874348587" duration="6784000" />
       <workItem from="1579905724925" duration="25712000" />
       <workItem from="1580143295510" duration="14806000" />
-      <workItem from="1580305963659" duration="647000" />
+      <workItem from="1580305963659" duration="1229000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176381000" />
+    <option name="totallyTimeSpent" value="176963000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49716714" visible="true" weight="0.18293333" />
