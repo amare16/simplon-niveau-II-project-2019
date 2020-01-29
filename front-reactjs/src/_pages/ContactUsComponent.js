@@ -9,7 +9,8 @@ class ContactUsComponent extends React.Component {
       firstName: "",
       lastName: "",
       email: "",
-      message: ""
+      subject: "",
+      message: "",
     };
   }
 
@@ -31,6 +32,12 @@ class ContactUsComponent extends React.Component {
     });
   }
 
+  onSubjectChange(event) {
+    this.setState({
+      subject: event.target.value
+    });
+  }
+
   onMessageChange(event) {
     this.setState({
       message: event.target.value
@@ -39,6 +46,7 @@ class ContactUsComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    e.target.reset();
     //console.log("handle submit value: ",this.state)
     fetch("http://localhost:8000/api/send-email", {
       method: "POST",
@@ -48,22 +56,23 @@ class ContactUsComponent extends React.Component {
         "Content-Type": "application/json"
       }
     })
-    //   .then(response => response.json())
-      .then(response => {
-        if (response.status === "success") {
-          console.log("Message Sent.");
-          this.resetForm();
-        } else if (response.status === "fail") {
-          console.log("Message failed to send.");
-        }
+    .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          items: responseJson
+        });
+        console.log("what is the value of : ", responseJson);
+      })
+      .catch(error => {
+        console.error(error);
       });
   }
 
-  resetForm(){
+//   resetForm(){
     
-    this.setState({name: '', email: '', message: ''})
-    console.log("reset")
- }
+//     this.setState({firstName: '', lastName:'', email: '', subject: '', message: ''})
+//     console.log("reset")
+//  }
 
   render() {
     return (
@@ -139,6 +148,23 @@ class ContactUsComponent extends React.Component {
                       />
                     </div>
                     <div className="input-group mb-2">
+                      <div className="input-group-prepend">
+                        <div className="input-group-text">
+                          <i className="fa fa-comments-o"></i>
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="subject"
+                        name="subject"
+                        placeholder="Subject"
+                        value={this.state.subject}
+                        onChange={this.onSubjectChange.bind(this)}
+                        required
+                      />
+                    </div>
+                    <div className="input-group mb-2">
                       <div className="input-group mb-2">
                         <div className="input-group-prepend">
                           <div className="input-group-text">
@@ -164,6 +190,7 @@ class ContactUsComponent extends React.Component {
                         value="Submit"
                       />
                     </div>
+                    
                   </div>
                 </div>
               </form>

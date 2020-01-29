@@ -31,7 +31,7 @@ class FarmersListComponent extends React.Component {
       .then(res => res.json())
       .then(response => {
         this.setState({
-          result: response
+          data: response
         });
         console.log("what is the value of : ", response);
       })

@@ -95,6 +95,23 @@ class User implements UserInterface
      */
     private $user_type;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="id_message_sender")
+     */
+    private $userMessageSender;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="id_message_receiver")
+     */
+    private $userMessageReceiver;
+
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user")
+//     */
+//    private $userMessages;
+
+
+
 //    /**
 //     * @ORM\ManyToOne(targetEntity="App\Entity\Addresses", inversedBy="users")
 //     */
@@ -104,6 +121,10 @@ class User implements UserInterface
     {
         //$this->articles = new ArrayCollection();
         $this->user_type = new ArrayCollection();
+        $this->users_message = new ArrayCollection();
+        $this->userMessageSender = new ArrayCollection();
+        $this->userMessageReceiver = new ArrayCollection();
+        //$this->userMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -332,6 +353,100 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
+    /**
+     * @return Collection|UserMessage[]
+     */
+    public function getUserMessageSender(): Collection
+    {
+        return $this->userMessageSender;
+    }
+
+    public function addUserMessageSender(UserMessage $userMessageSender): self
+    {
+        if (!$this->userMessageSender->contains($userMessageSender)) {
+            $this->userMessageSender[] = $userMessage;
+            $userMessageSender->setIdMessageSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMessageSender(UserMessage $userMessageSender): self
+    {
+        if ($this->userMessages->contains($userMessageSender)) {
+            $this->userMessages->removeElement($userMessageSender);
+            // set the owning side to null (unless already changed)
+            if ($userMessageSender->getIdMessageSender() === $this) {
+                $userMessageSender->setIdMessageSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserMessage[]
+     */
+    public function getUserMessageReceiver(): Collection
+    {
+        return $this->userMessageReceiver;
+    }
+
+    public function addUserMessageReceiver(UserMessage $userMessageReceiver): self
+    {
+        if (!$this->userMessageReceiver->contains($userMessageReceiver)) {
+            $this->userMessageReceiver[] = $userMessageReceiver;
+            $userMessageReceiver->setIdMessageReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMessageReceiver(UserMessage $userMessageReceiver): self
+    {
+        if ($this->userMessageReceiver->contains($userMessageReceiver)) {
+            $this->userMessageReceiver->removeElement($userMessageReceiver);
+            // set the owning side to null (unless already changed)
+            if ($userMessageReceiver->getIdMessageReceiver() === $this) {
+                $userMessageReceiver->setIdMessageReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+//    /**
+//     * @return Collection|UserMessage[]
+//     */
+//    public function getUserMessages(): Collection
+//    {
+//        return $this->userMessages;
+//    }
+//
+//    public function addUserMessage(UserMessage $userMessage): self
+//    {
+//        if (!$this->userMessages->contains($userMessage)) {
+//            $this->userMessages[] = $userMessage;
+//            $userMessage->setUser($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeUserMessage(UserMessage $userMessage): self
+//    {
+//        if ($this->userMessages->contains($userMessage)) {
+//            $this->userMessages->removeElement($userMessage);
+//            // set the owning side to null (unless already changed)
+//            if ($userMessage->getUser() === $this) {
+//                $userMessage->setUser(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
+
+   
 //    public function getAddresses(): ?Addresses
 //    {
 //        return $this->addresses;

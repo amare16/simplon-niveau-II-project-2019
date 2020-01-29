@@ -6,6 +6,7 @@ namespace App\Controller\ApiRest;
 
 use App\Service\ContactService;
 use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -43,9 +44,9 @@ class ContactController extends AbstractFOSRestController
      * @Rest\Post("/send-email", name="api.sendMail")
      */
 
-    public function sendMail(MailerInterface $mailer) {
-        $sendMail = $this->contactService->sendMail(MailerInterface::class);
-        //dd($sendMail);
+    public function sendMail(MailerInterface $mailer, Request $request) {
+        $sendMail = $this->contactService->sendMail($request);
+        dd($sendMail);
         return View::create($sendMail, Response::HTTP_OK);
     }
 }
