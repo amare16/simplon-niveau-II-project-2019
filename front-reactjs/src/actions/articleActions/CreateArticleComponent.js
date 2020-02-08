@@ -32,7 +32,7 @@ class CreateArticleComponent extends React.Component {
 
   handlePublishedAtChange(event) {
     this.setState({
-        publishedAt: event.target.value
+        published_at: event.target.value
     })
     console.log("test date: ", this.state.publishedAt);
     
@@ -40,24 +40,37 @@ class CreateArticleComponent extends React.Component {
 
   handleSubmit(e) {
       e.preventDefault();
-      let createData = {
-          title: this.state.title,
-          content: this.state.content,
-          published_at: this.state.published_at
-      }
-      
+      e.target.reset();
+      let token = localStorage.getItem('token')
+
       fetch(`http://localhost:8000/api/add-article`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ` + token
           },
-          body: JSON.stringify(createData)
-        }).then(data => {
-          data.json().then(results => {
-            console.log("This article is successfully Inserted ", results);
-          });
+          body: JSON.stringify(this.state),
+          
+          
+        }).then(data => data.json())
+        .then(dataJson => {
+          console.log("This article is successfully Inserted ", dataJson);
+          console.log("create data: ", this.state)
+        })
+        .catch(error => {
+          console.error("error test: ",error);
         });
+        // .then(data => {
+        //   data.json().then(results => {
+        //     console.log("This article is successfully Inserted ", results);
+        //   });
+        // });
   }
+
+  // resetFormFields = () => {
+  //   this.setState({ title: "", content: "", published_at: ""})
+  //   console.log("test")
+  // }
 
   render() {
     return (
@@ -75,7 +88,7 @@ class CreateArticleComponent extends React.Component {
                        className="form-control"
                        name="title"
                        value={this.state.title}
-                       onChange={this.handleTitleChange} />  
+                       onChange={this.handleTitleChange}/>  
               </div>
 
               <div className="form-group">
@@ -94,7 +107,7 @@ class CreateArticleComponent extends React.Component {
                 <input
                   type="date"
                   className="form-control"
-                  name="publishedAt"
+                  name="published_at"
                   value={this.state.value}
                   onChange={this.handlePublishedAtChange}
                 />

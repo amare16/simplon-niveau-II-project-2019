@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 
 class App extends React.Component {
@@ -6,6 +7,27 @@ class App extends React.Component {
         super(props);
 
         this.routeChange = this.routeChange.bind(this);
+    }
+
+    checkLoginStatus() {
+      fetch("http://localhost:8000/api/login_check", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        withCredentials: true
+      })
+        .then(response => {
+          console.log("logged in? ", response)
+        })
+        .catch(error => {
+          console.log("check login error", error)
+        })
+    }
+
+    componentDidMount() {
+      this.checkLoginStatus();
     }
 
     routeChange() {

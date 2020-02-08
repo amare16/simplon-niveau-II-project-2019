@@ -5,6 +5,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -22,25 +24,28 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("group_article")
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Groups("group_article")
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2)
      */
     private $content;
 
     /**
-     * @var \DateTime
      * @ORM\Column(type="datetime")
      * @Groups("group_article")
      */
-    private $publishedAt;
+    private $published_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups("group_article")
      */
     private $user;
@@ -74,21 +79,16 @@ class Article
         return $this;
     }
 
-    /**
-     * @return \DateTimeInterface|null
-     */
+
     public function getPublishedAt(): ?\DateTimeInterface
     {
-        return $this->publishedAt;
+        return $this->published_at;
     }
 
-    /**
-     * @param \DateTimeInterface $publishedAt
-     * @return Article
-     */
-    public function setPublishedAt(\DateTimeInterface $publishedAt): self
+
+    public function setPublishedAt(\DateTimeInterface $published_at): self
     {
-        $this->publishedAt = $publishedAt;
+        $this->published_at = $published_at;
 
         return $this;
     }

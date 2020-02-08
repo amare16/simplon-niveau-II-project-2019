@@ -1,13 +1,19 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 //import { NavbarComponent } from "../_components/NavbarComponent";
 
 class UserLoginComponent extends React.Component {
   constructor(props) {
     super(props);
 
+    const { history } = this.props;
+    
+
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      loginError: 'ldlldld',
+      redirect: false
     }
     //console.log('this state value: ', this.state)
 
@@ -16,76 +22,109 @@ class UserLoginComponent extends React.Component {
     
   }
 
- 
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value
-    });
-    console.log(name, value);
+  handleChange = (type, e) => {
+    switch (type) {
+      case 'username':
+        this.setState({ username: e.target.value });
+        console.log("event: ", e.target.value)
+        break;
+      
+      case 'password':
+        this.setState({ password: e.target.value });
+        break;
+    }
+    
   }
+
+  // handleChange(e) {
+  //   const { name, value } = e.target;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  //   console.log(name, value);
+  // }
 
   handleSubmit(e){
     e.preventDefault();
-    let userData = {
-      username: this.state.username,
-      password: this.state.password
-    };
+    //console.log("SUBMITTING", this.state);
+    // let userData = {
+    //   username: this.state.username,
+    //   password: this.state.password
+    // };
 
-    const { history } = this.props; 
+    
+    // this.setState({
+    //   redirect: true
+    // })
+    // const { history } = this.props; 
 
-
-    fetch(`http://localhost:8000/api/login_check`, {
+    
+      fetch(`http://localhost:8000/api/login_check`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(userData)
-        }).then(data => {
-          data.json()
-          .then(results => {
+          body: JSON.stringify(this.state),
+          
+        })
+        .then(res => {
+          
+          if (res.status === 200) {
+            res.json().then(data => {
+              localStorage.setItem('token', data.token);
+              this.props.history.push('/dashboard')
+            })
             
-            console.log(this.state.username, "is logged in successfuly!", results);
-            history.push("/home");
-          })
-          .catch(err => {
-            console.log("Error", err);
-          })
-        });
+            //this.setState({ redirect: true })
+          } else {
+            const error = new Error(res.error);
+            throw error;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert('Error logging in please try again');
+        })
+        // .then(response => response.json())
+        // .then(responseJson => {
+        //   if(responseJson.code === 401) {
+        //     alert("Username or Password is not correct")
+        //   } else {
+        //     this.props.history.push('/dashboard')
+        //   }  
+        // })
+        
+    
+    
+       
+        
+        // .then(data => {
+        //   data.json()
+        //   .then(results => {
+            
+        //     console.log(this.state.username, "is logged in successfuly!", results);
+        //     history.push("/farmers-list");
+        //   })
+        //   .catch(err => {
+        //     console.log("Error", err);
+        //   })
+        // });
 
         
-    // // call Auth function
-    // if(this.state.username && this.state.password) {
-    //   AuthService(this.state).then((result) => {
-    //     console.log("value of result: ", result)
-    //   });
-    // }
-   
-
-
-    // let user = {
-    //   username: this.state.username,
-    //   password: this.state.password
-    // };
-    // fetch(`http://localhost:8000/api/login_check`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       },
-    //       body: JSON.stringify(user)
-          
-    //     }).then(data => {
-    //       data.json().then(results => {
-    //         console.log('what is results; ', results);
-    //       });
-    //     });
-    //     console.log('data: ', this.data)
+    
 }
   
 
   render() {
-    
+    // if(this.state.redirect) {
+    //   console.log("why it is not redirect? ", this.state.redirect);
+    //   return (<Redirect to={'/dashboard'} />)
+    // }
+
+    if(localStorage.getItem("token")) {
+      return (<Redirect to={'/dashboard'} />)
+    }
+   
     return (
       <div className="container login-container h-100">
         
@@ -101,8 +140,8 @@ class UserLoginComponent extends React.Component {
                 <p>Connexion</p>
               </div>
             </div>
-            <div className="d-flex justify-content-center form_container">
-              <form onSubmit={this.handleSubmit}>
+            <div className="d-flex justify-content-center form-container">
+              <form onSubmit={this.handleSubmit} className="form">
                 <div className="input-group mb-3">
                   <div className="input-group-append">
                     <span className="input-group-text">
@@ -113,8 +152,9 @@ class UserLoginComponent extends React.Component {
                     type="text"
                     name="username"
                     className="form-control input_user"
-                    onChange={this.handleChange}
+                    onChange={(e) => this.handleChange('username', e)}
                     placeholder="Username"
+                    required
                   ></input>
                 </div>
                 <div className="input-group mb-2">
@@ -127,8 +167,9 @@ class UserLoginComponent extends React.Component {
                     type="password"
                     name="password"
                     className="form-control input_pass"
-                    onChange={this.handleChange}
+                    onChange={(e) => this.handleChange('password', e)}
                     placeholder="Password"
+                    required
                   ></input>
                 </div>
                 <div className="form-group">
@@ -152,7 +193,7 @@ class UserLoginComponent extends React.Component {
                   </button> */}
                   <input className="form-submit btn btn-success" type="submit" value="Login"/>
                 </div>
-              </form>
+              </form>              
             </div>
 
             <div className="mt-4">

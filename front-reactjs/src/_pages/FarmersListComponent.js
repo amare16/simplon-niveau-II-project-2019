@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import SearchResults from 'react-filter-search';
+import { Link, Redirect } from "react-router-dom";
+import SearchResults from "react-filter-search";
 //import Pagination from 'react-bootstrap/Pagination';
 class FarmersListComponent extends React.Component {
   constructor(props) {
     super(props);
+    
 
     this.state = {
       data: [],
@@ -11,10 +13,8 @@ class FarmersListComponent extends React.Component {
       // currentPageNumber: 1,
       // totalItems: 1,
       // itemsPerPage: 5
-
-      
     };
-    //console.log("this state userType value: ", typeof(this.state.filters.city)); 
+    //console.log("this state userType value: ", typeof(this.state.filters.city));
 
     // this.handleCityChange = this.handleCityChange.bind(this);
     // this.filterUsersByCity = this.filterUsersByCity.bind(this);
@@ -43,58 +43,71 @@ class FarmersListComponent extends React.Component {
 
   handleChange = event => {
     const { value } = event.target;
-    this.setState({ value })
-  }
+    this.setState({ value });
+  };
 
   // handleSelect(e) {
   //   console.log('handle select', e);
   //   this.setState({ currentPageNumber: e });
   // }
-  
 
   render() {
+    
     // console.log("current page no: ", this.state.currentPageNumber)
     // let totalPages = Math.ceil(this.state.totalItems / this.state.numItemsPerPage);
     // console.log("total pages: ", totalPages);
     const { data, value } = this.state;
     return (
       <div className="container-fluid user-type-list">
-
+        
         <div className="d-flex justify-content-center">
           <div className="searchbar">
-            <input className="search_input" type="text" name="" placeholder="Search..." onChange={this.handleChange}
-              value={value}/>
-              <a className="search_icon"><i className="fa fa-search"></i></a>
+            <input
+              className="search_input"
+              id="input-search-id"
+              type="text"
+              name=""
+              placeholder="Search..."
+              onFocus={(e) => e.target.placeholder = ''}
+              onBlur={(e) => e.target.placeholder = 'Search...'}
+              onChange={this.handleChange}
+              value={value}
+            />
+            <a className="search_icon">
+              <i className="fa fa-search"></i>
+            </a>
           </div>
         </div>
-        
-        <SearchResults 
+
+        <SearchResults
           value={value}
           data={data}
           renderResults={results => (
             <div className="table-responsive-lg">
-          <table className="table table-striped table-hover mx-auto w-50">
-            <thead>
-              <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">City</th>
-                <th scope="col">User Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map(el => (
-                <tr key={el.id}>
-                <td>{el.firstName}</td>
-                <td>{el.lastName}</td>
-                <td>{el.city}</td>
-                <td>{el.user_type[0].name}</td>
-              </tr>
-              ))}
-              
-            </tbody>
-          </table>
-        </div>
+              <table className="table table-striped table-hover mx-auto w-50">
+                <thead>
+                  <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">User Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.map(el => (
+                    <tr key={el.id}>
+                      <td>{el.firstName}</td>
+                      <td>{el.lastName}</td>
+                      <td>{el.city}</td>
+                      <td>{el.user_type[0].name}</td>
+                      <td>
+                        <button className="btn btn-success">Message</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         />
 
@@ -104,9 +117,6 @@ class FarmersListComponent extends React.Component {
           onSelect={this.handleSelect.bind(this)}
         
         /> */}
-        
-
-        
       </div>
     );
   }

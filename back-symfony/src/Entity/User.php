@@ -110,6 +110,11 @@ class User implements UserInterface
 //     */
 //    private $userMessages;
 
+    /**
+     * @ORM\Column(type="simple_array")
+     */
+    private $roles = ['ROLE_USER'];
+
 
 
 //    /**
@@ -327,7 +332,15 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return $this->roles;
+
+
+
+    }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
     }
 
     /**

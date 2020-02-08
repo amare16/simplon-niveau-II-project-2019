@@ -118,8 +118,11 @@ html {
     border-radius: 50%;
     border: 2px solid #008755;
 }
-.form_container {
+.form-container {
     margin-top: 100px;
+}
+.form {
+    margin-top: 115px;
 }
 .login_btn {
     width: 100%;
@@ -220,6 +223,9 @@ html {
                 color:white;
                 text-decoration:none;
                 }
+    #input-search-id::placeholder {
+        color: #ffffff;
+    }
 
 /* Contact Component */
 .contact-container {

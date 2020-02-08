@@ -21,12 +21,13 @@ class ArticlesComponent extends React.Component {
 
   componentDidMount() {
     return fetch("http://localhost:8000/api/articles", {
+      method: "GET",
       mode: "cors"
     })
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
-          items: responseJson
+          data: responseJson
         });
         console.log("what is the value of : ", responseJson);
       })
@@ -39,7 +40,9 @@ class ArticlesComponent extends React.Component {
     const thStyle = {
       textAlign: 'center'
     }
+    
     return (
+      
       <div>
         <NavbarComponent />
         <div className="container table-responsive">
@@ -56,6 +59,7 @@ class ArticlesComponent extends React.Component {
               </thead>
               <tbody>
                 {this.state.items.map(item => {
+                  console.log("an item value: ", item.user)
                   return (
                     <tr>
                       <td>{item.title}</td>

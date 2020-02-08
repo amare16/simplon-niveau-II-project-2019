@@ -9,6 +9,8 @@ use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\ExpressionLanguage\Tests\Node\Obj;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,13 +35,32 @@ class ArticlesController extends AbstractFOSRestController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+    /**
+     * @var JWTEncoderInterface
+     */
+    private $JWTEncoder;
 
 
-    public function __construct(ArticlesService $articlesService, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    public function __construct(ArticlesService $articlesService,
+                                ArticleRepository $articleRepository,
+                                EntityManagerInterface $entityManager,
+                                UserRepository $userRepository,
+                                LoggerInterface $logger, JWTEncoderInterface $JWTEncoder)
     {
         $this->articlesService = $articlesService;
         $this->articleRepository = $articleRepository;
         $this->entityManager = $entityManager;
+        $this->logger = $logger;
+        $this->userRepository = $userRepository;
+        $this->JWTEncoder = $JWTEncoder;
     }
 
     /**
@@ -57,87 +78,107 @@ class ArticlesController extends AbstractFOSRestController
      * @Rest\Post("/add-article")
      * @Rest\View(serializerGroups={"group_article"})
      */
-    public function newArticle(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager)
+    public function newArticle(Request $request, EntityManagerInterface $entityManager): View
     {
-       $data = json_decode($request->getContent(), true);
-       $title = $data['title'];
-       $content = $data['content'];
-       $published_at = $data['published_at'];
-       $userId = $data['user_id'];
+        $user = $this->getUser();
+        $data = json_decode($request->getContent(), true);
+        $title = $data['title'];
+        $content = $data['content'];
+        //$published_at = $data['published_at'];
+//        $user_id = $data['user_id'];
 
-       $user_id = $userRepository->findOneBy(['id' => $userId['id']]);
+//        $authorizationHeader = $request->headers->get('Authorization');
+//
+//        list($test,$token) = explode(' ', $authorizationHeader);
+//        $jwtToken = $this->JWTEncoder->decode($token);
+//        $user_id = $data[$jwtToken];
+        //$authorizationHeader = $request->headers->get('Authorization');
+        //$authorizationHeaderArray = explode(' ', $authorizationHeader);
+        //$token = $authorizationHeaderArray[1] ?? null;
+        //$jwtToken = $this->JWTEncoder->decode($token);
+        //dd($jwtToken);
+        //$user_id = $user->getId();
 
-       $articles = new Article();
-       $articles->setTitle($title);
-       $articles->setContent($content);
-       $articles->setPublishedAt(\DateTime::createFromFormat('Y-m-d', $published_at));
-       $articles->setUser($user_id);
 
-        $entityManager->persist($articles);
+        //$userId = $this->userRepository->findOneBy(['id' => $user_id['id']]);
 
-        $entityManager->flush();
+        $article = new Article();
+        $article->setTitle($title);
+        $article->setContent($content);
+        $article->setPublishedAt(new \DateTime());
+        $article->setUser($user);
 
-       if (!$articles instanceof \App\Entity\Article) {
-           return View::create($articles, Response::HTTP_BAD_REQUEST);
-       }
-
-       return View::create($articles, Response::HTTP_CREATED);
+        // Todo: 400 response - Invalid input
+        // Todo: 404 response - Response not found
+        // Incase our Post was a success we need to return a 201 HTTP CREATED response with the created object
+        if(in_array('ROLE_USER', $user->getRoles())) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+            return View::create("You added an article successfully!", Response::HTTP_OK);
+        } else {
+            return View::create(["You are not a user! So please register to add an article!"], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
      * @Rest\Put("/edit-article/{articleId<\d+>}")
      * @Rest\View(serializerGroups={"group_article"})
      */
-    public function editArticles(int $articleId, Request $request, ArticleRepository $articleRepository, UserRepository $userRepository, EntityManagerInterface $entityManager) {
+    public function editArticles(int $articleId, Request $request,
+                                 EntityManagerInterface $entityManager): View
+    {
+        $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
         $title = $data['title'];
         $content = $data['content'];
-        $published_at = $data['published_at'];
-        $userId = $data['user_id'];
+        //$published_at = $data['published_at'];
+        //$user_id = $data['user_id'];
 
-        $user_id = $userRepository->findOneBy(['id' => $userId['id']]);
-
-        $article = $this->articleRepository->findOneById($articleId);
+        //$userId = $this->userRepository->findOneBy(['id' => $user_id['id']]);
+        $article = $this->articleRepository->find($articleId);
 
         if (!$article) {
-            throw new EntityNotFoundException('Article with id '. $articleId. ' does not exist!');
+            throw new EntityNotFoundException('Article with id '.$articleId.' does not exist!');
         }
 
         $article->setTitle($title);
         $article->setContent($content);
-        $article->setPublishedAt(\DateTime::createFromFormat('Y-m-d', $published_at));
-        $article->setUser($user_id);
-        $entityManager->persist($article);
-        $entityManager->flush();
-
-        if (!$article instanceof \App\Entity\Article) {
-            return View::create($article, Response::HTTP_BAD_REQUEST);
+        $article->setPublishedAt(new  \DateTime());
+        $article->setUser($user);
+        // Todo: 400 response - Invalid input
+        // Todo: 404 response - Response not found
+        // Incase our Post was a success we need to return a 201 HTTP CREATED response with the created object
+        if(in_array('ROLE_USER', $user->getRoles(), true)) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+            return View::create("You modified the article successfully!", Response::HTTP_OK);
+        } else {
+            return View::create(["You are not a user! So please register first!"], Response::HTTP_BAD_REQUEST);
         }
-        return View::create($article, Response::HTTP_CREATED);
 
     }
 
     /**
      * @Rest\Delete("/delete-article/{articleId}")
      */
-    public function deleteArticle(int $articleId, EntityManagerInterface $entityManager)
+    public function deleteArticle(int $articleId)
     {
-        $article = $this->articleRepository->findOneById($articleId);
+        $user = $this->getUser();
+        $article = $this->articleRepository->find($articleId);
         if (!$article) {
             throw new EntityNotFoundException('Article with id '. $articleId. ' does not exist!');
         }
 
-        $entityManager->remove($article);
-        $entityManager->flush();
-
-//        $this->addFlash(
-//            'Success',
-//            "The article <strong>{$article->getTitle()}</strong> has been deleted !"
-//        );
-        if (!$article instanceof \App\Entity\Article) {
-            return View::create($article, Response::HTTP_BAD_REQUEST);
+        // Todo: 400 response - Invalid input
+        // Todo: 404 response - Response not found
+        // Incase our Post was a success we need to return a 201 HTTP CREATED response with the created object
+        if(in_array('ROLE_USER', $user->getRoles(), true)) {
+            $this->entityManager->remove($article);
+            $this->entityManager->flush();
+            return View::create("Article which is entitled ' " .$article->getTitle(). " ' has been deleted", Response::HTTP_OK);
+        } else {
+            return View::create(["You have not the right to delete this article"], Response::HTTP_BAD_REQUEST);
         }
-        return View::create($article, Response::HTTP_CREATED);
 
     }
 

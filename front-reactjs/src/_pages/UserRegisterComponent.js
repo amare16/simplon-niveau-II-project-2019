@@ -157,6 +157,7 @@ class UserRegisterComponent extends React.Component {
         }).then(data => {
           data.json().then(results => {
             console.log("Successfully ", this.state.username, "registered: ", results);
+            console.log("user value is: ", user)
           });
         }).then(() => this.setState({ redirect: true }))
         
