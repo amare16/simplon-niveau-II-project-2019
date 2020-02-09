@@ -8,7 +8,7 @@ class CreateArticleComponent extends React.Component {
         title: "",
         content: "",
         published_at: Date,
-        
+        message: null
         
     }
 
@@ -54,8 +54,9 @@ class CreateArticleComponent extends React.Component {
           
         }).then(data => data.json())
         .then(dataJson => {
-          console.log("This article is successfully Inserted ", dataJson);
-          console.log("create data: ", this.state)
+            //console.log("This article is successfully Inserted ", dataJson);
+            this.setState({ message: "This article is successfully Inserted ", dataJson})
+            this.props.history.push("/articles");
         })
         .catch(error => {
           console.error("error test: ",error);
@@ -73,13 +74,14 @@ class CreateArticleComponent extends React.Component {
   // }
 
   render() {
+    
     return (
       <div className="container create-article-container">
         <div className="row">
           <div className="col-md-2"></div>
 
           <div className="col-md-8">
-            <h1 className="create-article-h1">Add an</h1>
+            <h1 className="create-article-h1">Add an Article</h1>
 
             <form name="article" className="form-horizontal" onSubmit={this.handleSubmit}>
               <div className="form-group">

@@ -163,6 +163,14 @@ html {
     color: antiquewhite;
 }
 
+/* DashboardComponent */
+.add-article-icon {
+    margin-bottom: 30px;
+}
+
+
+
+
 /* CreateArticleComponent */
 .create-article-container {
     margin-bottom: 100px;
@@ -231,3 +239,8 @@ html {
 .contact-container {
     margin-top: 50px;
 }
+
+#contact-form {
+    margin-bottom: 100px;
+}
+

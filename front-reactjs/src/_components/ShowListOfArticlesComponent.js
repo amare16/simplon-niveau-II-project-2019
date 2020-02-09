@@ -1,7 +1,7 @@
-import React from "react";
-import { NavbarComponent } from "../_components/NavbarComponent";
+import React, { Component } from "react";
+import { NavbarComponent } from "./NavbarComponent";
 
-class ArticlesComponent extends React.Component {
+class ShowListOfArticlesComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -46,18 +46,11 @@ class ArticlesComponent extends React.Component {
         <NavbarComponent />
         <div className="container table-responsive">
           <h1>Lists of Articles</h1>
-
-          <a href="/add-article">
-            <i className="add-article-icon fa fa-plus-circle fa-3x" aria-hidden="false"></i> 
-          </a>
           <table className="table table-striped table-hover">
             <thead>
               <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Publish Date</th>
-                <th scope="col" style={thStyle}>
-                  Actions
-                </th>
               </tr>
             </thead>
             <tbody>
@@ -67,29 +60,6 @@ class ArticlesComponent extends React.Component {
                   <tr>
                     <td>{item.title}</td>
                     <td>{item.published_at}</td>
-
-                    <td>
-                      <div className="item-actions">
-                        <a href="/show-article" className="btn btn-sm btn-info">
-                          <i className="fa fa-eye" aria-hidden="true"></i> Show
-                        </a>
-                        &nbsp;&nbsp;
-                        <a
-                          href="/edit-article/{id}"
-                          className="btn btn-sm btn-warning"
-                        >
-                          <i className="fa fa-edit" aria-hidden="true"></i> Edit
-                        </a>
-                        &nbsp;&nbsp;
-                        <a
-                          href="/delete-article"
-                          className="btn btn-sm btn-danger"
-                        >
-                          <i className="fa fa-delete" aria-hidden="true"></i>{" "}
-                          Delete
-                        </a>
-                      </div>
-                    </td>
                   </tr>
                 );
               })}
@@ -99,11 +69,6 @@ class ArticlesComponent extends React.Component {
       </div>
     );
   }
-
-  deleteHandler(i, e) {
-    e.preventDefault();
-    this.onDelete();
-  }
 }
 
-export { ArticlesComponent };
+export { ShowListOfArticlesComponent };

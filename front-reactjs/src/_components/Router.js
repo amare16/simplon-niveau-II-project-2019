@@ -6,6 +6,7 @@ import { LogoComponent } from "../_components/LogoComponent";
 import { HomeComponent } from "../_components/HomeComponent";
 import { ContactUsComponent } from "../_pages/ContactUsComponent";
 import { FooterComponent } from "../_components/FooterComponent";
+import { ShowListOfArticlesComponent } from "./ShowListOfArticlesComponent";
 
 import { FarmersListComponent } from "../_pages/FarmersListComponent";
 import { ArticlesComponent } from "../_pages/ArticlesComponent";
@@ -24,6 +25,7 @@ import { EditArticleComponent } from "../actions/articleActions/EditArticleCompo
 import "../App/App.css";
 import '../styles/style.css';
 
+
 const ProtectedRoute = ({component:Component, ...rest}) => {
   return <Route {...rest} render={(props)=> {
     return localStorage.getItem('token') ? <Component {...props} /> : <Redirect to="/login" />
@@ -40,6 +42,7 @@ const Router = () => {
           <Route path="/home" component={HomeComponent} />
   
           <Route path="/contact" component={ContactUsComponent}></Route>
+          <Route path="/show-list-articles" component={ShowListOfArticlesComponent}></Route>
           <Route path="/experiences" component={ExperiencesComponent}></Route>
           <Route path="/events" component={EventsComponent}></Route>
           <Route path="/register" component={UserRegisterComponent} />

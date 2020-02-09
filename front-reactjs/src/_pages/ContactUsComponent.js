@@ -87,7 +87,7 @@ class ContactUsComponent extends React.Component {
                 onSubmit={this.handleSubmit.bind(this)}
                 method="POST"
               >
-                <div className="card border-primary round-0='true'">
+                <div className="card round-0='true'">
                   <div className="card-header p-0">
                     <div className="bg-info text-white text-center py-y">
                       <h3>
