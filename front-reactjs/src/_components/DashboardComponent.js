@@ -11,6 +11,8 @@ class DashboardComponent extends React.Component {
   }
 
   componentWillMount() {
+    
+    console.log("token value: ", localStorage.getItem('token'))
     if (localStorage.getItem("token")) {
       console.log("Call user feed");
     } else {
@@ -19,8 +21,9 @@ class DashboardComponent extends React.Component {
   }
 
   logout() {
-    localStorage.getItem("token", "");
-    localStorage.clear();
+    // localStorage.getItem("token", "");
+    // localStorage.clear();
+    localStorage.removeItem("token")
     this.setState({ redirect: true });
   }
 
@@ -38,24 +41,31 @@ class DashboardComponent extends React.Component {
       justifyContent: "center",
       marginBottom: "30px"
     };
+    let usernameDisplay = localStorage.getItem("username");
+    console.log("username display", usernameDisplay)
     return (
+      
       <div>
+        
+        <div style={buttonStyle}>
+          <p>Welcome <strong>{usernameDisplay.toUpperCase()}</strong></p>
+        </div>
         <div style={buttonStyle}>
           <button
             type="button"
             className="btn btn-warning"
             onClick={this.logout.bind(this)}
           >
-            Logout
+            Logout {this.props.us}
           </button>
         </div>
 
         <div className="container">
-          <div class="row">
+          <div className="row">
             <div className="col-md-6">
-              <div class="jumbotron jumbotron-fluid">
-                <div class="container" style={style}>
-                  <a href="http://localhost:3000/farmers-list">
+              <div className="jumbotron jumbotron-fluid">
+                <div className="container" style={style}>
+                  <a href="http://localhost:3000/search-partner">
                     <button className="btn btn-lg btn-block" style={style}>
                       <h2>Search your Partner</h2>
                     </button>
@@ -64,8 +74,8 @@ class DashboardComponent extends React.Component {
               </div>
             </div>
             <div className="col-md-6">
-              <div class="jumbotron jumbotron-fluid">
-                <div class="container" style={style}>
+              <div className="jumbotron jumbotron-fluid">
+                <div className="container" style={style}>
                   <a href="http://localhost:3000/articles">
                     <button className="btn btn-lg btn-block" style={style}>
                       <h2>List of Articles</h2>
@@ -75,10 +85,10 @@ class DashboardComponent extends React.Component {
               </div>
             </div>
           </div>
-          <div class="row">
+          <div className="row">
             <div className="col-md-6">
-              <div class="jumbotron jumbotron-fluid">
-                <div class="container" style={style}>
+              <div className="jumbotron jumbotron-fluid">
+                <div className="container" style={style}>
                   <a href="http://localhost:3000/experiences">
                     <button className="btn btn-lg btn-block" style={style}>
                       <h2>List of Experiences</h2>
@@ -88,8 +98,8 @@ class DashboardComponent extends React.Component {
               </div>
             </div>
             <div className="col-md-6">
-              <div class="jumbotron jumbotron-fluid">
-                <div class="container" style={style}>
+              <div className="jumbotron jumbotron-fluid">
+                <div className="container" style={style}>
                   <a href="http://localhost:3000/materials-list">
                     <button className="btn btn-lg btn-block" style={style}>
                       <h2>List of Materials</h2>

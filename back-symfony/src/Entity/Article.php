@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,6 +20,7 @@ class Article
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("group_article")
+     * @Groups("group_comment_article")
      */
     private $id;
 
@@ -26,6 +29,7 @@ class Article
      * @Groups("group_article")
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
+     * @Groups("group_comment_article")
      */
     private $title;
 
@@ -34,6 +38,7 @@ class Article
      * @Groups("group_article")
      * @Assert\NotBlank()
      * @Assert\Length(min=2)
+     * @Groups("group_comment_article")
      */
     private $content;
 
@@ -47,8 +52,20 @@ class Article
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
      * @ORM\JoinColumn(nullable=true)
      * @Groups("group_article")
+     * @Groups("group_comment_article")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentArticle", mappedBy="article")
+     */
+    private $commentArticles;
+    
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->commentArticles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,4 +121,39 @@ class Article
 
         return $this;
     }
+
+    /**
+     * @return Collection|CommentArticle[]
+     */
+    public function getCommentArticles(): Collection
+    {
+        return $this->commentArticles;
+    }
+
+    public function addCommentArticle(CommentArticle $commentArticle): self
+    {
+        if (!$this->commentArticles->contains($commentArticle)) {
+            $this->commentArticles[] = $commentArticle;
+            $commentArticle->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentArticle(CommentArticle $commentArticle): self
+    {
+        if ($this->commentArticles->contains($commentArticle)) {
+            $this->commentArticles->removeElement($commentArticle);
+            // set the owning side to null (unless already changed)
+            if ($commentArticle->getArticle() === $this) {
+                $commentArticle->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    
 }

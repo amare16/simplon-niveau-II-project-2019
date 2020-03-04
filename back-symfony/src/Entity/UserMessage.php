@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserMessageRepository")
@@ -13,29 +14,34 @@ class UserMessage
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_user_message")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessageSender")
+     * @Groups("group_user_message")
      */
     private $id_message_sender;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessageReceiver")
+     * @Groups("group_user_message")
      */
     private $id_message_receiver;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("group_user_message")
      */
     private $message;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessages")
-//     * @ORM\JoinColumn(nullable=false)
-//     */
-//    private $user;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessages")
+     * @ORM\JoinColumn(nullable=true)
+     * @Groups("group_user_message")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -78,15 +84,15 @@ class UserMessage
         return $this;
     }
 
-//    public function getUser(): ?User
-//    {
-//        return $this->user;
-//    }
-//
-//    public function setUser(?User $user): self
-//    {
-//        $this->user = $user;
-//
-//        return $this;
-//    }
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

@@ -244,3 +244,12 @@ html {
     margin-bottom: 100px;
 }
 
+/* ShowSingleArticleComponent */
+
+.show-single-article {
+    margin-bottom: -100px;
+}
+.comment-article {
+    margin: 0 auto;
+}
+

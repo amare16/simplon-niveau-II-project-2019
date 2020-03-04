@@ -40,31 +40,42 @@ class ShowListOfArticlesComponent extends React.Component {
     const thStyle = {
       textAlign: "center"
     };
+    console.log("test this state items: ", this.state.items);
 
     return (
       <div>
         <NavbarComponent />
         <div className="container table-responsive">
-          <h1>Lists of Articles</h1>
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Publish Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.items.map(item => {
-                //console.log("an item value: ", typeof(item.user))
-                return (
-                  <tr>
-                    <td>{item.title}</td>
-                    <td>{item.published_at}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <h1>List of Articles</h1>
+
+          {this.state.items.map(item => {
+            //console.log("an item value: ", typeof(item.user))
+            return (
+              <div className="container-fluid">
+                <div className="well">
+                  <div className="jumbotron">
+                    <a className="pull-left" href="#">
+                      <img
+                        className="media-object"
+                        src="https://previews.123rf.com/images/paylessimages/paylessimages1502/paylessimages150233243/40325604-potato-field.jpg"
+                        width="150"
+                        height="150"
+                      />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                    <div className="media-body">
+                      <h4 className="media-heading">{item.title}</h4>
+                      <p>{item.content}</p>
+                      <p className="text-left">{item.published_at}</p>
+                      <p className="text-right">
+                        {item.user.firstName + " " + item.user.lastName}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );

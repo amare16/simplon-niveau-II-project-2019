@@ -20,7 +20,9 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("group_user")
+     * @Groups("group_article")
      * @Groups("group_userType")
+     * @Groups("group_user_profile")
      */
     private $id;
 
@@ -29,6 +31,8 @@ class User implements UserInterface
      * @Groups("group_user")
      * @Groups("group_article")
      * @Groups("group_userType")
+     * @Groups("group_comment_article")
+     * @Groups("group_user_profile")
      */
     private $firstName;
 
@@ -37,6 +41,8 @@ class User implements UserInterface
      * @Groups("group_user")
      * @Groups("group_article")
      * @Groups("group_userType")
+     * @Groups("group_comment_article")
+     * @Groups("group_user_profile")
      */
     private $lastName;
 
@@ -97,11 +103,13 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="id_message_sender")
+     * @Groups("group_user_profile")
      */
     private $userMessageSender;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="id_message_receiver")
+     * @Groups("group_user_profile")
      */
     private $userMessageReceiver;
 
@@ -114,6 +122,27 @@ class User implements UserInterface
      * @ORM\Column(type="simple_array")
      */
     private $roles = ['ROLE_USER'];
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\UserProfile", mappedBy="user", cascade={"persist", "remove"})
+     * @Groups("group_user")
+     */
+    private $userProfile;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Experience", mappedBy="user")
+     */
+    private $experiences;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BorrowMaterial", mappedBy="id_borrower")
+     */
+    private $borrowMaterials;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BorrowMaterial", mappedBy="id_lender")
+     */
+    private $lendMaterials;
 
 
 
@@ -129,6 +158,9 @@ class User implements UserInterface
         $this->users_message = new ArrayCollection();
         $this->userMessageSender = new ArrayCollection();
         $this->userMessageReceiver = new ArrayCollection();
+        $this->experiences = new ArrayCollection();
+        $this->borrowMaterials = new ArrayCollection();
+        $this->lendMaterials = new ArrayCollection();
         //$this->userMessages = new ArrayCollection();
     }
 
@@ -422,6 +454,116 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userMessageReceiver->getIdMessageReceiver() === $this) {
                 $userMessageReceiver->setIdMessageReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserProfile(): ?UserProfile
+    {
+        return $this->userProfile;
+    }
+
+    public function setUserProfile(UserProfile $userProfile): self
+    {
+        $this->userProfile = $userProfile;
+
+        // set the owning side of the relation if necessary
+        if ($userProfile->getUser() !== $this) {
+            $userProfile->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Experience[]
+     */
+    public function getExperiences(): Collection
+    {
+        return $this->experiences;
+    }
+
+    public function addExperience(Experience $experience): self
+    {
+        if (!$this->experiences->contains($experience)) {
+            $this->experiences[] = $experience;
+            $experience->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(Experience $experience): self
+    {
+        if ($this->experiences->contains($experience)) {
+            $this->experiences->removeElement($experience);
+            // set the owning side to null (unless already changed)
+            if ($experience->getUser() === $this) {
+                $experience->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BorrowMaterial[]
+     */
+    public function getBorrowMaterials(): Collection
+    {
+        return $this->borrowMaterials;
+    }
+
+    public function addBorrowMaterial(BorrowMaterial $borrowMaterial): self
+    {
+        if (!$this->borrowMaterials->contains($borrowMaterial)) {
+            $this->borrowMaterials[] = $borrowMaterial;
+            $borrowMaterial->setIdBorrower($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowMaterial(BorrowMaterial $borrowMaterial): self
+    {
+        if ($this->borrowMaterials->contains($borrowMaterial)) {
+            $this->borrowMaterials->removeElement($borrowMaterial);
+            // set the owning side to null (unless already changed)
+            if ($borrowMaterial->getIdBorrower() === $this) {
+                $borrowMaterial->setIdBorrower(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BorrowMaterial[]
+     */
+    public function getLendMaterials(): Collection
+    {
+        return $this->lendMaterials;
+    }
+
+    public function addLendMaterial(BorrowMaterial $lendMaterial): self
+    {
+        if (!$this->lendMaterials->contains($lendMaterial)) {
+            $this->lendMaterials[] = $lendMaterial;
+            $lendMaterial->setIdLender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLendMaterial(BorrowMaterial $lendMaterial): self
+    {
+        if ($this->lendMaterials->contains($lendMaterial)) {
+            $this->lendMaterials->removeElement($lendMaterial);
+            // set the owning side to null (unless already changed)
+            if ($lendMaterial->getIdLender() === $this) {
+                $lendMaterial->setIdLender(null);
             }
         }
 

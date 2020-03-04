@@ -12,9 +12,6 @@ use FOS\RestBundle\View\View;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
-
-
 class ArticlesService
 {
     /**
@@ -35,8 +32,10 @@ class ArticlesService
      */
     private $validator;
 
-    public function __construct(ArticleRepository $articleRepository, EntityManagerInterface $entityManager,
-                                UserRepository $userRepository, ValidatorInterface $validator)
+    public function __construct(ArticleRepository $articleRepository,
+                                EntityManagerInterface $entityManager,
+                                UserRepository $userRepository,
+                                ValidatorInterface $validator)
     {
         $this->articleRepository = $articleRepository;
         $this->entityManager = $entityManager;
@@ -47,6 +46,11 @@ class ArticlesService
     public function getAllArticles()
     {
         return $this->articleRepository->findAll();
+    }
+
+    public function getSingleArticle($articleId)
+    {
+        return $this->articleRepository->find($articleId);
     }
 
 //    public function addArticle($title, $content, $user_id, EntityManagerInterface $entityManager)

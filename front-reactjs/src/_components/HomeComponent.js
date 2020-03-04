@@ -29,7 +29,7 @@ class HomeComponent extends React.Component {
           </p>
           <a href="/register"><button className="btn btn-secondary">Inscrire ici</button></a><br></br><br></br>
 
-          <p className="lead"><b>Sinon, vous pouvez accéder à des pages d'article, d'expérience ou d'événement.</b></p>
+          <p className="lead"><b>Sinon, vous pouvez accéder à des pages d'article et d'expérience.</b></p>
         </div>
       </div>
     );

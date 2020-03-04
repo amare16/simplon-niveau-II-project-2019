@@ -5,7 +5,7 @@ import PlacesAutocomplete, {
   geocodeByPlaceId,
   getLatLng
 } from "react-places-autocomplete";
-import Geosuggest, { Suggest } from 'react-geosuggest';
+// import Geosuggest, { Suggest } from 'react-geosuggest';
 import MapGl from "react-map-gl";
 import { Redirect } from "react-router-dom";
 
@@ -38,7 +38,8 @@ class UserRegisterComponent extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUsertypeChange = this.handleUsertypeChange.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
-    this.onSuggestSelect = this.onSuggestSelect.bind(this);
+    this.handSelect = this.handSelect.bind(this);
+    //this.onSuggestSelect = this.onSuggestSelect.bind(this);
     // console.log("handle change method " + this.handleChange);
     // console.log("handle submit method " + this.handleSubmit);
   }
@@ -103,9 +104,13 @@ class UserRegisterComponent extends React.Component {
     //console.log(city);
   };
 
-  onSuggestSelect(place: Suggest) {
-    console.log(place);
-  }
+  // onSuggestSelect(place: Suggest) {
+  //   console.log(place);
+  // }
+  handSelect = city => {
+    geocodeByAddress(city);
+    //console.log("select: " + geocodeByAddress(city));
+  };
 
   handleSubmit(event) {
     event.preventDefault();
@@ -337,7 +342,44 @@ class UserRegisterComponent extends React.Component {
                   <i className="far fa-car-building"></i>
                 </span>
               </div>
-              <Geosuggest
+              <PlacesAutocomplete
+                value={this.state.city}
+                onChange={this.handleAddressChange}
+                onSelect={this.handSelect}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading
+                }) => (
+                  <div>
+                    <input
+                      {...getInputProps({ placeholder: "Type Your City" })}
+                      className="form-control"
+                    />
+                    <div>
+                      {loading ? <div>...loading</div> : null}
+
+                      {suggestions.map(suggestion => {
+                        const style = {
+                          backgroundColor: suggestion.active
+                            ? "#ca1cca"
+                            : "#fff"
+                        };
+                        return (
+                          <div
+                            {...getSuggestionItemProps(suggestion, { style })}
+                          >
+                            {suggestion.description}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+              {/* <Geosuggest
                 value={this.state.city}
                 onChange={this.handleAddressChange}
                 
@@ -346,7 +388,7 @@ class UserRegisterComponent extends React.Component {
                 onSuggestSelect={this.onSuggestSelect}
                 location={new google.maps.LatLng(53.558572, 9.9278215)}
                 radius="20"
-              />
+              /> */}
                 
               {/* <input
                 type="text"

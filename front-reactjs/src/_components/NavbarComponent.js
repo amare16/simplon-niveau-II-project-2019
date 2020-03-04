@@ -29,7 +29,7 @@ class NavbarComponent extends React.Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/articles">
+                <a className="nav-link" href="/show-list-articles">
                   Articles
                 </a>
               </li>
@@ -38,11 +38,7 @@ class NavbarComponent extends React.Component {
                   Experiences
                 </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="events">
-                  Événements
-                </a>
-              </li>
+              
             </ul>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">

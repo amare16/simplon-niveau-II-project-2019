@@ -47,16 +47,12 @@ class UserLoginComponent extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     //console.log("SUBMITTING", this.state);
-    // let userData = {
-    //   username: this.state.username,
-    //   password: this.state.password
-    // };
+    let userData = {
+      username: this.state.username,
+      password: this.state.password
+    };
 
     
-    // this.setState({
-    //   redirect: true
-    // })
-    // const { history } = this.props; 
 
     
       fetch(`http://localhost:8000/api/login_check`, {
@@ -64,14 +60,22 @@ class UserLoginComponent extends React.Component {
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(this.state),
+          body: JSON.stringify(userData),
           
         })
         .then(res => {
           
           if (res.status === 200) {
             res.json().then(data => {
-              localStorage.setItem('token', data.token);
+              let user = {
+                token: data.token,
+                username: userData.username
+              }
+              //console.log("data value: ", userData.username)
+             //console.log("test json stringfy:",JSON.stringify({token: data.token, username: userData.username}))
+             localStorage.setItem('token', data.token);
+             localStorage.setItem('username', userData.username)
+              
               this.props.history.push('/dashboard')
             })
             
@@ -84,33 +88,7 @@ class UserLoginComponent extends React.Component {
         .catch(err => {
           console.error(err);
           alert('Error logging in please try again');
-        })
-        // .then(response => response.json())
-        // .then(responseJson => {
-        //   if(responseJson.code === 401) {
-        //     alert("Username or Password is not correct")
-        //   } else {
-        //     this.props.history.push('/dashboard')
-        //   }  
-        // })
-        
-    
-    
-       
-        
-        // .then(data => {
-        //   data.json()
-        //   .then(results => {
-            
-        //     console.log(this.state.username, "is logged in successfuly!", results);
-        //     history.push("/farmers-list");
-        //   })
-        //   .catch(err => {
-        //     console.log("Error", err);
-        //   })
-        // });
-
-        
+        })       
     
 }
   
@@ -134,7 +112,7 @@ class UserLoginComponent extends React.Component {
               <div className="brand_logo_container">
                 {/* <img
                   src="http://localhost:3000/logo.png"
-                  class="brand_logo"
+                  className="brand_logo"
                   alt="Logo"
                 ></img> */}
                 <p>Connexion</p>

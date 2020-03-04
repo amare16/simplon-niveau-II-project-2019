@@ -13,12 +13,12 @@ class ArticlesComponent extends React.Component {
           publishedAt: "",
           user: {
             firstName: ""
-          }
+          },
+          message: null
         }
       ]
     };
   }
-
   componentDidMount() {
     return fetch("http://localhost:8000/api/articles", {
       method: "GET",
@@ -35,6 +35,28 @@ class ArticlesComponent extends React.Component {
         console.error(error);
       });
   }
+  deleteArticle(e, id) {
+   
+    console.log("id article:", id);
+
+    if (window.confirm("Are you sure to delete this article?")) {
+      let token = localStorage.getItem("token");
+      console.log("token", token);
+      fetch(`http://localhost:8000/api/delete-article/` + id, {
+        method: "DELETE",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + token
+        }
+      })
+        .then(res => {
+          this.setState({ message: "This article is successfully Inserted ", res})
+            this.props.history.push("/articles");
+        })
+        .catch(err => err);
+    }
+  }
 
   render() {
     const thStyle = {
@@ -44,11 +66,17 @@ class ArticlesComponent extends React.Component {
     return (
       <div>
         <NavbarComponent />
-        <div className="container table-responsive">
+        <div className="container table-responsive" style={{ marginBottom: "60px"}}>
           <h1>Lists of Articles</h1>
-
+          
           <a href="/add-article">
-            <i className="add-article-icon fa fa-plus-circle fa-3x" aria-hidden="false"></i> 
+            <i
+              className="add-article-icon fa fa-plus-circle fa-3x"
+              aria-hidden="false"
+            ></i>
+          </a>&nbsp;&nbsp;
+          <a href="/dashboard">
+          <i class="fa fa-arrow-circle-o-left fa-3x" aria-hidden="true" style={{color: "green"}}></i>
           </a>
           <table className="table table-striped table-hover">
             <thead>
@@ -70,24 +98,33 @@ class ArticlesComponent extends React.Component {
 
                     <td>
                       <div className="item-actions">
-                        <a href="/show-article" className="btn btn-sm btn-info">
+                        <a href={"/show-article/" + item.id}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> Show
                         </a>
                         &nbsp;&nbsp;
                         <a
-                          href="/edit-article/{id}"
+                          href={"/edit-article/" + item.id}
                           className="btn btn-sm btn-warning"
                         >
                           <i className="fa fa-edit" aria-hidden="true"></i> Edit
                         </a>
                         &nbsp;&nbsp;
                         <a
-                          href="/delete-article"
+                          
+                          onClick={(e) => this.deleteArticle(e, item.id)}
                           className="btn btn-sm btn-danger"
+                          style={{cursor: "pointer"}}
                         >
                           <i className="fa fa-delete" aria-hidden="true"></i>{" "}
                           Delete
                         </a>
+                        {/* <button
+                          type="button"
+                          onClick={e => this.deleteArticle(e, item.id)}
+                          className="btn btn-danger"
+                        >
+                          Delete
+                        </button> */}
                       </div>
                     </td>
                   </tr>
@@ -100,10 +137,5 @@ class ArticlesComponent extends React.Component {
     );
   }
 
-  deleteHandler(i, e) {
-    e.preventDefault();
-    this.onDelete();
-  }
 }
-
 export { ArticlesComponent };

@@ -8,11 +8,11 @@ class EditArticleComponent extends React.Component {
       id: "",
       title: "",
       content: "",
-      published_at: Date
+      published_at: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChang = this.handleInputChang.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentWillMount() {
@@ -20,18 +20,19 @@ class EditArticleComponent extends React.Component {
   }
 
   getArticleDetails() {
-    let articleId = this.props.match.params.id;
-    console.log("test: ", articleId)
-    fetch(`http://localhost:8000/api/edit-article/${articleId}`,{
+    let articleId = this.props.match.params.articleId;
+    fetch(`http://localhost:8000/api/single-article/` + articleId,{
       method: "GET",
       mode: "cors"
     })
-    .then(response => {
+    .then(res => res.json())
+    .then(resJson => {
+      console.log("resJson details", resJson)
       this.setState({
-        id: response.id,
-        title: response.title,
-        content: response.content,
-        published_at: response.published_at
+        id: resJson.id,
+        title: resJson.title,
+        content: resJson.content,
+        published_at: resJson.published_at
       }, () => {
           console.log(this.state);
       });
@@ -39,7 +40,7 @@ class EditArticleComponent extends React.Component {
     .catch(error => console.log(error))
   }
 
-  handleInputChang(e) {
+  handleInputChange(e) {
     const target = e.target;
     const value = target.value;
     const name = target.name;
@@ -49,20 +50,37 @@ class EditArticleComponent extends React.Component {
     });
   }
 
-  handleSubmit(e, articleId) {
+  editArticle(newArticle) {
+    let token = localStorage.getItem('token');
+    console.log("inside token: ", token)
+    fetch(`http://localhost:8000/api/edit-article/${this.props.match.params.articleId}`, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ` + token
+      },
+      body: JSON.stringify(this.state)
+     
+    })
+    .then(response => {
+      console.log("response from getDetails: ", response)
+      this.props.history.push('/articles');
+    })
+    .catch(err => console.log(err));
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
-    let createData = {
+
+    console.log("uuuuuuuuuu", this.props.match.params.articleId)
+    let newArticle = {
       title: this.state.title,
       content: this.state.content,
-      publishedAt: this.state.publishedAt
+      published_at: this.state.published_at
     };
-
-    fetch("http://localhost:8000/api/edit-article/" + articleId, {
-      method: "PUT",
-      mode: "cors"
-    })
-      .then(res => res.json())
-      .catch(err => err);
+    this.editArticle(newArticle);
+  
   }
 
   render() {
@@ -86,7 +104,7 @@ class EditArticleComponent extends React.Component {
                   className="form-control"
                   name="title"
                   value={this.state.title}
-                  onChange={this.handleInputChang}
+                  onChange={this.handleInputChange}
                 />
               </div>
 
@@ -97,18 +115,18 @@ class EditArticleComponent extends React.Component {
                   className="form-control"
                   name="content"
                   value={this.state.content}
-                  onChange={this.handleInputChang}
+                  onChange={this.handleInputChange}
                 ></textarea>
               </div>
 
               <div className="form-group">
-                <h3 className="edit-article-h3">Published on</h3>
+                <h3 className="edit-article-h3">Published</h3>
                 <input
                   type="date"
                   className="form-control"
-                  name="publishedAt"
-                  value={this.state.value}
-                  onChange={this.handleInputChang}
+                  name="published_at"
+                  value={this.state.published_at}
+                  onChange={this.handleInputChange}
                 />
               </div>
 
@@ -117,10 +135,7 @@ class EditArticleComponent extends React.Component {
                   type="submit"
                   className="btn btn-primary pull-left edit-article-create"
                 >
-                  Edit
-                </button>
-                <button className="btn btn-danger pull-left edit-article-cancel">
-                  Cancel
+                  Save
                 </button>
               </div>
             </form>

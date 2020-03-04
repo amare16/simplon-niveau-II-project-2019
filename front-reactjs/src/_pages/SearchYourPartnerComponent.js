@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import SearchResults from "react-filter-search";
 //import Pagination from 'react-bootstrap/Pagination';
-class FarmersListComponent extends React.Component {
+class SearchYourPartnerComponent extends React.Component {
   constructor(props) {
     super(props);
     
@@ -58,9 +58,10 @@ class FarmersListComponent extends React.Component {
     // console.log("total pages: ", totalPages);
     const { data, value } = this.state;
     return (
-      <div className="container-fluid user-type-list">
-        
+      <div className="container-fluid user-type-list table-responsive">
+       
         <div className="d-flex justify-content-center">
+       
           <div className="searchbar">
             <input
               className="search_input"
@@ -94,14 +95,20 @@ class FarmersListComponent extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {results.map(el => (
-                    <tr key={el.id}>
-                      <td>{el.firstName}</td>
-                      <td>{el.lastName}</td>
-                      <td>{el.city}</td>
-                      <td>{el.user_type[0].name}</td>
+                  {results.map(result => (
+                    <tr key={result.id}>
+                      <td>{result.firstName}</td>
+                      <td>{result.lastName}</td>
+                      <td>{result.city}</td>
+
+                      {/* <td>{el.user_type[0].name}</td> */}
+                      {result.user_type.map((res, i) => (
+                        <td key={i}>{res.name}</td>
+                      ))}
                       <td>
-                        <button className="btn btn-success">Message</button>
+                        <a href={"/single-user-profile/" + result.userProfile.id}  className="btn btn-sm btn-info">
+                          <i className="fa fa-eye" aria-hidden="true"></i> See Profile
+                        </a>
                       </td>
                     </tr>
                   ))}
@@ -117,9 +124,13 @@ class FarmersListComponent extends React.Component {
           onSelect={this.handleSelect.bind(this)}
         
         /> */}
+         <a href="/dashboard" style={{marginLeft: "375px"}}>
+          <i class="fa fa-arrow-circle-o-left fa-3x" aria-hidden="true" style={{color: "green"}}></i>
+          </a>
       </div>
+      
     );
   }
 }
 
-export { FarmersListComponent };
+export { SearchYourPartnerComponent };
