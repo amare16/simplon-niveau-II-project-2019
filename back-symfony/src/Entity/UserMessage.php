@@ -37,11 +37,11 @@ class UserMessage
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessages")
-     * @ORM\JoinColumn(nullable=true)
-     * @Groups("group_user_message")
+     * @ORM\Column(type="datetime", nullable=true)
+     *
      */
-    private $user;
+    private $send_at;
+    
 
     public function getId(): ?int
     {
@@ -84,15 +84,17 @@ class UserMessage
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getSendAt(): ?\DateTimeInterface
     {
-        return $this->user;
+        return $this->send_at;
     }
 
-    public function setUser(?User $user): self
+    public function setSendAt(\DateTimeInterface $send_at): self
     {
-        $this->user = $user;
+        $this->send_at = $send_at;
 
         return $this;
     }
+
+
 }

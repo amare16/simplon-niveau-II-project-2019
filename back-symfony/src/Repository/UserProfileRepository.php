@@ -47,4 +47,5 @@ class UserProfileRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

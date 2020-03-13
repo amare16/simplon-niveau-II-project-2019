@@ -46,7 +46,7 @@ class ContactController extends AbstractFOSRestController
 
     public function sendMail(MailerInterface $mailer, Request $request) {
         $sendMail = $this->contactService->sendMail($request);
-        dd($sendMail);
+        
         return View::create($sendMail, Response::HTTP_OK);
     }
 }

@@ -153,7 +153,7 @@ class ArticlesController extends AbstractFOSRestController
         $data = json_decode($request->getContent(), true);
         $title = $data['title'];
         $content = $data['content'];
-        //$published_at = $data['published_at'];
+        $published_at = $data['published_at'];
         //$user_id = $data['user_id'];
 
         //$userId = $this->userRepository->findOneBy(['id' => $user_id['id']]);
@@ -165,7 +165,7 @@ class ArticlesController extends AbstractFOSRestController
 
         $article->setTitle($title);
         $article->setContent($content);
-        $article->setPublishedAt(new  \DateTime());
+        $article->setPublishedAt(\DateTime::createFromFormat("Y-m-d", $published_at));
         $article->setUser($user);
         // Todo: 400 response - Invalid input
         // Todo: 404 response - Response not found

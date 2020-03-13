@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as moment from "moment";
 
 class ShowSingleArticleComponent extends React.Component {
   constructor(props) {
@@ -29,7 +30,8 @@ class ShowSingleArticleComponent extends React.Component {
       commentContent: event.target.value
     });
   }
-  submitComment(e, articleId) {
+
+  submitComment(e) {
     e.preventDefault();
     let body = {
       commentContent: this.state.commentContent,
@@ -106,7 +108,7 @@ class ShowSingleArticleComponent extends React.Component {
             <div className="media-body">
               <h4 className="media-heading">{this.state.title}</h4>
               <p>{this.state.content}</p>
-              <p className="text-left">{this.state.published_at}</p>
+              <p className="text-left">{moment(this.state.published_at).format('LLL')}</p>
               <p className="text-right">
                 {this.state.user.firstName + " " + this.state.user.lastName}
               </p>

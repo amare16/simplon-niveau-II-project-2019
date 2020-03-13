@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as moment from "moment";
 import { NavbarComponent } from "./NavbarComponent";
 
 class ShowListOfArticlesComponent extends React.Component {
@@ -66,7 +67,7 @@ class ShowListOfArticlesComponent extends React.Component {
                     <div className="media-body">
                       <h4 className="media-heading">{item.title}</h4>
                       <p>{item.content}</p>
-                      <p className="text-left">{item.published_at}</p>
+                      <p className="text-left">{moment(item.published_at).format('LLL')}</p>
                       <p className="text-right">
                         {item.user.firstName + " " + item.user.lastName}
                       </p>

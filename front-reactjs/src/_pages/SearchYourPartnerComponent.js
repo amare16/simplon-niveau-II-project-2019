@@ -100,13 +100,13 @@ class SearchYourPartnerComponent extends React.Component {
                       <td>{result.firstName}</td>
                       <td>{result.lastName}</td>
                       <td>{result.city}</td>
-
+                                            
                       {/* <td>{el.user_type[0].name}</td> */}
                       {result.user_type.map((res, i) => (
                         <td key={i}>{res.name}</td>
                       ))}
                       <td>
-                        <a href={"/single-user-profile/" + result.userProfile.id}  className="btn btn-sm btn-info">
+                        <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> See Profile
                         </a>
                       </td>
@@ -125,7 +125,7 @@ class SearchYourPartnerComponent extends React.Component {
         
         /> */}
          <a href="/dashboard" style={{marginLeft: "375px"}}>
-          <i class="fa fa-arrow-circle-o-left fa-3x" aria-hidden="true" style={{color: "green"}}></i>
+          <i className="fa fa-arrow-circle-o-left fa-3x" aria-hidden="true" style={{color: "green"}}></i>
           </a>
       </div>
       

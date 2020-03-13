@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MaterialRepository")
@@ -13,26 +14,31 @@ class Material
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_material")
+     * @Groups("group_borrow_material")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("group_material")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("group_material")
      */
     private $description;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("group_material")
      */
     private $availability;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\BorrowMaterial", mappedBy="id_materail", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\BorrowMaterial", mappedBy="materail", cascade={"persist", "remove"})
      */
     private $borrowMaterial;
 

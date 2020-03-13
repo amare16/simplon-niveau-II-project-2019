@@ -63,6 +63,7 @@ class UserProfileController extends AbstractFOSRestController
      */
     public function getSingleUserProfile(int $userProfileId): View
     {
+
         $single_user_profile = $this->userProfileService->getSingleUserProfile($userProfileId);
 
         if ($single_user_profile) {

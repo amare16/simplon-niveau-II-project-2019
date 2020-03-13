@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExperienceRepository")
@@ -13,27 +14,32 @@ class Experience
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_experience")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("group_experience")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("group_experience")
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("group_experience")
      */
     private $published_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="experiences")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("group_experience")
      */
     private $user;
 

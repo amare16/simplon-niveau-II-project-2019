@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BorrowMaterialRepository")
  */
@@ -13,36 +13,42 @@ class BorrowMaterial
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_borrow_material")
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("group_borrow_material")
      */
     private $start_date;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("group_borrow_material")
      */
     private $end_date;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="borrowMaterials")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("group_borrow_material")
      */
     private $id_borrower;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lendMaterials")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("group_borrow_material")
      */
     private $id_lender;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Material", inversedBy="borrowMaterial", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("group_borrow_material")
      */
-    private $id_materail;
+    private $materail;
 
     public function getId(): ?int
     {
@@ -97,14 +103,14 @@ class BorrowMaterial
         return $this;
     }
 
-    public function getIdMaterail(): ?Material
+    public function getMaterail(): ?Material
     {
-        return $this->id_materail;
+        return $this->materail;
     }
 
-    public function setIdMaterail(Material $id_materail): self
+    public function setMaterail(Material $materail): self
     {
-        $this->id_materail = $id_materail;
+        $this->materail = $materail;
 
         return $this;
     }

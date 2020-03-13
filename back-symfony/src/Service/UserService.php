@@ -51,7 +51,7 @@ class UserService
         $user->setEmail($email);
         $user->setPlainPassword($password);
         $user->setTelephone($telephone);
-        $addresses = new Addresses();
+        //$addresses = new Addresses();
 
         $user->addAddresses($addresses);
 

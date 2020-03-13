@@ -10,6 +10,7 @@ class SingleUserProfileComponent extends React.Component {
       content_aspiration: "",
       hobby: "",
       user: {
+        id: "",
         firstName: "",
         lastName: ""
       }
@@ -20,6 +21,7 @@ class SingleUserProfileComponent extends React.Component {
     this.getSingleUserProfile();
   }
   getSingleUserProfile() {
+   
     let userProfileId = this.props.match.params.userProfileId;
     fetch(`http://localhost:8000/api/single-user-profile/` + userProfileId, {
       method: "GET",
@@ -27,7 +29,7 @@ class SingleUserProfileComponent extends React.Component {
     })
       .then(res => res.json())
       .then(resJson => {
-        console.log("res json:", resJson);
+        console.log("res json:", resJson.user.id);
         this.setState(
           {
             id: resJson.id,
@@ -45,6 +47,7 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   render() {
+    console.log("user.id: ", this.state.user.id)
     return (
       <div className="container" style={{marginBottom: "50px"}}>
         <div
@@ -69,16 +72,18 @@ class SingleUserProfileComponent extends React.Component {
                 <h3>
                   {this.state.user.firstName}{" "}
                   {this.state.user.lastName.toUpperCase()}
+                  
                 </h3>
               </div>
               <div className="row">
                 <div className="col-md-12" style={{ marginBottom: "45px"}}>
-                  <a href={"/single-message-receive/" + this.state.id}></a>
-                  <button className="btn btn-success">Send Message</button>
+                <a href={"/single-message-receive/" + this.state.user.id}  className="btn btn-sm btn-primary">
+                          <i className="fa fa-paper-plane" aria-hidden="true"></i><strong>&nbsp;&nbsp;Send Message</strong>
+                        </a>
                 </div>
               </div>
               <div className="single_c_text text-md-left text-xs-center">
-                <a href={"/search-partner"}><button className="btn btn-primary">Back</button></a>
+                <a href={"/search-partner"}><button className="btn btn-info">Back</button></a>
               </div>
             </div>
             <div className="col-md-6">

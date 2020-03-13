@@ -1,4 +1,5 @@
 import React from "react";
+import * as moment from "moment";
 import { NavbarComponent } from "../_components/NavbarComponent";
 
 class ArticlesComponent extends React.Component {
@@ -94,7 +95,7 @@ class ArticlesComponent extends React.Component {
                 return (
                   <tr>
                     <td>{item.title}</td>
-                    <td>{item.published_at}</td>
+                    <td>{moment(item.published_at).format('LLL')}</td>
 
                     <td>
                       <div className="item-actions">

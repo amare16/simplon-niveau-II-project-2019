@@ -15,6 +15,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
 
 class UserMessageController extends AbstractFOSRestController
 {
@@ -26,39 +28,65 @@ class UserMessageController extends AbstractFOSRestController
      * @var UserMessageRepository
      */
     private $userMessageRepository;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+    /**
+     * @var MailerInterface
+     */
+    private $mailer;
 
-    public function __construct(UserMessageService $userMessageService, UserMessageRepository $userMessageRepository)
+
+    public function __construct(UserMessageService $userMessageService,
+                                UserMessageRepository $userMessageRepository,
+                                UserRepository $userRepository, MailerInterface $mailer)
     {
 
         $this->userMessageService = $userMessageService;
         $this->userMessageRepository = $userMessageRepository;
+        $this->userRepository = $userRepository;
+        $this->mailer = $mailer;
     }
 
     /**
-     * @Rest\Get("/receive-message")
+     * @Rest\Get("/messages")
      * @Rest\View(serializerGroups={"group_user_message"})
      */
-    public function getSenderMessage(): View
+    public function getAllMessages(): View
     {
-        $all_send_message = $this->userMessageService->getSenderMessage();
+        $all_messages = $this->userMessageService->getAllMessages();
 
-        return View::create($all_send_message, Response::HTTP_OK);
+        return View::create($all_messages, Response::HTTP_OK);
     }
 
     /**
-     * @Rest\Get("/single-message-receive/{messageReceiveId<\d+>}")
+     * @Rest\Get("/single-message/{messageId<\d+>}")
      * @Rest\View(serializerGroups={"group_user_message"})
      */
-    public function getSingleMessage(int $messageReceiveId): View
+    public function getSingleMessage(int $messageId): View
     {
-        $single_message = $this->userMessageService->getSingleMessage($messageReceiveId);
-    dd($single_message);
+        $single_message = $this->userMessageService->getSingleMessage($messageId);
+    
         if ($single_message) {
             return View::create($single_message, Response::HTTP_OK);
         } else {
             return View::create(["There is no message with this id"],
                 Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    /**
+     * @Rest\Get("/filter-message")
+     * @Rest\View(serializerGroups={"group_user_message"})
+     */
+    public function getMessageByUser(Request $request)
+    {
+
+        $filter1 = $request->query->get('user1');
+        $filter2 = $request->query->get('user2');
+        $qb = $this->userMessageRepository->findByUser($filter1, $filter2);
+        return $qb;
     }
 
     /**
@@ -71,8 +99,10 @@ class UserMessageController extends AbstractFOSRestController
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
         $messageSender = $data['id_message_sender'];
+        dd($messageSender);
         $messageReceiver = $data['id_message_receiver'];
         $message = $data['message'];
+        $sendTime = $data['send_at'];
 
         $message_sender = $userRepository->findOneBy(['id' => $messageSender]);
         $message_receiver = $userRepository->findOneBy(['id' => $messageReceiver]);
@@ -80,7 +110,8 @@ class UserMessageController extends AbstractFOSRestController
         $userMessage->setIdMessageSender($message_sender);
         $userMessage->setIdMessageReceiver($message_receiver);
         $userMessage->setMessage($message);
-        $userMessage->setUser($user);
+        $userMessage->setSendAt(\DateTime::createFromFormat("Y-m-d H:i",$sendTime));
+        //$userMessage->setUser($user);
 
 
         if(in_array('ROLE_USER', $user->getRoles())) {
@@ -127,6 +158,19 @@ class UserMessageController extends AbstractFOSRestController
         } else {
             return View::create(["You are not a user! So please register to modify a message!"], Response::HTTP_BAD_REQUEST);
         }
+
+    }
+
+    /**
+     * @Rest\Post("/test-send-message")
+     * @Rest\View(serializerGroups={"group_user_message"})
+     */
+    public function testSendMessage(Request $request, Mailer $mailer)
+    {
+        $data = json_decode($request->getContent(), true);
+        $email = $data['email'];
+dd($email);
+        $message = $data['message'];
 
     }
 

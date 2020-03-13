@@ -21,13 +21,13 @@ class UserMessageService
         $this->userMessageRepository = $userMessageRepository;
     }
 
-    public function getSenderMessage()
+    public function getAllMessages()
     {
         return $this->userMessageRepository->findAll();
     }
 
-    public function getSingleMessage($messageReceiveId)
+    public function getSingleMessage($messageId)
     {
-        return $this->userMessageRepository->find($messageReceiveId);
+        return $this->userMessageRepository->find($messageId);
     }
 }

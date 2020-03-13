@@ -47,4 +47,19 @@ class UserMessageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /*
+     * @return UserMessage[]
+     */
+
+    public function findByUser(User $user1, User $user2): array
+    {
+        return $this->createQueryBuilder('um')
+            ->andWhere('um.id_message_sender = :user1 AND um.$id_message_receiver = :user2')
+            ->orWhere('um.id_message_sender = :user2 AND um.$id_message_receiver = :user1')
+            ->setParameter('user1', $user1)
+            ->setParameter('user2', $user2)
+            ->getQuery()
+            ->execute();
+    }
 }

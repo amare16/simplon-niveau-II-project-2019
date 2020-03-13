@@ -47,15 +47,9 @@ class CreateArticleComponent extends React.Component {
       console.log('state submit :', this.state);
 
 
-      fetch(`http://localhost:8000/api/add-article`, {
-          method: "POST",
-          headers: {
+      fetch(`http://localhost:8000/api/add-article`, {method: "POST",headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ` + token
-          },
-          body: JSON.stringify(this.state),
-          
-          
+            "Authorization": `Bearer ` + token },body: JSON.stringify(this.state),  
         }).then(data => data.json())
         .then(dataJson => {
             //console.log("This article is successfully Inserted ", dataJson);

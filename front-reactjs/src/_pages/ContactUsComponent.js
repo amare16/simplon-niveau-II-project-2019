@@ -50,7 +50,7 @@ class ContactUsComponent extends React.Component {
     //console.log("handle submit value: ",this.state)
     fetch("http://localhost:8000/api/send-email", {
       method: "POST",
-      mode: "cors",
+      mode: "no-cors",
       body: JSON.stringify(this.state),
       headers: {
         "Content-Type": "application/json"
