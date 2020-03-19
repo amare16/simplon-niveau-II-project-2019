@@ -79,6 +79,7 @@ class BorrowMateralController extends AbstractFOSRestController
 
         $material_borrower = $userRepository->findOneBy(['id' => $materialBorrower]);
         $material_lender = $userRepository->findOneBy(['id' => $materialLender]);
+        //dd($material_lender);
         $material_id = $materialRepository->findOneBy(['id' => $material]);
 
         $materialBorrowerLender = new BorrowMaterial();
@@ -87,6 +88,7 @@ class BorrowMateralController extends AbstractFOSRestController
         $materialBorrowerLender->setStartDate(\DateTime::createFromFormat('Y-m-d', $startDate));
         $materialBorrowerLender->setEndDate(\DateTime::createFromFormat('Y-m-d', $endDate));
         $materialBorrowerLender->setMaterail($material_id);
+        dd($materialBorrowerLender);
 
         if(in_array('ROLE_USER', $user->getRoles())) {
             $entityManager->persist($materialBorrowerLender);

@@ -73,7 +73,7 @@ class ExperienceController extends AbstractFOSRestController
      * @Rest\Post("/add-experience")
      * @Rest\View(serializerGroups={"group_experience"})
      */
-    public function newArticle(Request $request, EntityManagerInterface $entityManager): View
+    public function newExperience(Request $request, EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);

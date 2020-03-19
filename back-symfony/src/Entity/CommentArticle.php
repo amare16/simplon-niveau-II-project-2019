@@ -68,12 +68,12 @@ class CommentArticle
         return $this;
     }
 
-    public function getArticle(): Article
+    public function getArticle(): ?Article
     {
         return $this->article;
     }
 
-    public function setArticle(Article $article): self
+    public function setArticle(?Article $article): self
     {
         $this->article = $article;
 

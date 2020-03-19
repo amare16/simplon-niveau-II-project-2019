@@ -37,6 +37,8 @@ class User implements UserInterface
      * @Groups("group_comment_article")
      * @Groups("group_user_profile")
      * @Groups("group_experience")
+     * @Groups("group_user_message")
+     * @Groups("group_borrow_material")
      */
     private $firstName;
 
@@ -48,6 +50,8 @@ class User implements UserInterface
      * @Groups("group_comment_article")
      * @Groups("group_user_profile")
      * @Groups("group_experience")
+     * @Groups("group_user_message")
+     * @Groups("group_borrow_material")
      */
     private $lastName;
 
@@ -62,6 +66,7 @@ class User implements UserInterface
      * @Groups("group_user")
      * @Groups("group_user_message")
      * @Groups("group_experience")
+     * @Groups("group_borrow_material")
      */
     private $email;
 
@@ -80,6 +85,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, name="city", nullable=true)
      * @Groups("group_user")
+     * @Groups("group_borrow_material")
      */
     private $city;
 

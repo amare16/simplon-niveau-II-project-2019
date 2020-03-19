@@ -22,6 +22,7 @@ class Material
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("group_material")
+     * @Groups("group_borrow_material")
      */
     private $name;
 

@@ -13,7 +13,9 @@ class UserLoginComponent extends React.Component {
       username: '',
       password: '',
       loginError: 'ldlldld',
-      redirect: false
+      redirect: false,
+      liked: Number,
+      disliked: Number
     }
     //console.log('this state value: ', this.state)
 
@@ -74,7 +76,8 @@ class UserLoginComponent extends React.Component {
               //console.log("data value: ", userData.username)
              //console.log("test json stringfy:",JSON.stringify({token: data.token, username: userData.username}))
              localStorage.setItem('token', data.token);
-             localStorage.setItem('username', userData.username)
+             localStorage.setItem('username', userData.username);
+
               
               this.props.history.push('/dashboard')
             })

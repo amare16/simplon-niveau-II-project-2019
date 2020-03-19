@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import SearchResults from "react-filter-search";
+import { UserLogoutComponent } from './UserLogoutComponent';
 //import Pagination from 'react-bootstrap/Pagination';
 class SearchYourPartnerComponent extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class SearchYourPartnerComponent extends React.Component {
 
     this.state = {
       data: [],
-      value: "",
+      value: ""
       // currentPageNumber: 1,
       // totalItems: 1,
       // itemsPerPage: 5
@@ -58,7 +59,9 @@ class SearchYourPartnerComponent extends React.Component {
     // console.log("total pages: ", totalPages);
     const { data, value } = this.state;
     return (
+      
       <div className="container-fluid user-type-list table-responsive">
+        <UserLogoutComponent />
        
         <div className="d-flex justify-content-center">
        
@@ -105,8 +108,9 @@ class SearchYourPartnerComponent extends React.Component {
                       {result.user_type.map((res, i) => (
                         <td key={i}>{res.name}</td>
                       ))}
+                      
                       <td>
-                        <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
+                        <a href={"/single-user-profile"}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> See Profile
                         </a>
                       </td>

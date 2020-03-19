@@ -6,8 +6,8 @@ import { LogoComponent } from "../_components/LogoComponent";
 import { HomeComponent } from "../_components/HomeComponent";
 import { ContactUsComponent } from "../_pages/ContactUsComponent";
 import { FooterComponent } from "../_components/FooterComponent";
-import { ShowListOfArticlesComponent } from "./ShowListOfArticlesComponent";
-import { ShowSingleArticleComponent } from "./ShowSingleArticleComponent";
+import { ShowListOfArticlesComponent } from "./show_lists_of_articles/ShowListOfArticlesComponent";
+import { ShowSingleArticleComponent } from "./show_single_article/ShowSingleArticleComponent";
 
 import { SearchYourPartnerComponent } from "../_pages/SearchYourPartnerComponent";
 import { ArticlesComponent } from "../_pages/ArticlesComponent";
@@ -19,6 +19,7 @@ import { UserLogoutComponent } from "../_pages/UserLogoutComponent";
 import { DashboardComponent } from "../_components/DashboardComponent";
 import { ReceiveMessageComponent } from "../_pages/ReceiveMessageComponent";
 import { SingleUserProfileComponent } from "../_pages/SingleUserProfileComponent";
+import { BorrowLendMaterialComponent } from "../_pages/borrow_lend_material/BorrowLendMaterialComponent";
 
 
 import { CreateArticleComponent } from "../actions/articleActions/CreateArticleComponent";
@@ -57,8 +58,9 @@ const Router = () => {
           <ProtectedRoute path="/add-article" component={CreateArticleComponent} />
           <ProtectedRoute path="/edit-article/:articleId" component={EditArticleComponent} />
           <ProtectedRoute path="/search-partner" component={SearchYourPartnerComponent} />
-          <ProtectedRoute path="/single-message-receive/:messageReceiveId" component={ReceiveMessageComponent} />
-          <ProtectedRoute path="/single-user-profile/:userProfileId" component={SingleUserProfileComponent} />      
+          <ProtectedRoute path="/single-message-receive" component={ReceiveMessageComponent} />
+          <ProtectedRoute path="/single-user-profile/:userProfileId" component={SingleUserProfileComponent} />   
+          <ProtectedRoute path="/borrow-lend-materials" component={BorrowLendMaterialComponent} />   
           
         </Switch>
       </BrowserRouter>

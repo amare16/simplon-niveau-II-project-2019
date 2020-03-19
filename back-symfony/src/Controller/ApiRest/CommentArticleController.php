@@ -45,6 +45,21 @@ class CommentArticleController extends AbstractFOSRestController
     }
 
     /**
+     * @Rest\Get("/single-comment-article/{commentId<\d+>}")
+     * @Rest\View(serializerGroups={"group_comment_article"})
+     */
+    public function getSingleComment($commentId): View
+    {
+        $single_comment = $this->commentArticleService->getSingleComment($commentId);
+        if ($single_comment) {
+            return View::create($single_comment, Response::HTTP_OK);
+        } else {
+            return View::create(["There is no comment with this id"],
+                Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
      * @Rest\Post("/new-comment")
      */
     public function newComment(Request $request, ArticleRepository $articleRepository, EntityManagerInterface $entityManager): View

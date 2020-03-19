@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { UserLogoutComponent } from "../_pages/UserLogoutComponent";
+
 
 class DashboardComponent extends React.Component {
   constructor(props) {
@@ -20,12 +22,12 @@ class DashboardComponent extends React.Component {
     }
   }
 
-  logout() {
-    // localStorage.getItem("token", "");
-    // localStorage.clear();
-    localStorage.removeItem("token")
-    this.setState({ redirect: true });
-  }
+  // logout() {
+  //   // localStorage.getItem("token", "");
+  //   // localStorage.clear();
+  //   localStorage.removeItem("token")
+  //   this.setState({ redirect: true });
+  // }
 
   render() {
     if (this.state.redirect) {
@@ -50,7 +52,7 @@ class DashboardComponent extends React.Component {
         <div style={buttonStyle}>
           <p>Welcome <strong>{usernameDisplay.toUpperCase()}</strong></p>
         </div>
-        <div style={buttonStyle}>
+        {/* <div style={buttonStyle}>
           <button
             type="button"
             className="btn btn-warning"
@@ -58,7 +60,8 @@ class DashboardComponent extends React.Component {
           >
             Logout {this.props.us}
           </button>
-        </div>
+        </div> */}
+        <UserLogoutComponent />
 
         <div className="container">
           <div className="row">

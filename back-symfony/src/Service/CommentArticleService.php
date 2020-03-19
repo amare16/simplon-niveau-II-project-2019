@@ -24,4 +24,9 @@ class CommentArticleService
     {
         return $this->commentArticleRepository->findAll();
     }
+
+    public function getSingleComment($commentId)
+    {
+        return $this->commentArticleRepository->find($commentId);
+    }
 }

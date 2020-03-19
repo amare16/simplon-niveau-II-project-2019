@@ -1,6 +1,7 @@
 import React from "react";
 import * as moment from "moment";
 import { NavbarComponent } from "../_components/NavbarComponent";
+import { UserLogoutComponent } from "./UserLogoutComponent";
 
 class ArticlesComponent extends React.Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class ArticlesComponent extends React.Component {
 
     return (
       <div>
+        <UserLogoutComponent />
         <NavbarComponent />
         <div className="container table-responsive" style={{ marginBottom: "60px"}}>
           <h1>Lists of Articles</h1>

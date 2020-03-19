@@ -34,6 +34,7 @@ class UserProfile
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("group_user_profile")
+     * @Groups("group_user")
      */
     private $hobby;
 

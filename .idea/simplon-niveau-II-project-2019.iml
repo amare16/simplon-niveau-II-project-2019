@@ -10,6 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/phpdocumentor/type-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/apache-pack" />
+      <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/google-mailer" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/mailer" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/property-info" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/serializer-pack" />

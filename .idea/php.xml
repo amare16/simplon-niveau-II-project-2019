@@ -101,6 +101,7 @@
       <path value="$PROJECT_DIR$/back-symfony/vendor/symfony/mailer" />
       <path value="$PROJECT_DIR$/back-symfony/vendor/egulias/email-validator" />
       <path value="$PROJECT_DIR$/back-symfony/vendor/symfony/apache-pack" />
+      <path value="$PROJECT_DIR$/back-symfony/vendor/symfony/google-mailer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

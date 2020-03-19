@@ -15,8 +15,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class UserMessageController extends AbstractFOSRestController
 {
@@ -99,12 +99,12 @@ class UserMessageController extends AbstractFOSRestController
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
         $messageSender = $data['id_message_sender'];
-        dd($messageSender);
         $messageReceiver = $data['id_message_receiver'];
         $message = $data['message'];
         $sendTime = $data['send_at'];
 
         $message_sender = $userRepository->findOneBy(['id' => $messageSender]);
+        //dd($message_sender);
         $message_receiver = $userRepository->findOneBy(['id' => $messageReceiver]);
         $userMessage = new UserMessage();
         $userMessage->setIdMessageSender($message_sender);
@@ -165,13 +165,17 @@ class UserMessageController extends AbstractFOSRestController
      * @Rest\Post("/test-send-message")
      * @Rest\View(serializerGroups={"group_user_message"})
      */
-    public function testSendMessage(Request $request, Mailer $mailer)
+    public function testSendMessage(Request $request, MailerInterface $mailer)
     {
-        $data = json_decode($request->getContent(), true);
-        $email = $data['email'];
-dd($email);
-        $message = $data['message'];
+                $testEmail = (new Email())
+            ->from('send@gmail.com')
+            ->to('receive@gmail.com')
+            ->text("Hello");
 
+            $mailer->send($testEmail);
+        return new Response(
+            'Email was sent'
+        );
     }
 
 

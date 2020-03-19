@@ -190,41 +190,27 @@ class UserRegisterComponent extends React.Component {
         <div>
           <h1>Inscription</h1>
         </div>
-        <div className="card card-register bg-light w-50">
+        <div className="card card-register bg-light w-50" style={{border: "none"}}>
           <form name="form" onSubmit={this.handleSubmit}>
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text">
-                  <i className="fa fa-user"></i>
-                </span>
-              </div>
-              <input
-                type="text"
-                name="firstName"
-                className="form-control"
-                placeholder="First name"
-                value={this.state.firstName}
-                onChange={this.handleChange}
-                submitted={this.state.submitted ? 1 : 0}
-              />
-            </div>
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text">
-                  <i className="fa fa-user"></i>
-                </span>
-              </div>
-              <input
-                type="text"
-                name="lastName"
-                className="form-control"
-                placeholder="Last name"
-                value={this.state.lastName}
-                onChange={this.handleChange}
-                submitted={this.state.submitted ? 1 : 0}
-              />
-            </div>
-            <div className="form-group input-group">
+            <div className="row">
+              <div className="col-md-6">
+                  <div className="form-group input-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">
+                      <i className="fa fa-user"></i>
+                    </span>
+                  </div>
+                  <input
+                    type="text"
+                    name="firstName"
+                    className="form-control"
+                    placeholder="First name"
+                    value={this.state.firstName}
+                    onChange={this.handleChange}
+                    submitted={this.state.submitted ? 1 : 0}
+                  />
+                </div>
+                <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
                   <i className="fa fa-user"></i>
@@ -236,22 +222,6 @@ class UserRegisterComponent extends React.Component {
                 className="form-control"
                 placeholder="Username"
                 value={this.state.username}
-                onChange={this.handleChange}
-                submitted={this.state.submitted ? 1 : 0}
-              />
-            </div>
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text">
-                  <i className="fa fa-envelope"></i>
-                </span>
-              </div>
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                placeholder="Email"
-                value={this.state.email}
                 onChange={this.handleChange}
                 submitted={this.state.submitted ? 1 : 0}
               />
@@ -277,23 +247,6 @@ class UserRegisterComponent extends React.Component {
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
-                  <i className="fa fa-lock"></i>
-                </span>
-              </div>
-              <input
-                type="password"
-                name="repeatedPassword"
-                className="form-control"
-                id="repeatedPassword"
-                placeholder="Repeated password"
-                value={this.state.repeatedPassword}
-                onChange={this.handleChange}
-                submitted={this.state.submitted ? 1 : 0}
-              />
-            </div>
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text">
                   <i className="fa fa-phone"></i>
                 </span>
               </div>
@@ -310,36 +263,7 @@ class UserRegisterComponent extends React.Component {
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
-                  <i className="fa fa-check-circle"></i>
-                </span>
-              </div>
-              <select
-                className="custom-select my-1 mr-sm-2"
-                id="inlineFormCustomSelectPref"
-                
-                onChange={this.handleUsertypeChange}
-              >
-                <option value="select">Select who you are</option>
-                {this.state.userTypeList.map(usertype => {
-                  //console.log('try : ', this.state.userTypeList);
-                  return (
-                    <option key={usertype.name} value={usertype.name}>
-                      {usertype.name}
-                    </option>
-                  );
-                })}
-                {/* <option value="farmer">Agriculture</option>
-                <option value="gardener">Jardiere</option>
-                <option value="lender">Prêteur</option>
-                <option value="borrower">Emprenteur</option>
-                <option value="donor">Donneur</option>
-                <option value="receiver">Receveur</option> */}
-              </select>
-            </div>
-            <div className="form-group input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text">
-                  <i className="far fa-car-building"></i>
+                  <i class="fas fa-city"></i>
                 </span>
               </div>
               <PlacesAutocomplete
@@ -401,6 +325,86 @@ class UserRegisterComponent extends React.Component {
                 required={true}
               /> */}
             </div>
+              </div>
+              <div className="col-md-6">
+              <div className="form-group input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fa fa-user"></i>
+                </span>
+              </div>
+              <input
+                type="text"
+                name="lastName"
+                className="form-control"
+                placeholder="Last name"
+                value={this.state.lastName}
+                onChange={this.handleChange}
+                submitted={this.state.submitted ? 1 : 0}
+              />
+            </div>
+            <div className="form-group input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fa fa-envelope"></i>
+                </span>
+              </div>
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                submitted={this.state.submitted ? 1 : 0}
+              />
+            </div>
+            <div className="form-group input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fa fa-lock"></i>
+                </span>
+              </div>
+              <input
+                type="password"
+                name="repeatedPassword"
+                className="form-control"
+                id="repeatedPassword"
+                placeholder="Repeated password"
+                value={this.state.repeatedPassword}
+                onChange={this.handleChange}
+                submitted={this.state.submitted ? 1 : 0}
+              />
+            </div>
+            <div className="form-group input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <i className="fa fa-check-circle"></i>
+                </span>
+              </div>
+              <select
+                className="custom-select my-1 mr-sm-2"
+                id="inlineFormCustomSelectPref"
+                
+                onChange={this.handleUsertypeChange}
+              >
+                <option value="select">Select who you are</option>
+                {this.state.userTypeList.map(usertype => {
+                  //console.log('try : ', this.state.userTypeList);
+                  return (
+                    <option key={usertype.name} value={usertype.name}>
+                      {usertype.name}
+                    </option>
+                  );
+                })}
+                {/* <option value="farmer">Agriculture</option>
+                <option value="gardener">Jardiere</option>
+                <option value="lender">Prêteur</option>
+                <option value="borrower">Emprenteur</option>
+                <option value="donor">Donneur</option>
+                <option value="receiver">Receveur</option> */}
+              </select>
+            </div>
             <div className="form-group input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text">
@@ -417,17 +421,24 @@ class UserRegisterComponent extends React.Component {
                 submitted={this.state.submitted ? 1 : 0}
               />
             </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-secondary btn-block">
+              </div>
+            </div>
+            <div className="row">
+                <div className="col-md-12">
+                <div className="form-group">
+              <button type="submit" className="btn btn-secondary btn-block" style={{backgroundColor: "#008755"}}>
                 Register
               </button>
             </div>
-            <div>
+            <div className="float-right">
               <p>
                 <b>Vous avez déjà un compte? </b>
               </p>
-              <a href="/login">Se Connecter</a>
+              <a href="/login" className="float-right" style={{fontWeight: "bold"}}>Se Connecter</a>
             </div>
+                </div>
+            </div>
+            
           </form>
         </div>
       </div>
