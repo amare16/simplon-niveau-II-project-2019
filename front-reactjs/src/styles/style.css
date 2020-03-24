@@ -1,4 +1,3 @@
-
 /* logo */
 .img-logo {
   display: block;
@@ -6,64 +5,66 @@
 }
 /* App Component */
 .card {
-    width: 50%;
-    background: #e6ffe6;
-    margin-top: 50px;
-    margin: 0 auto;
+  width: 50%;
+  background: #e6ffe6;
+  margin-top: 50px;
+  margin: 0 auto;
 }
 .card-title {
-    color: #008000;
-    font-family: Knewave;
-    font-weight: bold;
-    font-size: 60px;
-    cursor: pointer;
+  color: #008000;
+  font-family: Knewave;
+  font-weight: bold;
+  font-size: 60px;
+  cursor: pointer;
 }
 
 /* Home Component */
 .jumbotron {
-    width: 75%;
-    margin: 0 auto;
-    margin-bottom: 150px;
+  width: 75%;
+  margin: 0 auto;
+  margin-bottom: 150px;
 }
 .lead {
-    text-align: justify;
-    color: #008000;
-    
+  text-align: justify;
+  color: #008000;
 }
 b {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* Footer Component */
 .footer {
-    position: fixed;
-    height: 50px;
-    bottom: 0;
-    width: 100%;
-    color: white;
-    background-color: #008755;
+  position: fixed;
+  height: 50px;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  background-color: #008755;
+}
+.p-copyright {
+  text-align: center;
+  line-height: 50px;
 }
 
 .copyright {
-    margin-top: 10px;
-    text-align: center;
+  text-align: center;
 }
 
 /* Register Component */
 .card-register {
-    margin: 0 auto;
-    background: red;
-    margin-bottom: 100px;
+  margin: 0 auto;
+  background: red;
+  margin-bottom: 100px;
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 b {
-    color: #008000;
+  color: #008000;
 }
 
 /* Login Component */
@@ -77,34 +78,35 @@ html {
 } */
 
 .h-100 {
-    margin-top: 110px;
+  margin-top: 110px;
 }
 .user_card {
-    height: 400px;
-    width: 350px;
-    margin-top: auto;
-    margin-bottom: auto;
-    background: #e6fff6;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
-
+  height: 400px;
+  width: 350px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background: #e6fff6;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
 }
 .brand_logo_container {
-    position: absolute;
-    height: 170px;
-    width: 170px;
-    top: -75px;
-    border-radius: 50%;
-    background: #008755;
-    padding: 10px;
-    text-align: center;
+  position: absolute;
+  height: 170px;
+  width: 170px;
+  top: -75px;
+  border-radius: 50%;
+  background: #008755;
+  padding: 10px;
+  text-align: center;
 }
 /* .brand_logo_container > p {
     margin-top: 51px;
@@ -113,143 +115,140 @@ html {
     color: navajowhite;
 } */
 .brand_logo {
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    border: 2px solid #008755;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 2px solid #008755;
 }
 .form-container {
-    margin-top: 100px;
+  margin-top: 100px;
 }
 .form {
-    margin-top: 115px;
+  margin-top: 115px;
 }
 .login_btn {
-    width: 100%;
-    /*background: #c0392b !important;*/
-    color: white !important;
+  width: 100%;
+  /*background: #c0392b !important;*/
+  color: white !important;
 }
 .login_btn:focus {
-    box-shadow: none !important;
-    outline: 0px !important;
+  box-shadow: none !important;
+  outline: 0px !important;
 }
 .login_container {
-    padding: 0 2rem;
+  padding: 0 2rem;
 }
 .input-group-text {
-    background: #008755 !important;
-    color: white !important;
-    border: 0 !important;
-    border-radius: 0.25rem 0 0 0.25rem !important;
+  background: #008755 !important;
+  color: white !important;
+  border: 0 !important;
+  border-radius: 0.25rem 0 0 0.25rem !important;
 }
 .input_user,
 .input_pass:focus {
-    box-shadow: none !important;
-    outline: 0px !important;
+  box-shadow: none !important;
+  outline: 0px !important;
 }
-.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
-    background-color: #c0392b !important;
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #c0392b !important;
 }
 
 .login-container {
-    margin-top: 5px;
-    margin-bottom: 150px;
+  margin-top: 5px;
+  margin-bottom: 150px;
 }
 
 .brand_logo_container > p {
-    margin-top: 51px;
-    font-size: 27px;
-    font-weight: bold;
-    color: antiquewhite;
+  margin-top: 51px;
+  font-size: 27px;
+  font-weight: bold;
+  color: antiquewhite;
 }
 
 /* DashboardComponent */
-.add-article-icon {
-    margin-bottom: 30px;
-}
-
-
-
+/* .add-article-icon {
+  margin-bottom: 30px;
+} */
 
 /* CreateArticleComponent */
 .create-article-container {
-    margin-bottom: 100px;
-    background-color: #b3ecff;
+  margin-bottom: 100px;
+  background-color: #b3ecff;
 }
-.create-article-h1, .create-article-h3 {
-    text-align: left;
+.create-article-h1,
+.create-article-h3 {
+  text-align: left;
 }
 
 /* FarmersListComponent */
 
 .user-type-list {
-    margin-bottom: 100px;
+  margin-bottom: 100px;
 }
 
-    /* search bar - user type */
-    .d-flex {
-        margin-bottom: 35px;
-    }
-    .searchbar{
-        margin-bottom: auto;
-        margin-top: auto;
-        height: 60px;
-        background-color:#008755;
-        border-radius: 30px;
-        padding: 10px;
-        }
-        .search_input{
-            color: white;
-            border: 0;
-            outline: 0;
-            background: none;
-            width: 0;
-            caret-color:transparent;
-            line-height: 40px;
-            transition: width 0.4s linear;
-            }
-        
-        .searchbar:hover > .search_input{
-            padding: 0 10px;
-            width: 450px;
-            caret-color:red;
-            transition: width 0.4s linear;
-            }
-        
-        .searchbar:hover > .search_icon{
-            background: white;
-            color: #e74c3c;
-            }
-            .search_icon{
-                height: 40px;
-                width: 40px;
-                float: right;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 50%;
-                color:white;
-                text-decoration:none;
-                }
-    #input-search-id::placeholder {
-        color: #ffffff;
-    }
+/* search bar - user type */
+.d-flex {
+  margin-bottom: 35px;
+}
+.searchbar {
+  margin-bottom: auto;
+  margin-top: auto;
+  height: 60px;
+  background-color: #008755;
+  border-radius: 30px;
+  padding: 10px;
+}
+.search_input {
+  color: white;
+  border: 0;
+  outline: 0;
+  background: none;
+  width: 0;
+  caret-color: transparent;
+  line-height: 40px;
+  transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_input {
+  padding: 0 10px;
+  width: 450px;
+  caret-color: red;
+  transition: width 0.4s linear;
+}
+
+.searchbar:hover > .search_icon {
+  background: white;
+  color: #e74c3c;
+}
+.search_icon {
+  height: 40px;
+  width: 40px;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+}
+#input-search-id::placeholder {
+  color: #ffffff;
+}
 
 /* Contact Component */
 .contact-container {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 #contact-form {
-    margin-bottom: 100px;
+  margin-bottom: 100px;
 }
 
 /* ShowSingleArticleComponent */
 
 .show-single-article {
-    margin-bottom: -100px;
+  margin-bottom: -100px;
 }
 .comment-article {
-    margin: 0 auto;
+  margin: 0 auto;
 }
-

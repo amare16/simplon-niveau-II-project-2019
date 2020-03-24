@@ -29,17 +29,19 @@ class Material
     /**
      * @ORM\Column(type="text")
      * @Groups("group_material")
+     * @Groups("group_borrow_material")
      */
     private $description;
 
     /**
      * @ORM\Column(type="boolean")
      * @Groups("group_material")
+     * @Groups("group_borrow_material")
      */
     private $availability;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\BorrowMaterial", mappedBy="materail", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\BorrowMaterial", mappedBy="material", cascade={"persist", "remove"})
      */
     private $borrowMaterial;
 
@@ -94,8 +96,8 @@ class Material
         $this->borrowMaterial = $borrowMaterial;
 
         // set the owning side of the relation if necessary
-        if ($borrowMaterial->getIdMaterail() !== $this) {
-            $borrowMaterial->setIdMaterail($this);
+        if ($borrowMaterial->getIdMaterial() !== $this) {
+            $borrowMaterial->setIdMaterial($this);
         }
 
         return $this;

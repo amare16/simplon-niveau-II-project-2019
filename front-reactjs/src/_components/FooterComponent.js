@@ -6,7 +6,13 @@ class FooterComponent extends React.Component {
   }
 
   render() {
-    return <div className="footer"><div className="copyright"><p>©2019 - Agro Interest</p></div></div>;
+    return (
+      <div className="footer">
+        <div className="copyright">
+          <p className="p-copyright">©2019 - Agro Interest</p>
+        </div>
+      </div>
+    );
   }
 }
 

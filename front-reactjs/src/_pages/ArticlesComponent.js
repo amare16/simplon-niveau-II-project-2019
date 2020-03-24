@@ -38,7 +38,7 @@ class ArticlesComponent extends React.Component {
       });
   }
   deleteArticle(e, id) {
-   
+
     console.log("id article:", id);
 
     if (window.confirm("Are you sure to delete this article?")) {
@@ -98,7 +98,6 @@ class ArticlesComponent extends React.Component {
                   <tr>
                     <td>{item.title}</td>
                     <td>{moment(item.published_at).format('LLL')}</td>
-
                     <td>
                       <div className="item-actions">
                         <a href={"/show-article/" + item.id}  className="btn btn-sm btn-info">

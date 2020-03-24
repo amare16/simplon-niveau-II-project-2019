@@ -59,6 +59,21 @@ class BorrowMateralController extends AbstractFOSRestController
     }
 
     /**
+     * @Rest\Get("/single-borrowed-material/{borrowedMaterialId<\d+>}")
+     * @Rest\View(serializerGroups={"group_borrow_material"})
+     */
+    public function getSingleBorrowedMaterial($borrowedMaterialId): View
+    {
+        $single_borrowed_material = $this->borrowMaterialService->getSingleComment($borrowedMaterialId);
+        if ($single_borrowed_material) {
+            return View::create($single_borrowed_material, Response::HTTP_OK);
+        } else {
+            return View::create(["There is no borrowed material with this id"],
+                Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
      * @Rest\Post("/add-borrow-material")
      * @Rest\View(serializerGroups={"group_borrow_material"})
      */
@@ -87,8 +102,7 @@ class BorrowMateralController extends AbstractFOSRestController
         $materialBorrowerLender->setIdLender($material_lender);
         $materialBorrowerLender->setStartDate(\DateTime::createFromFormat('Y-m-d', $startDate));
         $materialBorrowerLender->setEndDate(\DateTime::createFromFormat('Y-m-d', $endDate));
-        $materialBorrowerLender->setMaterail($material_id);
-        dd($materialBorrowerLender);
+        $materialBorrowerLender->setMaterial($material_id);
 
         if(in_array('ROLE_USER', $user->getRoles())) {
             $entityManager->persist($materialBorrowerLender);

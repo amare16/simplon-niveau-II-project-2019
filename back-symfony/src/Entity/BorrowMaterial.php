@@ -48,7 +48,7 @@ class BorrowMaterial
      * @ORM\JoinColumn(nullable=false)
      * @Groups("group_borrow_material")
      */
-    private $materail;
+    private $material;
 
     public function getId(): ?int
     {
@@ -103,14 +103,14 @@ class BorrowMaterial
         return $this;
     }
 
-    public function getMaterail(): ?Material
+    public function getMaterial(): ?Material
     {
-        return $this->materail;
+        return $this->material;
     }
 
-    public function setMaterail(Material $materail): self
+    public function setMaterial(Material $material): self
     {
-        $this->materail = $materail;
+        $this->material = $material;
 
         return $this;
     }

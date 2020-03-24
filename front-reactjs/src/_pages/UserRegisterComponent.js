@@ -262,9 +262,9 @@ class UserRegisterComponent extends React.Component {
             </div>
             <div className="form-group input-group">
               <div className="input-group-prepend">
-                <span className="input-group-text">
+                {/* <span className="input-group-text">
                   <i class="fas fa-city"></i>
-                </span>
+                </span> */}
               </div>
               <PlacesAutocomplete
                 value={this.state.city}

@@ -7,8 +7,8 @@ class NavbarComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+      <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-dark fixed-top" style={{backgroundColor: "#008755"}}>
           <button
             className="navbar-toggler"
             type="button"
@@ -41,7 +41,7 @@ class NavbarComponent extends React.Component {
               
             </ul>
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a className="nav-link" href="login">
                   Log In
                 </a>
@@ -50,7 +50,7 @@ class NavbarComponent extends React.Component {
                 <a className="nav-link" href="register">
                   Register
                 </a>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <a className="nav-link" href="contact">
                   Contact

@@ -36,6 +36,19 @@ class BorrowMaterialRepository extends ServiceEntityRepository
     }
     */
 
+    public function findByCreatedAtField($start_date, $end_date)
+    {
+        return $this->createQueryBuilder('bm')
+            ->andWhere('bm.start_date >= :startDate')
+            ->andWhere('bm.end_date <= :endDate')
+            ->setParameter('startDate', $start_date)
+            ->setParameter('endDate', $end_date)
+            ->orderBy('bm.start_date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?BorrowMaterial
     {

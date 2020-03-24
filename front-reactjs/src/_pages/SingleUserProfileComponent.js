@@ -29,7 +29,7 @@ class SingleUserProfileComponent extends React.Component {
     })
       .then(res => res.json())
       .then(resJson => {
-        console.log("res json:", resJson.user.id);
+        console.log("res json:", resJson);
         this.setState(
           {
             id: resJson.id,
@@ -47,7 +47,7 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   render() {
-    console.log("user.id: ", this.state.user.id)
+    
     return (
       <div className="container" style={{marginBottom: "50px"}}>
         <div

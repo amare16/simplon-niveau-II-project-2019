@@ -1,4 +1,9 @@
-/* search bar - user type */
+/* search bar - borrow materials */
+
+.borrow-materials-list {
+    margin-bottom: 100px;
+}
+
 .d-flex {
     margin-bottom: 35px;
 }

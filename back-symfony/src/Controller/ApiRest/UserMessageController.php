@@ -110,7 +110,7 @@ class UserMessageController extends AbstractFOSRestController
         $userMessage->setIdMessageSender($message_sender);
         $userMessage->setIdMessageReceiver($message_receiver);
         $userMessage->setMessage($message);
-        $userMessage->setSendAt(\DateTime::createFromFormat("Y-m-d H:i",$sendTime));
+        $userMessage->setSendAt(\DateTime::createFromFormat("Y-m-d",$sendTime));
         //$userMessage->setUser($user);
 
 
@@ -165,12 +165,17 @@ class UserMessageController extends AbstractFOSRestController
      * @Rest\Post("/test-send-message")
      * @Rest\View(serializerGroups={"group_user_message"})
      */
-    public function testSendMessage(Request $request, MailerInterface $mailer)
+    public function testSendMessage(Request $request,
+                                    MailerInterface $mailer,
+                                    UserRepository $userRepository,
+                                    $from, $to, $subject, $message)
     {
-                $testEmail = (new Email())
-            ->from('send@gmail.com')
-            ->to('receive@gmail.com')
-            ->text("Hello");
+
+        $testEmail = (new Email($subject))
+            ->setFrom($from)
+            ->setTo($to)
+            ->setBody($message);
+        dd($testEmail);
 
             $mailer->send($testEmail);
         return new Response(

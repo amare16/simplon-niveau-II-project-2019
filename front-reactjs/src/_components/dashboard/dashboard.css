@@ -1,0 +1,29 @@
+.add-article-icon {
+    margin-bottom: 30px;
+  }
+
+.search-partner-icon, .list-article-icon, .list-experience-icon, .list-material-icon, b {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.container-dashboard {
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+a:hover .icon-hover {
+    display: none;
+}
+a:hover img {
+    display: none;
+}
+a:hover b {
+    display: block;
+}
+
+b {
+    display: none;
+}

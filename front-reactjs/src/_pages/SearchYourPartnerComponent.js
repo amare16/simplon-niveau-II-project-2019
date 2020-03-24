@@ -35,7 +35,7 @@ class SearchYourPartnerComponent extends React.Component {
         this.setState({
           data: response
         });
-        console.log("what is the value of : ", response);
+        console.log("value of response : ", response);
       })
       .catch(error => {
         console.error(error);
@@ -58,6 +58,7 @@ class SearchYourPartnerComponent extends React.Component {
     // let totalPages = Math.ceil(this.state.totalItems / this.state.numItemsPerPage);
     // console.log("total pages: ", totalPages);
     const { data, value } = this.state;
+  
     return (
       
       <div className="container-fluid user-type-list table-responsive">
@@ -108,10 +109,15 @@ class SearchYourPartnerComponent extends React.Component {
                       {result.user_type.map((res, i) => (
                         <td key={i}>{res.name}</td>
                       ))}
+                      {/* {
+                        Object.keys(result.userProfile).map((obj, i) => {
+                          return (<p>{result.userProfile[obj]}</p>)
+                        })
+                      } */}
                       
                       <td>
-                        <a href={"/single-user-profile"}  className="btn btn-sm btn-info">
-                          <i className="fa fa-eye" aria-hidden="true"></i> See Profile
+                        <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
+                          <i className="fa fa-eye" aria-hidden="true"></i> Profile
                         </a>
                       </td>
                     </tr>

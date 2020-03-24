@@ -23,4 +23,9 @@ class BorrowMaterialService
     {
         return $this->borrowMaterialRepository->findAll();
     }
+
+    public function getSingleBorrowedMaterial(int $borrowedMaterialId)
+    {
+        return $this->borrowMaterialRepository->find($borrowedMaterialId);
+    }
 }
