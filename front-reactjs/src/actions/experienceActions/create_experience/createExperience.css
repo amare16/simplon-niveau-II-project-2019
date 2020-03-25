@@ -1,0 +1,12 @@
+.create-experience-container {
+    margin-bottom: 50px;
+    background: linear-gradient(to left, #146b2a, #2fcc90ee)
+}
+
+.create-experience-h1, .create-experience-h3 {
+    color: white;
+}
+
+/* body {
+    background-image: url("https://images.unsplash.com/photo-1563008887-170b34916b21?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80");
+} */

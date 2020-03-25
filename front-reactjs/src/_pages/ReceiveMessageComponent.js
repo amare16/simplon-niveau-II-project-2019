@@ -54,7 +54,7 @@ class ReceiveMessageComponent extends React.Component {
       <div>
         <UserLogoutComponent />
 
-        <div className="row">
+        <div className="row" style={{marginBottom: "75px"}}>
           <div className="col-md-3"></div>
           <div className="col-md-6">
             <form onSubmit={this.handleSubmit.bind(this)}>
@@ -78,7 +78,8 @@ class ReceiveMessageComponent extends React.Component {
               </div>
               <button type="submit" class="btn btn-info">
                 Send Your Message
-              </button>
+              </button>&nbsp;&nbsp;
+              <button className="btn btn-secondary receive-message-back" onClick={() => this.props.history.goBack()}>Back</button>
             </form>
           </div>
           <div className="col-md-3"></div>

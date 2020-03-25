@@ -7,9 +7,7 @@ class CreateArticleComponent extends React.Component {
     this.state = {
         title: "",
         content: "",
-        published_at: ""
-
-        
+        published_at: ""  
     }
   
 
@@ -114,7 +112,7 @@ class CreateArticleComponent extends React.Component {
                 <button type="submit" className="btn btn-primary pull-left create-article-create">
                   Create
                 </button>&nbsp;&nbsp;&nbsp;
-                <button className="btn btn-danger pull-left create-article-cancel">Cancel</button>
+                <button className="btn btn-secondary pull-left create-article-back">Back</button>
               </div>
             </form>
           </div>

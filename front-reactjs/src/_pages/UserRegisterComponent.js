@@ -407,9 +407,9 @@ class UserRegisterComponent extends React.Component {
             </div>
             <div className="form-group input-group">
               <div className="input-group-prepend">
-                <span className="input-group-text">
+                {/* <span className="input-group-text">
                   <i className="fa fa-mail-bulk"></i>
-                </span>
+                </span> */}
               </div>
               <input
                 type="text"

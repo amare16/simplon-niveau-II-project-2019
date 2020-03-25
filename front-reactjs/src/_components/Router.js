@@ -30,10 +30,12 @@ import { CreateMaterialComponent } from "../actions/materialActions/create_mater
 import { CreateBorrowMaterialComponent } from "../actions/borrowMaterialActions/create_borrow_material/CreateBorrowMaterialComponent";
 import { EditMaterialComponent } from "../actions/materialActions/edit_material/EditMaterialComponent";
 import { EditBorrowMaterialComponent } from "../actions/borrowMaterialActions/edit_borrow_material/EditBorrowMaterialComponent";
-
+import { EditExperienceComponent } from "../actions/experienceActions/edit_experience/EditExperienceComponent";
+import { CreateExperienceComponent } from "../actions/experienceActions/create_experience/CreateExperienceComponent";
 
 import "../App/App.css";
 import '../styles/style.css';
+
 
 
 const ProtectedRoute = ({component:Component, ...rest}) => {
@@ -74,6 +76,8 @@ const Router = () => {
           <ProtectedRoute path="/edit-material" component={EditMaterialComponent} />
           <ProtectedRoute path="/edit-borrow-material" component={EditBorrowMaterialComponent} />
           <ProtectedRoute path="/experiences" component={ExperiencesComponent} />
+          <ProtectedRoute path="/edit-experience/:experienceId" component={EditExperienceComponent} />
+          <ProtectedRoute path="/add-experience" component={CreateExperienceComponent} />
           
         </Switch>
       </BrowserRouter>

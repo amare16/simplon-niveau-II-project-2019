@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { UserLogoutComponent } from "../UserLogoutComponent";
 import { NavbarComponent } from '../../_components/NavbarComponent';
 import moment from 'moment';
-import Modal from "../../_components/modal/Modal";
 
 class ExperiencesComponent extends React.Component {
     constructor(props) {
@@ -16,10 +15,7 @@ class ExperiencesComponent extends React.Component {
                     published_at: "",
                     user: {
                         firstName: ""
-                    },
-                    isOpen: false,
-                    loading: false,
-                    success: false
+                    }
                 }
             ]
         }
@@ -43,13 +39,27 @@ class ExperiencesComponent extends React.Component {
         })
     }
 
-    toggleModal = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
+    deleteExperience(e, id) {
+      if(window.confirm("Are you sure to delete this experience?")) {
+        console.log("id experience:", id);
+        let token = localStorage.getItem("token");
+        fetch(`http://localhost:8000/api/delete-experience/` + id, {
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+             Authorization: `Bearer ` + token
+          }
         })
-        console.log("state is open: ", !this.state.isOpen)
+        .then(res => {
+          console.log("result: ", res)
+          this.setState({res})
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
     }
-
     
 
     render() {
@@ -105,18 +115,14 @@ class ExperiencesComponent extends React.Component {
                         </a>
                         &nbsp;&nbsp;
                         <a
-                          
-                          onClick={this.toggleModal.bind(this)}
                           className="btn btn-sm btn-danger"
                           style={{cursor: "pointer"}}
+                          onClick={(e) => this.deleteExperience(e, item.id)}
                         >
                           <i className="fa fa-delete" aria-hidden="true"></i>{" "}
                           Delete
                         </a>
-                        <Modal show={this.state.isOpen}>
-
-                        </Modal>
-                        
+                                                
                       </div>
                     </td>
                   </tr>
