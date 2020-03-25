@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d990d50a-5d5b-4f90-9a25-3c14c2862ea4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/back-symfony/Procfile" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/config/env.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/config/jest/cssTransform.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/config/jest/fileTransform.js" afterDir="false" />
@@ -13,15 +14,6 @@
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/build.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/start.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/.env" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ExperienceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ExperienceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/Material.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/Material.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Repository/BorrowMaterialRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Repository/BorrowMaterialRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Service/BorrowMaterialService.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Service/BorrowMaterialService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/public/index.html" afterDir="false" />
@@ -98,8 +90,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back-symfony/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1333">
-              <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+            <state relative-caret-position="527">
+              <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -289,9 +281,9 @@
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Entity/Material.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialController.php" />
-        <option value="$PROJECT_DIR$/back-symfony/.env" />
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ExperienceController.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php" />
+        <option value="$PROJECT_DIR$/back-symfony/.env" />
       </list>
     </option>
   </component>
@@ -562,12 +554,12 @@
       <workItem from="1584825369601" duration="4245000" />
       <workItem from="1584841504966" duration="10246000" />
       <workItem from="1585003281366" duration="1665000" />
-      <workItem from="1585133759381" duration="2564000" />
+      <workItem from="1585133759381" duration="3238000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="478795000" />
+    <option name="totallyTimeSpent" value="479469000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -981,8 +973,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/.env">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1333">
-          <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+        <state relative-caret-position="527">
+          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="43" />
         </state>
       </provider>
     </entry>
