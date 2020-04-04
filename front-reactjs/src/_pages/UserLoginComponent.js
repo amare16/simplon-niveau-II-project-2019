@@ -69,6 +69,7 @@ class UserLoginComponent extends React.Component {
           
           if (res.status === 200) {
             res.json().then(data => {
+              
               let user = {
                 token: data.token,
                 username: userData.username

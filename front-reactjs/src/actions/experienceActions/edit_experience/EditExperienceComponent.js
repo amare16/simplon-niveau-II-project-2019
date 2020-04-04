@@ -84,7 +84,7 @@ class EditExperienceComponent extends React.Component {
     }
 
     render() {
-        console.log("publish: ", moment(this.state.published_at).format("YYYY/MM/DD"))
+        console.log("publish: ", moment(this.state.published_at).format("YYYY-MM-DD"))
         return(
             <div className="container edit-experience-container">
         <div className="row">
@@ -126,7 +126,7 @@ class EditExperienceComponent extends React.Component {
                   type="date"
                   className="form-control"
                   name="published_at"
-                  value={this.state.published_at}
+                  value={moment(this.state.published_at).format("YY-MM-DD")}
                   onChange={this.handleInputChange}
                 />
               </div>

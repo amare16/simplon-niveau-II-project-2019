@@ -108,7 +108,7 @@ class DashboardComponent extends React.Component {
             </div>
             <div className="col-md-2 col-xs-12"></div>
             <div className="col-md-3 col-xs-12">
-              <a href="http://localhost:3000/materials-list">
+              <a href="http://localhost:3000/borrow-lend-materials">
                 <img
                   class="irc_mi list-material-icon"
                   src="https://i.pinimg.com/originals/96/b1/1b/96b11b78f3879b9375e865e940c74dc8.jpg"

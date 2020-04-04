@@ -97,20 +97,22 @@ class UserMessageController extends AbstractFOSRestController
                                     EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
         $user = $this->getUser();
+        //dd($this->getUser()->getEmail());
         $data = json_decode($request->getContent(), true);
         $messageSender = $data['id_message_sender'];
         $messageReceiver = $data['id_message_receiver'];
         $message = $data['message'];
-        $sendTime = $data['send_at'];
+        //$sendTime = $data['send_at'];
 
-        $message_sender = $userRepository->findOneBy(['id' => $messageSender]);
-        //dd($message_sender);
-        $message_receiver = $userRepository->findOneBy(['id' => $messageReceiver]);
+        $message_sender = $userRepository->findOneBy(['id' => $messageSender, 'username' => $messageSender]);
+        $message_receiver = $userRepository->findOneBy(['id'=> $messageReceiver, 'username' => $messageReceiver]);
+
         $userMessage = new UserMessage();
         $userMessage->setIdMessageSender($message_sender);
         $userMessage->setIdMessageReceiver($message_receiver);
         $userMessage->setMessage($message);
-        $userMessage->setSendAt(\DateTime::createFromFormat("Y-m-d",$sendTime));
+        $userMessage->setSendAt(new \DateTime('now'));
+        //$userMessage->setSendAt(\DateTime::createFromFormat("Y-m-d",$sendTime));
         //$userMessage->setUser($user);
 
 
@@ -149,6 +151,7 @@ class UserMessageController extends AbstractFOSRestController
         $userMessage->setIdMessageReceiver($message_receiver);
         $userMessage->setMessage($message);
         $userMessage->setUser($user);
+        dd($userMessage);
 
 
         if(in_array('ROLE_USER', $user->getRoles())) {
@@ -162,26 +165,29 @@ class UserMessageController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Post("/test-send-message")
+     * @Rest\Get("/test-send-message")
      * @Rest\View(serializerGroups={"group_user_message"})
      */
     public function testSendMessage(Request $request,
                                     MailerInterface $mailer,
-                                    UserRepository $userRepository,
-                                    $from, $to, $subject, $message)
+                                    EntityManagerInterface $entityManager,
+                                    UserRepository $userRepository, UserMessageRepository $userMessageRepository
+                                    )
     {
-
-        $testEmail = (new Email($subject))
-            ->setFrom($from)
-            ->setTo($to)
-            ->setBody($message);
-        dd($testEmail);
-
-            $mailer->send($testEmail);
-        return new Response(
-            'Email was sent'
-        );
+        $task = "list";
+        if (array_key_exists("task", $_GET)) {
+            $task = $_GET['task'];
+        }
+        if ($task == 'write') {
+            $this->postSendMessage();
+        } else {
+            $all = $this->getAllMessages();
+            dd($all);
+        }
     }
+
+
+
 
 
 }

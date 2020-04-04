@@ -67,7 +67,7 @@ const Router = () => {
           <ProtectedRoute path="/add-article" component={CreateArticleComponent} />
           <ProtectedRoute path="/edit-article/:articleId" component={EditArticleComponent} />
           <ProtectedRoute path="/search-partner" component={SearchYourPartnerComponent} />
-          <ProtectedRoute path="/single-message-receive" component={ReceiveMessageComponent} />
+          <ProtectedRoute path="/single-message-send" component={ReceiveMessageComponent} />
           <ProtectedRoute path="/single-user-profile/:userProfileId" component={SingleUserProfileComponent} />   
           <ProtectedRoute path="/borrow-lend-materials" component={BorrowLendMaterialComponent} /> 
           <ProtectedRoute path="/single-material/:materialId" component={SingleMaterialComponent} />

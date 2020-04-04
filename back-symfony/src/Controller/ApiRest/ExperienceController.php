@@ -119,7 +119,7 @@ class ExperienceController extends AbstractFOSRestController
 
         $experience->setTitle($title);
         $experience->setContent($content);
-        $experience->setPublishedAt(\DateTime::createFromFormat("Y/m/d", $published_at));
+        $experience->setPublishedAt(\DateTime::createFromFormat("Y-m-d", $published_at));
         $experience->setUser($user);
 
         if(in_array('ROLE_USER', $user->getRoles(), true)) {

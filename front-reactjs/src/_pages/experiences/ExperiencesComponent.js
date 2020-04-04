@@ -54,6 +54,7 @@ class ExperiencesComponent extends React.Component {
         .then(res => {
           console.log("result: ", res)
           this.setState({res})
+          this.props.history.push("/experiences");
         })
         .catch(err => {
           console.error(err);

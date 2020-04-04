@@ -66,6 +66,9 @@ class SingleMaterialComponent extends React.Component {
                     }</p>
               </div>
             </div>
+            <div className="single_c_text text-md-left text-xs-center">
+                <a href={"/borrow-lend-materials"}><button className="btn btn-info">Back</button></a>
+              </div>
           </div>
           <div className="col col-md-10">
               <div className="row">

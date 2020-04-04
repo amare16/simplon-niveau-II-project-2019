@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 class EditArticleComponent extends React.Component {
   constructor(props) {
@@ -125,7 +126,7 @@ class EditArticleComponent extends React.Component {
                   type="date"
                   className="form-control"
                   name="published_at"
-                  value={this.state.published_at}
+                  value={moment(this.state.published_at).format("YY-MM-DD")}
                   onChange={this.handleInputChange}
                 />
               </div>

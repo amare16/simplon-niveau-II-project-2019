@@ -58,6 +58,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=45, unique=true)
      * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $username;
 
@@ -422,7 +423,7 @@ class User implements UserInterface
     public function addUserMessageSender(UserMessage $userMessageSender): self
     {
         if (!$this->userMessageSender->contains($userMessageSender)) {
-            $this->userMessageSender[] = $userMessage;
+            $this->userMessageSender[] = $userMessageSender;
             $userMessageSender->setIdMessageSender($this);
         }
 

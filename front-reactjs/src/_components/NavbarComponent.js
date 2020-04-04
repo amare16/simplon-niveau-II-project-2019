@@ -34,7 +34,7 @@ class NavbarComponent extends React.Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="experiences">
+                <a className="nav-link" href="/show-list-experiences">
                   Experiences
                 </a>
               </li>

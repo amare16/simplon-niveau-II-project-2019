@@ -7,16 +7,49 @@ class ReceiveMessageComponent extends React.Component {
     super(props);
 
     this.state = {
-      id_message_sender: {
-        id: ""
-      },
-      id_message_receiver: {
-        id: ""
-      },
-      message: "",
-      send_at: ""
+      items: [
+        {
+          id: "",
+          id_message_sender: 
+            {
+              id: "",
+              firstName: ""
+            }
+          ,
+          id_message_receiver:
+            {
+              id: "",
+              firstName: ""
+            }
+          ,
+          message: ""
+        }
+      ]
     };
+    
+
   }
+
+  componentDidMount() {
+    return fetch("http://localhost:8000/api/messages", {
+      method: "GET",
+      mode: "no-cors"
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("what is the value of : ", responseJson);
+        this.setState({
+          items: responseJson
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
+
+  
 
   handleMessageChange(msg) {
     this.setState({
@@ -42,44 +75,58 @@ class ReceiveMessageComponent extends React.Component {
       },
       body: JSON.stringify(this.state)
     })
-    .then(data => data.json())
-    .then(dataJson => {
-      console.log("json: ", dataJson)
-      this.setState({ dataJson })
-    })
+      .then(data => data.json())
+      .then(dataJson => {
+        console.log("json: ", dataJson);
+        this.setState({ dataJson });
+      });
   }
   render() {
-    console.log(moment(this.state.send_at).format('YYYY-MM-DD HH:mm'))
+   
+    let messageId = this.props.match.params.messageId;
+    console.log("id route: ", messageId)
     return (
       <div>
         <UserLogoutComponent />
+        {/* <div>
+          {this.state.items.map(item => {
+            console.log("oslslsls: ", item)
+          })}
+        </div> */}
+        
 
-        <div className="row" style={{marginBottom: "75px"}}>
+        <div className="row" style={{ marginBottom: "75px" }}>
           <div className="col-md-3"></div>
           <div className="col-md-6">
             <form onSubmit={this.handleSubmit.bind(this)}>
-              <div class="form-group">
+              <div className="form-group">
                 <h5>
-    <strong>...message to ...</strong>
+                  <strong>...message to ...</strong>
                 </h5>
-                <input
-                  class="form-control"
+                {/* <input
+                  className="form-control"
                   type="date"
                   value={moment(this.state.send_at).format("YYYY-MM-DD HH:mm")}
                   onChange={this.handleSendAtChange.bind(this)}
                   id="example-date-input"
-                />
-                <label for=" Email1msg">Your Message</label>
+                /> */}
+                <label htmlFor=" Email1msg">Your Message</label>
                 <textarea
-                  class="form-control"
+                  className="form-control"
                   value={this.state.message}
                   onChange={this.handleMessageChange.bind(this)}
                 ></textarea>
               </div>
-              <button type="submit" class="btn btn-info">
+              <button type="submit" className="btn btn-info">
                 Send Your Message
-              </button>&nbsp;&nbsp;
-              <button className="btn btn-secondary receive-message-back" onClick={() => this.props.history.goBack()}>Back</button>
+              </button>
+              &nbsp;&nbsp;
+              <button
+                className="btn btn-secondary receive-message-back"
+                onClick={() => this.props.history.goBack()}
+              >
+                Back
+              </button>
             </form>
           </div>
           <div className="col-md-3"></div>
