@@ -20,7 +20,7 @@ import { UserRegisterComponent } from "../_pages/UserRegisterComponent";
 import { UserLogoutComponent } from "../_pages/UserLogoutComponent";
 import { DashboardComponent } from "./dashboard/DashboardComponent";
 import { ReceiveMessageComponent } from "../_pages/ReceiveMessageComponent";
-import { SingleUserProfileComponent } from "../_pages/SingleUserProfileComponent";
+import { SingleUserProfileComponent } from "../_pages/single_user_profile/SingleUserProfileComponent";
 import { BorrowLendMaterialComponent } from "../_pages/borrow_lend_material/BorrowLendMaterialComponent";
 import { SingleMaterialComponent } from "../_pages/single_material/SingleMaterialComponent";
 

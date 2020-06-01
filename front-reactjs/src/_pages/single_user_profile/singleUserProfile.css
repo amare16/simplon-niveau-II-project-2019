@@ -1,0 +1,16 @@
+@keyframes altrclr{
+    0%{
+      color:red;
+    }
+    50%{
+      color:green;
+    }
+  }
+  
+  #pulsate-username{
+    font-size:20px;
+    font-weight: bold;
+    color:red;
+    -webkit-animation: altrclr 3s infinite alternate;  
+    -webkit-transform:scale(4);
+  }

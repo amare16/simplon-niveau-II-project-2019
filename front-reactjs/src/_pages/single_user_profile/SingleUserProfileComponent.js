@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { UserLogoutComponent } from "../UserLogoutComponent";
+import "./singleUserProfile.css";
 
 class SingleUserProfileComponent extends React.Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class SingleUserProfileComponent extends React.Component {
         id: "",
         firstName: "",
         lastName: "",
-        username: ""
+        username: "",
       },
       id_message_sender: {
         username: "",
@@ -24,7 +26,7 @@ class SingleUserProfileComponent extends React.Component {
       message: "",
     };
 
-    console.log("type of sender: ", this.state.id_message_sender.username)
+    console.log("type of sender: ", this.state.id_message_sender.username);
   }
 
   componentDidMount() {
@@ -109,23 +111,23 @@ class SingleUserProfileComponent extends React.Component {
 
     let body = {
       id_message_sender: {
-        username: this.state.id_message_sender
+        username: this.state.id_message_sender,
       },
       id_message_receiver: {
-        username: this.state.id_message_receiver
+        username: this.state.id_message_receiver,
       },
-      message: this.state.message
+      message: this.state.message,
     };
 
     let token = localStorage.getItem("token");
-    
+
     fetch(`http://localhost:8000/api/send-message`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ` + token
+        Authorization: `Bearer ` + token,
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     })
       .then((data) => data.json())
       .then((dataJson) => {
@@ -135,20 +137,30 @@ class SingleUserProfileComponent extends React.Component {
       .catch((error) => {
         console.error("The data is not inserted: ", error);
       });
-    console.log(
-      "body: ",body);
+    console.log("body: ", body);
   }
 
   render() {
     let usernameSender = localStorage.getItem("username");
     const sender = this.state.id_message_sender === usernameSender;
-    const receiver = this.state.id_message_receiver === this.state.user.username;
-    
-    let buttonActive = <button type="submit" className="btn btn-primary">Send Message</button>;
-    let buttonDisabled = <button type="submit" className="btn btn-primary" disabled={true}>Send Message</button>
-    
+    const receiver =
+      this.state.id_message_receiver === this.state.user.username;
+
+    let buttonActive = (
+      <button type="submit" className="btn btn-primary">
+        Send Message
+      </button>
+    );
+    let buttonDisabled = (
+      <button type="submit" className="btn btn-primary" disabled={true}>
+        Send Message
+      </button>
+    );
+
     return (
+      
       <div className="container" style={{ marginBottom: "50px" }}>
+        <UserLogoutComponent />
         <div
           className="head_title center m-y-3 wow fadeInUp"
           style={{ visibility: "visible", animationName: "fadeInUp" }}
@@ -175,6 +187,12 @@ class SingleUserProfileComponent extends React.Component {
                   {this.state.user.firstName}{" "}
                   {this.state.user.lastName.toUpperCase()}
                 </h3>
+                <span>
+                  My username:{" "}
+                  <strong id="pulsate-username">
+                    {this.state.user.username}
+                  </strong>
+                </span>
               </div>
               {/* <div className="row">
                 <div className="col-md-12" style={{ marginBottom: "45px"}}>
@@ -193,19 +211,31 @@ class SingleUserProfileComponent extends React.Component {
                 >
                   <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
-                      <label htmlFor=" Email1msg" style={{color: "white", fontWeight: 'bold'}}>From</label>
+                      <label
+                        htmlFor=" Email1msg"
+                        style={{ color: "white", fontWeight: "bold" }}
+                      >
+                        From
+                      </label>
                       <input
                         type="text"
                         className="form-control"
-                        style={{marginBottom: "10px"}}
+                        style={{ marginBottom: "10px" }}
+                        placeholder="Your username"
                         value={this.state.id_message_sender.username}
                         onChange={this.handleMessageSenderChange.bind(this)}
                       />
-                      <label htmlFor=" Email1msg" style={{color: "white", fontWeight: 'bold'}}>To</label>
+                      <label
+                        htmlFor=" Email1msg"
+                        style={{ color: "white", fontWeight: "bold" }}
+                      >
+                        To
+                      </label>
                       <input
                         type="text"
                         className="form-control"
-                        style={{marginBottom: "10px"}}
+                        style={{ marginBottom: "10px" }}
+                        placeholder="Receiver username"
                         value={this.state.id_message_receiver.username}
                         onChange={this.handleMessageReceiverChange.bind(this)}
                       />
@@ -217,7 +247,16 @@ class SingleUserProfileComponent extends React.Component {
                         <option value={username}>{username}</option>
                       </select> */}
                       &nbsp;&nbsp;
-                      <span style={{color: "white", fontWeight: 'bold', fontSize: '20px'}}>Message</span>&nbsp;&nbsp;
+                      <span
+                        style={{
+                          color: "white",
+                          fontWeight: "bold",
+                          fontSize: "20px",
+                        }}
+                      >
+                        Message
+                      </span>
+                      &nbsp;&nbsp;
                       {/* <select
                         className="form-control form-control-sm"
                         onChange={this.handleUsernameChange.bind(this)}
@@ -241,9 +280,7 @@ class SingleUserProfileComponent extends React.Component {
                         onChange={this.handleMessageChange.bind(this)}
                       ></textarea>
                     </div>
-                    {
-                      sender && receiver ? buttonActive : buttonDisabled
-                    }
+                    {sender && receiver ? buttonActive : buttonDisabled}
                     {/* <button type="submit" className="btn btn-primary">
                       Send Message
                     </button> */}

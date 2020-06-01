@@ -120,7 +120,11 @@ class SearchYourPartnerComponent extends React.Component {
                         console.log("tst: ", test.userProfile)
                       })}
                        */}
-                       {console.log("user profile: ", result.userProfile)}
+                       
+                       {
+                         
+                         console.log("result value: ", result)
+                       }
                       <td>
                         <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> Profile
