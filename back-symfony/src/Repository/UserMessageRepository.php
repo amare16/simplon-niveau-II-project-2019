@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\UserMessage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -55,11 +56,28 @@ class UserMessageRepository extends ServiceEntityRepository
     public function findByUser(User $user1, User $user2): array
     {
         return $this->createQueryBuilder('um')
-            ->andWhere('um.id_message_sender = :user1 AND um.$id_message_receiver = :user2')
-            ->orWhere('um.id_message_sender = :user2 AND um.$id_message_receiver = :user1')
+            ->andWhere('um.id_message_sender = :user1 AND um.id_message_receiver = :user2')
+            ->orWhere('um.id_message_sender = :user2 AND um.id_message_receiver = :user1')
             ->setParameter('user1', $user1)
             ->setParameter('user2', $user2)
             ->getQuery()
-            ->execute();
+            ->getResult();
+    }
+
+    /**
+     * @param User $user
+     * @return UserMessage[]
+     */
+
+    public function findRecentForUser(User $user): array
+    {
+        return $this->createQueryBuilder('msg')
+            ->orderBy('msg.send_at', 'DESC')
+            ->setMaxResults(10)
+            ->where('msg.user = :user')
+            ->orWhere('msg.user IS NULL')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 }

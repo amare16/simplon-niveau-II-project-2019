@@ -23,6 +23,7 @@ class ShowListOfArticlesComponent extends React.Component {
   }
 
   componentDidMount() {
+    console.log("href: ", this.href)
     return fetch("http://localhost:8000/api/articles", {
       method: "GET",
       mode: "cors"

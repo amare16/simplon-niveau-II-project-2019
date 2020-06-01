@@ -4,6 +4,7 @@
 namespace App\Controller\ApiRest;
 
 
+use App\Entity\User;
 use App\Entity\UserMessage;
 use App\Repository\UserMessageRepository;
 use App\Repository\UserRepository;
@@ -40,7 +41,8 @@ class UserMessageController extends AbstractFOSRestController
 
     public function __construct(UserMessageService $userMessageService,
                                 UserMessageRepository $userMessageRepository,
-                                UserRepository $userRepository, MailerInterface $mailer)
+                                UserRepository $userRepository, MailerInterface $mailer,
+                                EntityManagerInterface $entityManager)
     {
 
         $this->userMessageService = $userMessageService;
@@ -77,16 +79,20 @@ class UserMessageController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Get("/filter-message")
+     * @Rest\Get("/user-message")
      * @Rest\View(serializerGroups={"group_user_message"})
      */
-    public function getMessageByUser(Request $request)
+    public function getMessageByUser(Request $request, UserRepository $userRepository)
     {
 
-        $filter1 = $request->query->get('user1');
-        $filter2 = $request->query->get('user2');
-        $qb = $this->userMessageRepository->findByUser($filter1, $filter2);
-        return $qb;
+        $user1FromRepo = $userRepository->findByUsername($request->query->get('user1'));
+        //dd(gettype($user1FromRepo)); --> array
+        $user2FromRepo = $userRepository->findByUsername($request->query->get('user2'));
+        //dd($user2FromRepo);
+        //dd($this->userMessageRepository->findByUser($user1FromRepo));
+        $qb = $this->userMessageRepository->findByUser($user1FromRepo, $user2FromRepo);
+        dd($qb);
+
     }
 
     /**
@@ -94,18 +100,24 @@ class UserMessageController extends AbstractFOSRestController
      * @Rest\View(serializerGroups={"group_user_message"})
      */
     public function postSendMessage(Request $request,
-                                    EntityManagerInterface $entityManager, UserRepository $userRepository)
+                                    EntityManagerInterface $entityManager,
+                                    UserRepository $userRepository)
     {
         $user = $this->getUser();
-        //dd($this->getUser()->getEmail());
+        //dd($user);
+        //dd($this->getUser()->getCity());
         $data = json_decode($request->getContent(), true);
-        $messageSender = $data['id_message_sender'];
-        $messageReceiver = $data['id_message_receiver'];
+        //dd($data);
+        $messageSender = $data['id_message_sender']['username'];
+
+        $messageReceiver = $data['id_message_receiver']['username'];
         $message = $data['message'];
         //$sendTime = $data['send_at'];
 
-        $message_sender = $userRepository->findOneBy(['id' => $messageSender, 'username' => $messageSender]);
-        $message_receiver = $userRepository->findOneBy(['id'=> $messageReceiver, 'username' => $messageReceiver]);
+        $message_sender = $userRepository->findOneBy(['username' => $messageSender]);
+
+        $message_receiver = $userRepository->findOneBy(['username' => $messageReceiver]);
+
 
         $userMessage = new UserMessage();
         $userMessage->setIdMessageSender($message_sender);
@@ -184,6 +196,48 @@ class UserMessageController extends AbstractFOSRestController
             $all = $this->getAllMessages();
             dd($all);
         }
+    }
+
+    /**
+     * @Rest\Get("/nofify-message")
+     * @Rest\View(serializerGroups={"group_user_message"})
+     *
+     * @param UserMessageService $userMessageService
+     * @return View
+     */
+
+    public function notifyMessages(UserMessageService $userMessageService,
+                                   UserRepository $userRepository,
+                                   UserMessageRepository $userMessageRepository): View
+    {
+
+        $sender = $userRepository->find(89);
+        //dd($sender);
+
+        $receiver = $userRepository->find(90);
+        $message = $userMessageRepository->findOneBy(['message' => "blallalala!"]);
+        dd($message);
+
+        $notify = $userMessageService->notifyMessages($sender, $receiver, $message);
+
+        return View::create($notify, Response::HTTP_OK);
+    }
+
+    /**
+     * @Rest\Get("/notification", name="notification")
+     * @Rest\View(serializerGroups={"group_user_message"})
+     *
+     * @param UserMessageService $userMessageService
+     * @param User
+     * @return View
+     */
+
+    public function displayNotificationMessage(UserRepository $userRepository, UserMessageService $userMessageService): View
+    {
+
+        $notification = $userMessageService->forUser($this->getUser());
+        //dd($notification);
+        return View::create($notification, Response::HTTP_OK);
     }
 
 

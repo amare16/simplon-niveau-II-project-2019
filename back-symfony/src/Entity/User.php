@@ -59,6 +59,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=45, unique=true)
      * @Groups("group_user")
      * @Groups("group_user_profile")
+     * @Groups("group_user_message")
      */
     private $username;
 
@@ -68,6 +69,7 @@ class User implements UserInterface
      * @Groups("group_user_message")
      * @Groups("group_experience")
      * @Groups("group_borrow_material")
+     * @Groups("group_user_profile")
      */
     private $email;
 
@@ -118,6 +120,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="id_message_sender")
      * @Groups("group_user_profile")
+     *
      */
     private $userMessageSender;
 
@@ -127,10 +130,7 @@ class User implements UserInterface
      */
     private $userMessageReceiver;
 
-//    /**
-//     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user")
-//     */
-//    private $userMessages;
+
 
     /**
      * @ORM\Column(type="simple_array")
@@ -158,6 +158,11 @@ class User implements UserInterface
      */
     private $lendMaterials;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleLike", mappedBy="user")
+     */
+    private $articleLikes;
+
 
 
 //    /**
@@ -175,6 +180,7 @@ class User implements UserInterface
         $this->experiences = new ArrayCollection();
         $this->borrowMaterials = new ArrayCollection();
         $this->lendMaterials = new ArrayCollection();
+        $this->articleLikes = new ArrayCollection();
         //$this->userMessages = new ArrayCollection();
     }
 
@@ -584,36 +590,38 @@ class User implements UserInterface
         return $this;
     }
 
-//    /**
-//     * @return Collection|UserMessage[]
-//     */
-//    public function getUserMessages(): Collection
-//    {
-//        return $this->userMessages;
-//    }
-//
-//    public function addUserMessage(UserMessage $userMessage): self
-//    {
-//        if (!$this->userMessages->contains($userMessage)) {
-//            $this->userMessages[] = $userMessage;
-//            $userMessage->setUser($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeUserMessage(UserMessage $userMessage): self
-//    {
-//        if ($this->userMessages->contains($userMessage)) {
-//            $this->userMessages->removeElement($userMessage);
-//            // set the owning side to null (unless already changed)
-//            if ($userMessage->getUser() === $this) {
-//                $userMessage->setUser(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
+    /**
+     * @return Collection|ArticleLike[]
+     */
+    public function getArticleLikes(): Collection
+    {
+        return $this->articleLikes;
+    }
+
+    public function addArticleLike(ArticleLike $articleLike): self
+    {
+        if (!$this->articleLikes->contains($articleLike)) {
+            $this->articleLikes[] = $articleLike;
+            $articleLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleLike(ArticleLike $articleLike): self
+    {
+        if ($this->articleLikes->contains($articleLike)) {
+            $this->articleLikes->removeElement($articleLike);
+            // set the owning side to null (unless already changed)
+            if ($articleLike->getUser() === $this) {
+                $articleLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
    
 //    public function getAddresses(): ?Addresses

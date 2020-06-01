@@ -9,18 +9,37 @@ class LikeButtonArticles extends React.Component {
       likes: props.likes || 0,
       isLiked: props.isLiked || false
     };
+    this.handleClick = this.handleClick.bind(this);
+    
   }
 
-  handleClick() {
-    const isLiked = this.state.isLiked;
-    console.log("is liked: ", isLiked)
-    const likes = this.state.likes + (isLiked ? -1 : 1);
+  handleClick(id) {
+    // event.preventDefault();
+    let token = localStorage.getItem("token");    
+    console.log("id: ", id);
 
-    // this set state is the same as the below one
-    // this.setState({
-    //     likes: likes
-    // });
-    this.setState({likes, isLiked: !isLiked})
+    fetch(`http://localhost:8000/api/single-article-like/` + id + '/like', {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + token
+      }
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      console.log("responseJson", responseJson);
+     
+    })
+    // const isLiked = this.state.isLiked;
+    // console.log("is liked: ", isLiked)
+    // const likes = this.state.likes + (isLiked ? -1 : 1);
+
+    // // this set state is the same as the below one
+    // // this.setState({
+    // //     likes: likes, isLiked: !isLiked
+    // // });
+    // this.setState({likes, isLiked: !isLiked})
   }
 
   render() {

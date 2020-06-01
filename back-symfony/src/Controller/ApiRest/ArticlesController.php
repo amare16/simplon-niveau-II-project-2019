@@ -6,6 +6,8 @@ namespace App\Controller\ApiRest;
 
 use App\Entity\Article;
 use App\Entity\CommentArticle;
+use App\Entity\ArticleLike;
+use App\Repository\ArticleLikeRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
@@ -51,13 +53,19 @@ class ArticlesController extends AbstractFOSRestController
      * @var JWTEncoderInterface
      */
     private $JWTEncoder;
+    /**
+     * @var ArticleLikeRepository
+     */
+    private $articleLikeRepository;
 
 
     public function __construct(ArticlesService $articlesService,
                                 ArticleRepository $articleRepository,
                                 EntityManagerInterface $entityManager,
                                 UserRepository $userRepository,
-                                LoggerInterface $logger, JWTEncoderInterface $JWTEncoder)
+                                LoggerInterface $logger,
+                                JWTEncoderInterface $JWTEncoder,
+                                ArticleLikeRepository $articleLikeRepository)
     {
         $this->articlesService = $articlesService;
         $this->articleRepository = $articleRepository;
@@ -65,6 +73,7 @@ class ArticlesController extends AbstractFOSRestController
         $this->logger = $logger;
         $this->userRepository = $userRepository;
         $this->JWTEncoder = $JWTEncoder;
+        $this->articleLikeRepository = $articleLikeRepository;
     }
 
     /**
@@ -205,6 +214,55 @@ class ArticlesController extends AbstractFOSRestController
 
     }
 
+    /**
+     * @Rest\Get("/single-article-like/{id<\d+>}/like", name="article_like");
+     *
+     * @param Article $article
+     * @param EntityManagerInterface $entityManager
+     * @param ArticleLikeRepository $articleLikeRepository
+     * @return View
+     */
+    public function like(Article $article,
+                         EntityManagerInterface $entityManager,
+                         ArticleLikeRepository $articleLikeRepository): View
+    {
+        $user = $this->getUser();
 
+        if (!$user) {
+            return View::create([
+                'code' => 403,
+                'message' => 'Unauthorized!'
+            ], 403);
+        }
+
+        if ($article->isLikedByUser($user)) {
+            $like = $this->articleLikeRepository->findOneBy([
+                'article' => $article,
+                'user' => $user
+            ]);
+
+            $entityManager->remove($like);
+            $entityManager->flush();
+
+            return View::create([
+                'code' => 200,
+                'message' => 'Like well deleted',
+                'likes' => $articleLikeRepository->count(['article' => $article])
+            ], 200);
+        }
+
+        $like = new ArticleLike();
+        $like->setArticle($article)
+            ->setUser($user);
+
+        $entityManager->persist($like);
+        $entityManager->flush();
+
+        return View::create([
+            'code' => 200,
+            'message' => 'Like well added',
+            'likes' => $articleLikeRepository->count(['article' => $article])
+        ], 200);
+    }
 
 }

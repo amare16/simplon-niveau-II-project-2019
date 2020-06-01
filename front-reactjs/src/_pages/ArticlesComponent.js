@@ -70,7 +70,7 @@ class ArticlesComponent extends React.Component {
         <UserLogoutComponent />
         <NavbarComponent />
         <div className="container table-responsive" style={{ marginBottom: "60px"}}>
-          <h1>Lists of Articles</h1>
+          <h1>List of Articles</h1>
           
           <a href="/add-article">
             <i

@@ -12,32 +12,54 @@ class SingleUserProfileComponent extends React.Component {
       user: {
         id: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
+        username: ""
       },
       id_message_sender: {
-        id: "",
-        username: ""
+        username: "",
       },
       id_message_receiver: {
-        id: "",
-        username: ""
+        username: "",
       },
       message: "",
-      value: ""
     };
+
+    console.log("type of sender: ", this.state.id_message_sender.username)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getSingleUserProfile();
+    //this.getMessageHere();
   }
+
+  // getMessageHere() {
+  //   fetch(`http://localhost:8000/api/notification`, {
+  //     method: "GET",
+  //     mode: "cors"
+  //   })
+  //   .then(res => res.json())
+  //   .then(result => {
+  //     console.log("result of result: ", result)
+  //     this.setState({
+  //       id_message_sender: {
+  //         id: result.id,
+  //         username: result.username
+  //       }
+  //     },
+  //     () => {
+  //       console.log("this state: ", this.state.id_message_sender.username);
+  //     });
+  //   })
+
+  // }
   getSingleUserProfile() {
     let userProfileId = this.props.match.params.userProfileId;
     fetch(`http://localhost:8000/api/single-user-profile/` + userProfileId, {
       method: "GET",
-      mode: "cors"
+      mode: "cors",
     })
-      .then(res => res.json())
-      .then(resJson => {
+      .then((res) => res.json())
+      .then((resJson) => {
         console.log("res json:", resJson);
         this.setState(
           {
@@ -45,54 +67,86 @@ class SingleUserProfileComponent extends React.Component {
             content_about: resJson.content_about,
             content_aspiration: resJson.content_aspiration,
             hobby: resJson.hobby,
-            user: resJson.user
+            user: resJson.user,
           },
           () => {
             console.log(this.state);
           }
         );
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
+  }
+  handleMessageSenderChange(sender_username) {
+    this.setState({
+      id_message_sender: sender_username.target.value,
+    });
+    console.log("sender test", sender_username.target.value);
+  }
+
+  handleMessageReceiverChange(receiver_username) {
+    this.setState({
+      id_message_receiver: receiver_username.target.value,
+    });
+    console.log("receive test", receiver_username.target.value);
   }
 
   handleMessageChange(msg) {
     this.setState({
-      message: msg.target.value
+      message: msg.target.value,
     });
-    console.log(msg.target.value);
+    console.log("message test: ", msg.target.value);
   }
 
   handleUsernameChange(event) {
     console.log("event username: ", event.target.value);
     this.setState({
-      value: event.target.value
+      value: event.target.value,
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    let token = localStorage.getItem("token");
+    let body = {
+      id_message_sender: {
+        username: this.state.id_message_sender
+      },
+      id_message_receiver: {
+        username: this.state.id_message_receiver
+      },
+      message: this.state.message
+    };
 
+    let token = localStorage.getItem("token");
+    
     fetch(`http://localhost:8000/api/send-message`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ` + token
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify(body)
     })
-      .then(data => data.json())
-      .then(dataJson => {
+      .then((data) => data.json())
+      .then((dataJson) => {
         console.log("json: ", dataJson);
         this.setState({ dataJson });
+      })
+      .catch((error) => {
+        console.error("The data is not inserted: ", error);
       });
+    console.log(
+      "body: ",body);
   }
 
   render() {
-    let username = localStorage.getItem("username");
-    console.log("username test: ", username);
-
+    let usernameSender = localStorage.getItem("username");
+    const sender = this.state.id_message_sender === usernameSender;
+    const receiver = this.state.id_message_receiver === this.state.user.username;
+    
+    let buttonActive = <button type="submit" className="btn btn-primary">Send Message</button>;
+    let buttonDisabled = <button type="submit" className="btn btn-primary" disabled={true}>Send Message</button>
+    
     return (
       <div className="container" style={{ marginBottom: "50px" }}>
         <div
@@ -134,21 +188,37 @@ class SingleUserProfileComponent extends React.Component {
                   className="col-md-12"
                   style={{
                     marginBottom: "45px",
-                    background: "linear-gradient(to left, #43cea2, #185a9d)"
+                    background: "linear-gradient(to left, #43cea2, #185a9d)",
                   }}
                 >
                   <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
-                      <select
+                      <label htmlFor=" Email1msg" style={{color: "white", fontWeight: 'bold'}}>From</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        style={{marginBottom: "10px"}}
+                        value={this.state.id_message_sender.username}
+                        onChange={this.handleMessageSenderChange.bind(this)}
+                      />
+                      <label htmlFor=" Email1msg" style={{color: "white", fontWeight: 'bold'}}>To</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        style={{marginBottom: "10px"}}
+                        value={this.state.id_message_receiver.username}
+                        onChange={this.handleMessageReceiverChange.bind(this)}
+                      />
+                      {/* <select
                         className="form-control form-control-sm"
                         onChange={this.handleUsernameChange.bind(this)}
                         style={{ textTransform: "capitalize" }}
                       >
                         <option value={username}>{username}</option>
-                      </select>
+                      </select> */}
                       &nbsp;&nbsp;
-                      <span>message to</span>&nbsp;&nbsp;
-                      <select
+                      <span style={{color: "white", fontWeight: 'bold', fontSize: '20px'}}>Message</span>&nbsp;&nbsp;
+                      {/* <select
                         className="form-control form-control-sm"
                         onChange={this.handleUsernameChange.bind(this)}
                         style={{ textTransform: "capitalize" }}
@@ -156,7 +226,7 @@ class SingleUserProfileComponent extends React.Component {
                         <option value={this.state.user.username}>
                           {this.state.user.username}
                         </option>
-                      </select>
+                      </select> */}
                       {/* <input
                   className="form-control"
                   type="date"
@@ -171,17 +241,20 @@ class SingleUserProfileComponent extends React.Component {
                         onChange={this.handleMessageChange.bind(this)}
                       ></textarea>
                     </div>
-                    <button type="submit" className="btn btn-primary">
+                    {
+                      sender && receiver ? buttonActive : buttonDisabled
+                    }
+                    {/* <button type="submit" className="btn btn-primary">
                       Send Message
-                    </button>
+                    </button> */}
                   </form>
                 </div>
               </div>
-              <div className="single_c_text text-md-left text-xs-center">
+              {/* <div className="single_c_text text-md-left text-xs-center">
                 <a href={"/search-partner"}>
                   <button className="btn btn-info">Back</button>
                 </a>
-              </div>
+              </div> */}
             </div>
             <div className="col-md-6">
               <div className="row">

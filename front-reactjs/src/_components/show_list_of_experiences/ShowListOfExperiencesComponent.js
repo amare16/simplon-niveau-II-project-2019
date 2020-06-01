@@ -53,7 +53,7 @@ class ShowListOfExperiencesComponent extends React.Component
             <div className="container mt-5 mb-5">
               <div className="row">
                 <div class="col-md-2"></div>
-                <div class="col-md-8" style={{backgroundColor: "#ffe6e6"}}>
+                <div class="col-md-8" style={{backgroundColor: "rgb(195, 180, 221)"}}>
                   <ul class="timeline">
                     <li>
                       <a href={"/show-experience/" + item.id}>

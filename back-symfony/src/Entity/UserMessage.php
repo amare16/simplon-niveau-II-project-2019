@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -38,9 +40,19 @@ class UserMessage
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     *
+     * @Groups("group_user_message")
      */
     private $send_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserMessage", inversedBy="user")
+     */
+    private $user;
+
+//    public function __construct()
+//    {
+//        $this->user = new ArrayCollection();
+//    }
     
 
     public function getId(): ?int
@@ -95,6 +107,44 @@ class UserMessage
 
         return $this;
     }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+//    public function addUser(self $user): self
+//    {
+//        if (!$this->user->contains($user)) {
+//            $this->user[] = $user;
+//            $user->setUser($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeUser(self $user): self
+//    {
+//        if ($this->user->contains($user)) {
+//            $this->user->removeElement($user);
+//            // set the owning side to null (unless already changed)
+//            if ($user->getUser() === $this) {
+//                $user->setUser(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
 
 }

@@ -57,6 +57,7 @@ class SearchYourPartnerComponent extends React.Component {
     // console.log("current page no: ", this.state.currentPageNumber)
     // let totalPages = Math.ceil(this.state.totalItems / this.state.numItemsPerPage);
     // console.log("total pages: ", totalPages);
+    let connectedUsername = localStorage.getItem("username");
     const { data, value } = this.state;
   
     return (
@@ -100,7 +101,8 @@ class SearchYourPartnerComponent extends React.Component {
                 </thead>
                 <tbody>
                   {results.map(result => (
-                    <tr key={result.id}>
+                    connectedUsername != result.username ? (
+                      <tr key={result.id}>
                       <td>{result.firstName}</td>
                       <td>{result.lastName}</td>
                       <td>{result.city}</td>
@@ -114,13 +116,34 @@ class SearchYourPartnerComponent extends React.Component {
                           return (<p>{result.userProfile[obj]}</p>)
                         })
                       } */}
-                      
+                      {/* {this.state.data.map(test => {
+                        console.log("tst: ", test.userProfile)
+                      })}
+                       */}
+                       {console.log("user profile: ", result.userProfile)}
                       <td>
                         <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> Profile
                         </a>
                       </td>
                     </tr>
+                    ) : (
+                      <tr key={result.id} style={{display: 'none'}}>
+                      <td>{result.firstName}</td>
+                      <td>{result.lastName}</td>
+                      <td>{result.city}</td>
+                      {result.user_type.map((res, i) => (
+                        <td key={i}>{res.name}</td>
+                      ))}
+                                            
+                      <td>
+                        <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
+                          <i className="fa fa-eye" aria-hidden="true"></i> Profile
+                        </a>
+                      </td>
+                    </tr>
+                    )
+                    
                   ))}
                 </tbody>
               </table>

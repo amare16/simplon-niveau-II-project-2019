@@ -74,7 +74,7 @@ class ExperiencesComponent extends React.Component {
                 <NavbarComponent />
                 
                 <div className="container table-responsive" style={{ marginBottom: "60px"}}>
-          <h1>Lists of Experiences</h1>
+          <h1>List of Experiences</h1>
           
           <a href="/add-experience">
             <i
