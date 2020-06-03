@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { UserLogoutComponent } from "../UserLogoutComponent";
+import { ModalSingleUserProfile } from "./modal_single_user_profile/ModalSingleUserProfile";
 import "./singleUserProfile.css";
 
 class SingleUserProfileComponent extends React.Component {
@@ -24,6 +25,7 @@ class SingleUserProfileComponent extends React.Component {
         username: "",
       },
       message: "",
+      show: false,
     };
 
     console.log("type of sender: ", this.state.id_message_sender.username);
@@ -106,8 +108,16 @@ class SingleUserProfileComponent extends React.Component {
     });
   }
 
+  showModal = (e) => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
+
   handleSubmit(e) {
     e.preventDefault();
+    e.target.reset();
+    this.setState({ message: "" });
 
     let body = {
       id_message_sender: {
@@ -156,9 +166,40 @@ class SingleUserProfileComponent extends React.Component {
         Send Message
       </button>
     );
+    const usernameUser = usernameSender === this.state.user.username;
+    console.log("usernameUser: ", usernameUser);
+
+    let buttonMessages = (
+      <div className="row">
+        <div className="col-md-12">
+          <h3>Messages</h3>
+          <button
+            type="button"
+            id="centered-toggle-button"
+            class="btn btn-primary btn-sent toggle-button"
+            onClick={e => {
+              this.showModal(e);
+              console.log("modal modal modal")
+            }}
+          >
+            {" "}
+          Send Messages {" "}
+          </button>
+          
+          <button type="button" class="btn btn-success btn-receive">
+            Inbox
+          </button>
+          <ModalSingleUserProfile onClose={this.showModal} show={this.state.show}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis
+          deserunt corrupti, ut fugit magni qui quasi nisi amet repellendus non
+          fuga omnis a sed impedit explicabo accusantium nihil doloremque
+          consequuntur.
+        </ModalSingleUserProfile>
+        </div>
+      </div>
+    );
 
     return (
-      
       <div className="container" style={{ marginBottom: "50px" }}>
         <UserLogoutComponent />
         <div
@@ -277,13 +318,27 @@ class SingleUserProfileComponent extends React.Component {
                       <textarea
                         className="form-control"
                         value={this.state.message}
+                        placeholder="Enter Your message"
                         onChange={this.handleMessageChange.bind(this)}
                       ></textarea>
                     </div>
-                    {sender && receiver ? buttonActive : buttonDisabled}
+
                     {/* <button type="submit" className="btn btn-primary">
                       Send Message
                     </button> */}
+                    <div className="single_c_text text-md-left text-xs-center">
+                      {sender && receiver && !usernameUser
+                        ? buttonActive
+                        : buttonDisabled}
+                      &nbsp;&nbsp;
+                      <a href={"/search-partner"}>
+                        <input
+                          type="button"
+                          className="btn btn-warning"
+                          value="Back"
+                        />
+                      </a>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -320,6 +375,34 @@ class SingleUserProfileComponent extends React.Component {
                   </p>
                 </div>
               </div>
+              <div className="row row-empty">
+                <div className="col-md-12"></div>
+              </div>
+              <div className="row row-empty">
+                <div className="col-md-12"></div>
+              </div>
+              {usernameUser ? (
+                buttonMessages
+              ) : (
+                <div className="row" style={{ display: "none" }}>
+                  <div className="col-md-12">
+                    <h3>Messages</h3>
+                    <button type="button" class="btn btn-primary btn-sent">
+                      Sent Messages
+                    </button>
+                    <button type="button" class="btn btn-success btn-receive">
+                      Inbox
+                    </button>
+                  </div>
+                </div>
+              )}
+              {/* <div className="row">
+                <div className="col-md-12">
+                  <h3>Messages</h3>
+                  <button type="button" class="btn btn-primary btn-sent">Sent Messages</button>
+                  <button type="button" class="btn btn-success btn-receive">Inbox</button>
+                </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -14,3 +14,15 @@
     -webkit-animation: altrclr 3s infinite alternate;  
     -webkit-transform:scale(4);
   }
+
+  .single_c_text {
+    margin-bottom: 15px;
+  }
+
+  .row-empty {
+    height:10px;
+  }
+
+  .btn-sent {
+    margin-bottom: 20px;
+  }
