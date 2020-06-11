@@ -39,8 +39,13 @@
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ArticlesComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/ArticlesComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ExperiencesComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/SearchYourPartnerComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/SearchYourPartnerComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/SingleUserProfileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/SingleUserProfileComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/modal_single_user_profile/ModalSingleUserProfile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/modal_single_user_profile/modalSingleUserProfile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/singleUserProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/singleUserProfile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/footer.less" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/home.less" beforeDir="false" />
@@ -116,8 +121,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="244" selection-start-line="244" selection-end-line="244" />
+            <state relative-caret-position="159">
+              <caret line="229" column="52" lean-forward="true" selection-start-line="229" selection-start-column="52" selection-end-line="229" selection-end-column="52" />
               <folding>
                 <element signature="e#44#64#0#PHP" expanded="true" />
               </folding>
@@ -372,10 +377,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-13" />
-    <option name="y" value="-13" />
-    <option name="width" value="2424" />
-    <option name="height" value="1374" />
+    <option name="x" value="-15" />
+    <option name="y" value="-15" />
+    <option name="width" value="2425" />
+    <option name="height" value="1375" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -560,11 +565,13 @@
       <workItem from="1590497815258" duration="34770000" />
       <workItem from="1591015306563" duration="1865000" />
       <workItem from="1591104428993" duration="1300000" />
+      <workItem from="1591210277279" duration="564000" />
+      <workItem from="1591731005853" duration="659000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="685287000" />
+    <option name="totallyTimeSpent" value="686510000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -930,6 +937,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/config/bundles.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="67" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -948,13 +969,6 @@
             <element signature="e#31#79#0#PHP" expanded="true" />
             <marker date="1590783836771" expanded="false" signature="2758:2866" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/config/bundles.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="67" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="67" />
         </state>
       </provider>
     </entry>
@@ -985,17 +999,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="244" selection-start-line="244" selection-end-line="244" />
+        <state relative-caret-position="159">
+          <caret line="229" column="52" lean-forward="true" selection-start-line="229" selection-start-column="52" selection-end-line="229" selection-end-column="52" />
           <folding>
             <element signature="e#44#64#0#PHP" expanded="true" />
           </folding>

@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { UserLogoutComponent } from "../UserLogoutComponent";
-import { ModalSingleUserProfile } from "./modal_single_user_profile/ModalSingleUserProfile";
 import "./singleUserProfile.css";
 
 class SingleUserProfileComponent extends React.Component {
@@ -33,29 +32,38 @@ class SingleUserProfileComponent extends React.Component {
 
   componentDidMount() {
     this.getSingleUserProfile();
-    //this.getMessageHere();
+    this.getMessageHere();
   }
 
-  // getMessageHere() {
-  //   fetch(`http://localhost:8000/api/notification`, {
-  //     method: "GET",
-  //     mode: "cors"
-  //   })
-  //   .then(res => res.json())
-  //   .then(result => {
-  //     console.log("result of result: ", result)
-  //     this.setState({
-  //       id_message_sender: {
-  //         id: result.id,
-  //         username: result.username
-  //       }
-  //     },
-  //     () => {
-  //       console.log("this state: ", this.state.id_message_sender.username);
-  //     });
-  //   })
+  getMessageHere() {
+    fetch(`http://localhost:8000/api/messages`, {
+      method: "GET",
+      mode: "cors",
+    })
+      .then(res=> res.json())
+      .then(response => {
+        console.log("response result: ", response)
+          this.setState({
+            id_message_sender: {
+              username: response.username,
+            },
+            id_message_receiver: {
+              username: response.username,
+            },
 
-  // }
+            message: response.message
+          });
+      });
+  }
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
   getSingleUserProfile() {
     let userProfileId = this.props.match.params.userProfileId;
     fetch(`http://localhost:8000/api/single-user-profile/` + userProfileId, {
@@ -107,12 +115,6 @@ class SingleUserProfileComponent extends React.Component {
       value: event.target.value,
     });
   }
-
-  showModal = (e) => {
-    this.setState({
-      show: !this.state.show
-    });
-  };
 
   handleSubmit(e) {
     e.preventDefault();
@@ -175,26 +177,25 @@ class SingleUserProfileComponent extends React.Component {
           <h3>Messages</h3>
           <button
             type="button"
-            id="centered-toggle-button"
-            class="btn btn-primary btn-sent toggle-button"
-            onClick={e => {
-              this.showModal(e);
-              console.log("modal modal modal")
-            }}
+            class="btn btn-primary btn-send"
+            onClick={this.showModal}
           >
-            {" "}
-          Send Messages {" "}
+            Send Messages
           </button>
+          <a href={"/message-box"}>
+            <button type="button" class="btn btn-success btn-receive">
+              Inbox
+            </button>
+          </a>
           
-          <button type="button" class="btn btn-success btn-receive">
-            Inbox
-          </button>
-          <ModalSingleUserProfile onClose={this.showModal} show={this.state.show}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis
-          deserunt corrupti, ut fugit magni qui quasi nisi amet repellendus non
-          fuga omnis a sed impedit explicabo accusantium nihil doloremque
-          consequuntur.
-        </ModalSingleUserProfile>
+          <Modal show={this.state.show} handleClose={this.hideModal}>
+            <p style={{ textAlign: "justify" }}>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
+            </p>
+
+            {console.log("props value: ", this.props.history)}
+          </Modal>
         </div>
       </div>
     );
@@ -387,7 +388,7 @@ class SingleUserProfileComponent extends React.Component {
                 <div className="row" style={{ display: "none" }}>
                   <div className="col-md-12">
                     <h3>Messages</h3>
-                    <button type="button" class="btn btn-primary btn-sent">
+                    <button type="button" class="btn btn-primary btn-send">
                       Sent Messages
                     </button>
                     <button type="button" class="btn btn-success btn-receive">
@@ -405,6 +406,7 @@ class SingleUserProfileComponent extends React.Component {
               </div> */}
             </div>
           </div>
+          
         </div>
       </div>
     );
@@ -412,3 +414,28 @@ class SingleUserProfileComponent extends React.Component {
 }
 
 export { SingleUserProfileComponent };
+
+const Modal = ({ handleClose, show, children }) => {
+  const showHideClassName = show ? "modal display-block" : "modal display-none";
+
+  return (
+    <div className={showHideClassName}>
+      <div className="modal-main container" style={{ borderRadius: "5px" }}>
+        <div className="row">
+          <div className="col-md-2"></div>
+          <div className="col-md-8">
+            {children}
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={handleClose}
+            >
+              Close
+            </button>
+          </div>
+          <div className="col-md-2"></div>
+        </div>
+      </div>
+    </div>
+  );
+};

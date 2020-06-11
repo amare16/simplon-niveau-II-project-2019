@@ -23,6 +23,7 @@ import { ReceiveMessageComponent } from "../_pages/ReceiveMessageComponent";
 import { SingleUserProfileComponent } from "../_pages/single_user_profile/SingleUserProfileComponent";
 import { BorrowLendMaterialComponent } from "../_pages/borrow_lend_material/BorrowLendMaterialComponent";
 import { SingleMaterialComponent } from "../_pages/single_material/SingleMaterialComponent";
+import { MessageBoxComponent } from "../_pages/message_box/MessageBoxComponent";
 
 import { CreateArticleComponent } from "../actions/articleActions/CreateArticleComponent";
 import { EditArticleComponent } from "../actions/articleActions/EditArticleComponent";
@@ -78,6 +79,7 @@ const Router = () => {
           <ProtectedRoute path="/experiences" component={ExperiencesComponent} />
           <ProtectedRoute path="/edit-experience/:experienceId" component={EditExperienceComponent} />
           <ProtectedRoute path="/add-experience" component={CreateExperienceComponent} />
+          <ProtectedRoute path="/message-box" component={MessageBoxComponent} />
           
         </Switch>
       </BrowserRouter>
