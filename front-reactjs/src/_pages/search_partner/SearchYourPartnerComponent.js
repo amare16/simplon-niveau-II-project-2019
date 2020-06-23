@@ -58,13 +58,18 @@ class SearchYourPartnerComponent extends React.Component {
     // console.log("current page no: ", this.state.currentPageNumber)
     // let totalPages = Math.ceil(this.state.totalItems / this.state.numItemsPerPage);
     // console.log("total pages: ", totalPages);
-    let connectedUsername = localStorage.getItem("username");
+    let token = localStorage.getItem("token");
+    let usernameStored = localStorage.getItem("username");
+    let connectedUsername = token && usernameStored;
+    console.log("connected : ", connectedUsername)
     const { data, value } = this.state;
+    
   
     return (
       
       <div className="container-fluid user-type-list table-responsive">
-        <UserLogoutComponent />
+        {connectedUsername ? (<UserLogoutComponent />) : null}
+        
        
         <div className="d-flex justify-content-center">
        
@@ -112,7 +117,8 @@ class SearchYourPartnerComponent extends React.Component {
                 </thead>
                 <tbody>
                   {results.map((result, index) => (
-                    connectedUsername != result.username ? (
+                    console.log("test: ", connectedUsername),
+                    connectedUsername !== result.username ? (
                       <tr key={index.id}>
                       <td>{result.firstName}</td>
                       <td>{result.lastName}</td>

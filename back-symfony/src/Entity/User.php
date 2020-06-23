@@ -142,6 +142,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\UserProfile", mappedBy="user", cascade={"persist", "remove"})
      * @Groups("group_user")
+     * @Groups("group_borrow_material")
      */
     private $userProfile;
 

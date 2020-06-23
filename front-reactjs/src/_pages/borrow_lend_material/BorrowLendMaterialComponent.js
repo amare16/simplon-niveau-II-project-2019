@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./borrowLendMaterial.css";
+import { UserLogoutComponent } from '../UserLogoutComponent';
 import * as moment from "moment";
 import SearchResults from "react-filter-search";
 
@@ -40,8 +41,14 @@ class BorrowLendMaterialComponent extends React.Component {
   render() {
     const { data, value } = this.state;
     console.log("this data: ", this.state.data);
+
+    let token = localStorage.getItem("token");
+    let usernameStored = localStorage.getItem("username");
+    let connectedUsername = token && usernameStored;
+    console.log("connected : ", connectedUsername)
     return (
       <div className="container-fluid borrow-materials-list">
+        {connectedUsername ? (<UserLogoutComponent />) : null}
         <div className="d-flex justify-content-center">
           <div className="searchbar-borrow-lend">
             <input
@@ -86,8 +93,40 @@ class BorrowLendMaterialComponent extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {results.map(result => (
-                    <tr>
+                  {results.map((result, index) => (
+                    
+                    console.log("test conn: ", result.id_borrower.username),
+                    connectedUsername !== result.id_borrower.username ? (
+                    <tr key={index.id}>
+                      <td>
+                        {result.id_borrower.firstName}&nbsp;
+                        {result.id_borrower.lastName}
+                      </td>
+                      <td>{result.id_borrower.city}</td>
+                      <td>{result.material.name}</td>
+                      <td>{moment(result.start_date).format("L")}</td>
+                      <td>{moment(result.end_date).format("L")}</td>
+                      {console.log("user profile: ", result.id_borrower.userProfile.id)}
+                      <td>
+                        <a
+                          href={"/single-material/" + result.material.id}
+                          className="btn btn-sm btn-info"
+                        >
+                          <i className="fa fa-eye" aria-hidden="true"></i> Material
+                        </a>
+                      </td>
+                      {console.log("material id: ", result.material.id)}
+                      <td>
+                        <a
+                          href={"/message-material/" + result.id_borrower.userProfile.id}
+                          className="btn btn-sm btn-success"
+                        >
+                          <i className="fa fa-comments" aria-hidden="true"></i> Contact Me
+                        </a>
+                      </td>
+                      
+                    </tr>) : (
+                      <tr key={result.id} style={{display: 'none'}}>
                       <td>
                         {result.id_borrower.firstName}&nbsp;
                         {result.id_borrower.lastName}
@@ -104,8 +143,19 @@ class BorrowLendMaterialComponent extends React.Component {
                           <i className="fa fa-eye" aria-hidden="true"></i> Material
                         </a>
                       </td>
-                      {console.log("material id: ", result.material.id)}
+                      
+                      <td>
+                        <a
+                          href={"/message-material/" + result.id_borrower.userProfile.id}
+                          className="btn btn-sm btn-success"
+                        >
+                          <i className="fa fa-comments" aria-hidden="true"></i> Contact Me
+                        </a>
+                      </td>
+                      
                     </tr>
+                    )
+                    
                   ))}
                 </tbody>
               </table>

@@ -16,6 +16,7 @@ class UserProfile
      * @ORM\Column(type="integer")
      * @Groups("group_user_profile")
      * @Groups("group_user")
+     * @Groups("group_borrow_material")
      */
     private $id;
 
@@ -42,6 +43,7 @@ class UserProfile
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="userProfile", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("group_user_profile")
+     *
      */
     private $user;
 
