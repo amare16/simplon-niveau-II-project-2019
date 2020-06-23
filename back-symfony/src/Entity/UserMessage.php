@@ -17,6 +17,8 @@ class UserMessage
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("group_user_message")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $id;
 
@@ -35,17 +37,22 @@ class UserMessage
     /**
      * @ORM\Column(type="text")
      * @Groups("group_user_message")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $message;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups("group_user_message")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $send_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserMessage", inversedBy="user")
+     * @Groups("group_user_message")
      */
     private $user;
 

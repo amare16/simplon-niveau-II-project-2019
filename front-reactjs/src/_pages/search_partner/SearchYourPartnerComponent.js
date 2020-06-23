@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import SearchResults from "react-filter-search";
-import { UserLogoutComponent } from './UserLogoutComponent';
+import { UserLogoutComponent } from '../UserLogoutComponent';
+import "./searchPartner.css";
 //import Pagination from 'react-bootstrap/Pagination';
 class SearchYourPartnerComponent extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class SearchYourPartnerComponent extends React.Component {
   // }
 
   render() {
-    
+  
     // console.log("current page no: ", this.state.currentPageNumber)
     // let totalPages = Math.ceil(this.state.totalItems / this.state.numItemsPerPage);
     // console.log("total pages: ", totalPages);
@@ -82,14 +83,24 @@ class SearchYourPartnerComponent extends React.Component {
             <a className="search_icon">
               <i className="fa fa-search"></i>
             </a>
-          </div>
+          </div>        
         </div>
+        <div className="back-to-dashboard" style={{marginBottom: '10px'}}>
+          <a href={"/dashboard"}>
+                          <input
+                            type="button"
+                            className="btn btn-success"
+                            style={{marginTop: '30px'}}
+                            value="Back to Dashboard"
+                          />
+                        </a>
+          </div>
 
         <SearchResults
           value={value}
           data={data}
           renderResults={results => (
-            <div className="table-responsive-lg">
+            <div className="table-responsive-lg ">
               <table className="table table-striped table-hover mx-auto w-50">
                 <thead>
                   <tr>
@@ -100,9 +111,9 @@ class SearchYourPartnerComponent extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {results.map(result => (
+                  {results.map((result, index) => (
                     connectedUsername != result.username ? (
-                      <tr key={result.id}>
+                      <tr key={index.id}>
                       <td>{result.firstName}</td>
                       <td>{result.lastName}</td>
                       <td>{result.city}</td>
@@ -113,7 +124,7 @@ class SearchYourPartnerComponent extends React.Component {
                       ))}
                       
                       <td>
-                        <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
+                        <a href={"/single-user-profile/" + result.userProfile.id}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> Profile
                         </a>
                       </td>
@@ -128,7 +139,7 @@ class SearchYourPartnerComponent extends React.Component {
                       ))}
                                             
                       <td>
-                        <a href={"/single-user-profile/" + result.id}  className="btn btn-sm btn-info">
+                        <a href={"/single-user-profile/" + result.userProfile.id}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> Profile
                         </a>
                       </td>
@@ -148,9 +159,11 @@ class SearchYourPartnerComponent extends React.Component {
           onSelect={this.handleSelect.bind(this)}
         
         /> */}
-         <a href="/dashboard" style={{marginLeft: "375px"}}>
+         {/* <a href="/dashboard" style={{marginLeft: "375px"}}>
           <i className="fa fa-arrow-circle-o-left fa-3x" aria-hidden="true" style={{color: "green"}}></i>
-          </a>
+          </a> */}
+
+          
       </div>
       
     );

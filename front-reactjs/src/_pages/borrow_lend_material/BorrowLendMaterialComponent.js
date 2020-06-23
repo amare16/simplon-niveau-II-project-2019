@@ -26,7 +26,7 @@ class BorrowLendMaterialComponent extends React.Component {
         this.setState({
           data: response
         });
-        console.log("response result: ", response[0].id_borrower.firstName);
+        console.log("response result: ", response);
       })
       .catch(error => {
         console.error(error);
@@ -39,14 +39,14 @@ class BorrowLendMaterialComponent extends React.Component {
   };
   render() {
     const { data, value } = this.state;
-    console.log("this state: ", this.state);
+    console.log("this data: ", this.state.data);
     return (
       <div className="container-fluid borrow-materials-list">
         <div className="d-flex justify-content-center">
-          <div className="searchbar">
+          <div className="searchbar-borrow-lend">
             <input
-              className="search_input"
-              id="input-search-id"
+              className="search-input-borrow-lend"
+              id="input-search-borrow-lend"
               type="text"
               name=""
               placeholder="Search..."
@@ -55,11 +55,21 @@ class BorrowLendMaterialComponent extends React.Component {
               onChange={this.handleChange}
               value={value}
             />
-            <a className="search_icon">
+            <a className="search-icon-borrow-lend">
               <i className="fa fa-search"></i>
             </a>
           </div>
         </div>
+        <div className="back-to-dashboard" style={{marginBottom: '10px'}}>
+          <a href={"/dashboard"}>
+                          <input
+                            type="button"
+                            className="btn btn-success"
+                            style={{marginTop: '30px'}}
+                            value="Back to Dashboard"
+                          />
+                        </a>
+          </div>
         <SearchResults
           value={value}
           data={data}

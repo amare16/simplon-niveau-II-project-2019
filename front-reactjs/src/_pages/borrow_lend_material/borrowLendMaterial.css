@@ -7,7 +7,7 @@
 .d-flex {
     margin-bottom: 35px;
 }
-.searchbar{
+.searchbar-borrow-lend{
     margin-bottom: auto;
     margin-top: auto;
     height: 60px;
@@ -15,7 +15,7 @@
     border-radius: 30px;
     padding: 10px;
     }
-    .search_input{
+    .search-input-borrow-lend{
         color: white;
         border: 0;
         outline: 0;
@@ -26,18 +26,18 @@
         transition: width 0.4s linear;
         }
     
-    .searchbar:hover > .search_input{
+    .searchbar-borrow-lend:hover > .search-input-borrow-lend{
         padding: 0 10px;
         width: 450px;
         caret-color:red;
         transition: width 0.4s linear;
         }
     
-    .searchbar:hover > .search_icon{
+    .searchbar-borrow-lend:hover > .search-icon-borrow-lend{
         background: white;
         color: #e74c3c;
         }
-        .search_icon{
+        .search-icon-borrow-lend{
             height: 40px;
             width: 40px;
             float: right;
@@ -48,6 +48,74 @@
             color:white;
             text-decoration:none;
             }
-#input-search-id::placeholder {
+#input-search-borrow-lend::placeholder {
     color: #ffffff;
 }
+
+/* Phone screen */
+@media screen
+ and (min-width: 320px)
+ and (max-width: 480px)
+  {
+    .back-to-dashboard {
+
+        margin-left: 0px;
+    }
+    #input-search-borrow-lend {
+        width: 185px;
+    }
+    /* body {
+        background-color: red;
+    } */
+}
+
+/* Tablet screen */
+@media screen
+and (min-width: 481px)
+and (max-width: 768px)
+
+  {
+    .back-to-dashboard {
+        margin-left: 85px;
+    }
+    #input-search-borrow-lend {
+        width: 220px;
+    }
+    /* body {
+        background-color: yellow;
+    } */
+}
+
+/* Tablet Pro screen */
+@media screen
+and (min-width: 769px)
+and (max-width: 1024px)
+
+  {
+    .back-to-dashboard {
+        margin-left: 215px;
+    }
+    #input-search-borrow-lend {
+        width: 275px;
+    }
+    /* body {
+        background-color: violet;
+    } */
+}
+
+/* Laptop screen */
+@media screen
+and (min-width: 1025px)
+and (max-width: 1600px)
+  {
+    .back-to-dashboard {
+        margin-left: 375px;
+    }
+    #input-search-borrow-lend {
+        width: 450px;
+    }
+    /* body {
+        background-color: green;
+    } */
+}
+

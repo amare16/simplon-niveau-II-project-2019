@@ -8,12 +8,21 @@ class NavbarComponent extends React.Component {
   render() {
     let token = localStorage.getItem("token");
     let button;
+    let buttonDashboard;
 
     if (token) {
+      buttonDashboard = <li className="nav-item">
+         <a className="nav-link" href="/dashboard" style={{ fontWeight: 'bold', color: "#ff8080"}}>
+        Dashboard
+      </a>
+      
+     
+    </li>;
       button = <li className="nav-item">
       <a className="nav-link" href="logout" style={{ fontWeight: 'bold', color: "#ff8080"}}>
         Logout
       </a>
+     
     </li>;
     } else {
       button = [
@@ -66,6 +75,7 @@ class NavbarComponent extends React.Component {
               </li>
             </ul>
             <ul className="navbar-nav ml-auto">
+              { buttonDashboard }
               { button }
               <li className="nav-item">
                 <a className="nav-link" href="contact">

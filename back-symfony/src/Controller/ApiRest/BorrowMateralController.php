@@ -85,15 +85,18 @@ class BorrowMateralController extends AbstractFOSRestController
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
 
-        $materialBorrower= $data['id_borrower'];
-
-        $materialLender = $data['id_lender'];
+        $materialBorrower= $data['id_borrower']['username'];
+        $materialLender = $data['id_lender']['username'];
         $startDate = $data['start_date'];
         $endDate = $data['end_date'];
         $material = $data['material'];
 
-        $material_borrower = $userRepository->findOneBy(['id' => $materialBorrower]);
-        $material_lender = $userRepository->findOneBy(['id' => $materialLender]);
+        $material_borrower = $userRepository->findOneBy(['username' => $materialBorrower]);
+
+        $material_lender = $userRepository->findOneBy(['username' => $materialLender]);
+
+//        $material_borrower = $userRepository->findOneBy(['id' => $materialBorrower]);
+//        $material_lender = $userRepository->findOneBy(['id' => $materialLender]);
         //dd($material_lender);
         $material_id = $materialRepository->findOneBy(['id' => $material]);
 

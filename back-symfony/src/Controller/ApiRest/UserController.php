@@ -57,6 +57,10 @@ class UserController extends AbstractFOSRestController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
 
     public function __construct(AddressesRepository $addressesRepository,
                                 UserTypeRepository $userTypeRepository,
@@ -64,6 +68,7 @@ class UserController extends AbstractFOSRestController
                                 UserService $userService,
                                 JWTEncoderInterface $jwt_encoder,
                                 LoggerInterface $logger,
+                                UserRepository $userRepository,
                                 EntityManagerInterface $entityManager)
     {
        $this->userService = $userService;
@@ -74,6 +79,7 @@ class UserController extends AbstractFOSRestController
         $this->userTypeRepository = $userTypeRepository;
         $this->jwt_encoder = $jwt_encoder;
         $this->entityManager = $entityManager;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -165,6 +171,9 @@ class UserController extends AbstractFOSRestController
     {
 
     }
+
+
+
 
 
 

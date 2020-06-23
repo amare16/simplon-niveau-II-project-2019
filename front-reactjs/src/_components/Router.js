@@ -11,7 +11,7 @@ import { ShowSingleArticleComponent } from "./show_single_article/ShowSingleArti
 import { ShowListOfExperiencesComponent } from "./show_list_of_experiences/ShowListOfExperiencesComponent";
 import { ShowSingleExperienceComponent } from "./show_single_experience/ShowSingleExperienceComponent";
 
-import { SearchYourPartnerComponent } from "../_pages/SearchYourPartnerComponent";
+import { SearchYourPartnerComponent } from "../_pages/search_partner/SearchYourPartnerComponent";
 import { ArticlesComponent } from "../_pages/ArticlesComponent";
 import { ExperiencesComponent } from "../_pages/experiences/ExperiencesComponent";
 import { EventsComponent } from "../_pages/EventsComponent";
@@ -63,15 +63,19 @@ const Router = () => {
           <Route path="/logout" component={UserLogoutComponent}></Route>
           <Route path="/show-article/:articleId" component={ShowSingleArticleComponent}></Route>
           <Route path="/show-experience/:experienceId" component={ShowSingleExperienceComponent}></Route>
+          <Route path="/single-material/:materialId" component={SingleMaterialComponent} />
+          <Route path="/borrow-lend-materials" component={BorrowLendMaterialComponent} />
+          <Route path="/search-partner" component={SearchYourPartnerComponent} />
+
           <ProtectedRoute path="/dashboard" component={DashboardComponent} />
           <ProtectedRoute path="/articles" component={ArticlesComponent} />
           <ProtectedRoute path="/add-article" component={CreateArticleComponent} />
           <ProtectedRoute path="/edit-article/:articleId" component={EditArticleComponent} />
-          <ProtectedRoute path="/search-partner" component={SearchYourPartnerComponent} />
+          {/* <ProtectedRoute path="/search-partner" component={SearchYourPartnerComponent} /> */}
           <ProtectedRoute path="/single-message-send" component={ReceiveMessageComponent} />
           <ProtectedRoute path="/single-user-profile/:userProfileId" component={SingleUserProfileComponent} />   
-          <ProtectedRoute path="/borrow-lend-materials" component={BorrowLendMaterialComponent} /> 
-          <ProtectedRoute path="/single-material/:materialId" component={SingleMaterialComponent} />
+          {/* <ProtectedRoute path="/borrow-lend-materials" component={BorrowLendMaterialComponent} />  */}
+          {/* <ProtectedRoute path="/single-material/:materialId" component={SingleMaterialComponent} /> */}
           <ProtectedRoute path="/add-material" component={CreateMaterialComponent} />
           <ProtectedRoute path="/add-borrow-material" component={CreateBorrowMaterialComponent} />
           <ProtectedRoute path="/edit-material" component={EditMaterialComponent} />

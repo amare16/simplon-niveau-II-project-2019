@@ -16,6 +16,8 @@ class Material
      * @ORM\Column(type="integer")
      * @Groups("group_material")
      * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $id;
 
@@ -23,6 +25,8 @@ class Material
      * @ORM\Column(type="string", length=255)
      * @Groups("group_material")
      * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $name;
 
@@ -37,6 +41,8 @@ class Material
      * @ORM\Column(type="boolean")
      * @Groups("group_material")
      * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $availability;
 

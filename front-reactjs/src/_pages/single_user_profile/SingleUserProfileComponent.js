@@ -1,6 +1,7 @@
 import React from "react";
 import { UserLogoutComponent } from "../UserLogoutComponent";
 import "./singleUserProfile.css";
+import * as moment from "moment";
 
 class SingleUserProfileComponent extends React.Component {
   constructor(props) {
@@ -16,18 +17,62 @@ class SingleUserProfileComponent extends React.Component {
         firstName: "",
         lastName: "",
         username: "",
+        userMessageSender: [
+          {
+            id: "",
+            message: "",
+            send_at: "",
+          },
+        ],
+        userMessageReceiver: [
+          {
+            id: "",
+            message: "",
+            send_at: "",
+          },
+        ],
+        borrowMaterials: [
+          {
+            id: "",
+            start_date: "",
+            end_date: "",
+            material: {
+              id: "",
+              name: "",
+              availability: Boolean(),
+            },
+          },
+        ],
+        lendMaterials: [
+          {
+            id: "",
+            start_date: "",
+            end_date: "",
+            material: {
+              id: "",
+              name: "",
+              availability: Boolean(),
+            },
+          },
+        ],
       },
-      id_message_sender: {
-        username: "",
-      },
-      id_message_receiver: {
-        username: "",
-      },
-      message: "",
+      items: [
+        {
+          id_message_sender: {
+            username: "",
+          },
+          id_message_receiver: {
+            username: "",
+          },
+          message: "",
+        },
+      ],
+
       show: false,
+      showReceiver: false,
     };
 
-    console.log("type of sender: ", this.state.id_message_sender.username);
+    console.log("type of sender: ", this.state.items);
   }
 
   componentDidMount() {
@@ -40,19 +85,12 @@ class SingleUserProfileComponent extends React.Component {
       method: "GET",
       mode: "cors",
     })
-      .then(res=> res.json())
-      .then(response => {
-        console.log("response result: ", response)
-          this.setState({
-            id_message_sender: {
-              username: response.username,
-            },
-            id_message_receiver: {
-              username: response.username,
-            },
-
-            message: response.message
-          });
+      .then((res) => res.json())
+      .then((response) => {
+        console.log("response result: ", response);
+        this.setState({
+          items: response,
+        });
       });
   }
 
@@ -62,6 +100,13 @@ class SingleUserProfileComponent extends React.Component {
 
   hideModal = () => {
     this.setState({ show: false });
+  };
+  showModalReceiver = () => {
+    this.setState({ showReceiver: true });
+  };
+
+  hideModalReceiver = () => {
+    this.setState({ showReceiver: false });
   };
 
   getSingleUserProfile() {
@@ -155,6 +200,7 @@ class SingleUserProfileComponent extends React.Component {
   render() {
     let usernameSender = localStorage.getItem("username");
     const sender = this.state.id_message_sender === usernameSender;
+    console.log("sender variable: ", sender);
     const receiver =
       this.state.id_message_receiver === this.state.user.username;
 
@@ -178,24 +224,78 @@ class SingleUserProfileComponent extends React.Component {
           <button
             type="button"
             class="btn btn-primary btn-send"
+            style={{marginBottom: '10px', marginRight: '10px'}}
             onClick={this.showModal}
           >
             Send Messages
           </button>
-          <a href={"/message-box"}>
-            <button type="button" class="btn btn-success btn-receive">
-              Inbox
-            </button>
-          </a>
-          
-          <Modal show={this.state.show} handleClose={this.hideModal}>
-            <p style={{ textAlign: "justify" }}>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout.
-            </p>
+          <button
+            type="button"
+            class="btn btn-success btn-receive"
+            onClick={this.showModalReceiver}
+          >
+            Inbox
+          </button>
 
-            {console.log("props value: ", this.props.history)}
-          </Modal>
+          <ModalSender show={this.state.show} handleClose={this.hideModal}>
+            {console.log("user sender: ", this.state.user)}
+            {/* {this.state.user.userMessageSender.map(msgSender => {
+                console.log("msg sender: ", msgSender)
+            })} */}
+              
+                <div class="container" id="messageSent">
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th><strong>Sent Messages</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    {this.state.user.userMessageSender.map((msgSender) => {
+                      return(
+                        <tr>
+                          {
+                            <td><span style={{float: 'right'}}>{moment(msgSender.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgSender.message}</td> ? <td><span style={{float: 'right'}}>{moment(msgSender.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgSender.message}</td>: <td><span style={{float: 'right'}}>{moment(msgSender.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgSender.message}</td>
+                          }
+                        
+                      </tr>
+                      )
+                      
+                     })}
+                    </tbody>
+                  </table>
+                </div>
+             
+           
+          </ModalSender>
+          <ModalReceiver
+            showReceiver={this.state.showReceiver}
+            handleCloseReceiver={this.hideModalReceiver}
+          >
+            {/* {this.state.user.userMessageReceiver.map(msgReceiver => {
+                console.log("msg receiver: ", msgReceiver.message)
+            })} */}
+            <div class="container" id="messageReceived">
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th><strong>Received Messages</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.user.userMessageReceiver.map((msgReceiver) => {
+                      return(
+                        <tr>
+                        <td><span style={{float: 'right'}}>{moment(msgReceiver.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgReceiver.message}</td>
+                      </tr>
+                      )
+                      
+                     })}
+                    </tbody>
+                  </table>
+                </div>
+          </ModalReceiver>
         </div>
       </div>
     );
@@ -235,6 +335,14 @@ class SingleUserProfileComponent extends React.Component {
                     {this.state.user.username}
                   </strong>
                 </span>
+                <a href={"/search-partner"}>
+                          <input
+                            type="button"
+                            className="btn btn-warning"
+                            style={{marginTop: '30px'}}
+                            value="Back to Search Partner"
+                          />
+                        </a>
               </div>
               {/* <div className="row">
                 <div className="col-md-12" style={{ marginBottom: "45px"}}>
@@ -243,106 +351,197 @@ class SingleUserProfileComponent extends React.Component {
                         </a>
                 </div>
               </div> */}
-              <div className="row">
-                <div
-                  className="col-md-12"
-                  style={{
-                    marginBottom: "45px",
-                    background: "linear-gradient(to left, #43cea2, #185a9d)",
-                  }}
-                >
-                  <form onSubmit={this.handleSubmit.bind(this)}>
-                    <div className="form-group">
-                      <label
-                        htmlFor=" Email1msg"
-                        style={{ color: "white", fontWeight: "bold" }}
-                      >
-                        From
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        style={{ marginBottom: "10px" }}
-                        placeholder="Your username"
-                        value={this.state.id_message_sender.username}
-                        onChange={this.handleMessageSenderChange.bind(this)}
-                      />
-                      <label
-                        htmlFor=" Email1msg"
-                        style={{ color: "white", fontWeight: "bold" }}
-                      >
-                        To
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        style={{ marginBottom: "10px" }}
-                        placeholder="Receiver username"
-                        value={this.state.id_message_receiver.username}
-                        onChange={this.handleMessageReceiverChange.bind(this)}
-                      />
-                      {/* <select
-                        className="form-control form-control-sm"
-                        onChange={this.handleUsernameChange.bind(this)}
-                        style={{ textTransform: "capitalize" }}
-                      >
-                        <option value={username}>{username}</option>
-                      </select> */}
-                      &nbsp;&nbsp;
-                      <span
-                        style={{
-                          color: "white",
-                          fontWeight: "bold",
-                          fontSize: "20px",
-                        }}
-                      >
-                        Message
-                      </span>
-                      &nbsp;&nbsp;
-                      {/* <select
-                        className="form-control form-control-sm"
-                        onChange={this.handleUsernameChange.bind(this)}
-                        style={{ textTransform: "capitalize" }}
-                      >
-                        <option value={this.state.user.username}>
-                          {this.state.user.username}
-                        </option>
-                      </select> */}
-                      {/* <input
-                  className="form-control"
-                  type="date"
-                  value={moment(this.state.send_at).format("YYYY-MM-DD HH:mm")}
-                  onChange={this.handleSendAtChange.bind(this)}
-                  id="example-date-input"
-                /> */}
-                      {/* <label htmlFor=" Email1msg">Your Message</label> */}
-                      <textarea
-                        className="form-control"
-                        value={this.state.message}
-                        placeholder="Enter Your message"
-                        onChange={this.handleMessageChange.bind(this)}
-                      ></textarea>
-                    </div>
-
-                    {/* <button type="submit" className="btn btn-primary">
-                      Send Message
-                    </button> */}
-                    <div className="single_c_text text-md-left text-xs-center">
-                      {sender && receiver && !usernameUser
-                        ? buttonActive
-                        : buttonDisabled}
-                      &nbsp;&nbsp;
-                      <a href={"/search-partner"}>
+              {usernameUser ? (
+                <div className="row" style={{ display: "none" }}>
+                  <div
+                    className="col-md-12"
+                    style={{
+                      marginBottom: "45px",
+                      background: "linear-gradient(to left, #43cea2, #185a9d)",
+                    }}
+                  >
+                    
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                      <div className="form-group">
+                        <label
+                          htmlFor=" Email1msg"
+                          style={{ color: "white", fontWeight: "bold" }}
+                        >
+                          From
+                        </label>
                         <input
-                          type="button"
-                          className="btn btn-warning"
-                          value="Back"
+                          type="text"
+                          className="form-control"
+                          style={{ marginBottom: "10px" }}
+                          placeholder="Your username"
+                          value={this.state.id_message_sender}
+                          onChange={this.handleMessageSenderChange.bind(this)}
                         />
-                      </a>
-                    </div>
-                  </form>
+                        <label
+                          htmlFor=" Email1msg"
+                          style={{ color: "white", fontWeight: "bold" }}
+                        >
+                          To
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          style={{ marginBottom: "10px" }}
+                          placeholder="Receiver username"
+                          value={this.state.id_message_receiver}
+                          onChange={this.handleMessageReceiverChange.bind(this)}
+                        />
+                        {/* <select
+                            className="form-control form-control-sm"
+                            onChange={this.handleUsernameChange.bind(this)}
+                            style={{ textTransform: "capitalize" }}
+                          >
+                            <option value={username}>{username}</option>
+                          </select> */}
+                        &nbsp;&nbsp;
+                        <span
+                          style={{
+                            color: "white",
+                            fontWeight: "bold",
+                            fontSize: "20px",
+                          }}
+                        >
+                          Message
+                        </span>
+                        &nbsp;&nbsp;
+                        {/* <select
+                            className="form-control form-control-sm"
+                            onChange={this.handleUsernameChange.bind(this)}
+                            style={{ textTransform: "capitalize" }}
+                          >
+                            <option value={this.state.user.username}>
+                              {this.state.user.username}
+                            </option>
+                          </select> */}
+                        {/* <input
+                      className="form-control"
+                      type="date"
+                      value={moment(this.state.send_at).format("YYYY-MM-DD HH:mm")}
+                      onChange={this.handleSendAtChange.bind(this)}
+                      id="example-date-input"
+                    /> */}
+                        {/* <label htmlFor=" Email1msg">Your Message</label> */}
+                        <textarea
+                          className="form-control"
+                          value={this.state.message}
+                          placeholder="Enter Your message"
+                          onChange={this.handleMessageChange.bind(this)}
+                        ></textarea>
+                      </div>
+
+                      {/* <button type="submit" className="btn btn-primary">
+                          Send Message
+                        </button> */}
+                      <div className="single_c_text text-md-left text-xs-center">
+                        {sender && receiver && !usernameUser
+                          ? buttonActive
+                          : buttonDisabled}
+                      </div>
+                    </form>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="row insert-message-row">
+                  <div
+                    className="col-md-12"
+                    style={{
+                      marginBottom: "45px",
+                      background: "linear-gradient(to left, #43cea2, #185a9d)",
+                    }}
+                  >
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                      <div className="form-group">
+                        
+                      <p style={{textAlign: "center", color: 'white', fontSize: '30px'}}><strong>Send Message</strong></p>
+                        <label
+                          htmlFor=" Email1msg"
+                          style={{ color: "white", fontWeight: "bold" }}
+                        >
+                          From
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          style={{ marginBottom: "10px" }}
+                          placeholder="Your username"
+                          value={this.state.id_message_sender}
+                          onChange={this.handleMessageSenderChange.bind(this)}
+                        />
+                        <label
+                          htmlFor=" Email1msg"
+                          style={{ color: "white", fontWeight: "bold" }}
+                        >
+                          To
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          style={{ marginBottom: "10px" }}
+                          placeholder="Receiver username"
+                          value={this.state.id_message_receiver}
+                          onChange={this.handleMessageReceiverChange.bind(this)}
+                        />
+                        {/* <select
+                            className="form-control form-control-sm"
+                            onChange={this.handleUsernameChange.bind(this)}
+                            style={{ textTransform: "capitalize" }}
+                          >
+                            <option value={username}>{username}</option>
+                          </select> */}
+                        &nbsp;&nbsp;
+                        <span
+                          style={{
+                            color: "white",
+                            fontWeight: "bold",
+                            fontSize: "20px",
+                          }}
+                        >
+                          Message
+                        </span>
+                        &nbsp;&nbsp;
+                        {/* <select
+                            className="form-control form-control-sm"
+                            onChange={this.handleUsernameChange.bind(this)}
+                            style={{ textTransform: "capitalize" }}
+                          >
+                            <option value={this.state.user.username}>
+                              {this.state.user.username}
+                            </option>
+                          </select> */}
+                        {/* <input
+                      className="form-control"
+                      type="date"
+                      value={moment(this.state.send_at).format("YYYY-MM-DD HH:mm")}
+                      onChange={this.handleSendAtChange.bind(this)}
+                      id="example-date-input"
+                    /> */}
+                        {/* <label htmlFor=" Email1msg">Your Message</label> */}
+                        <textarea
+                          className="form-control"
+                          value={this.state.message}
+                          placeholder="Enter Your message"
+                          onChange={this.handleMessageChange.bind(this)}
+                        ></textarea>
+                      </div>
+
+                      {/* <button type="submit" className="btn btn-primary">
+                          Send Message
+                        </button> */}
+                      <div className="single_c_text text-md-left text-xs-center">
+                        {sender && receiver && !usernameUser
+                          ? buttonActive
+                          : buttonDisabled}
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
+
               {/* <div className="single_c_text text-md-left text-xs-center">
                 <a href={"/search-partner"}>
                   <button className="btn btn-info">Back</button>
@@ -389,7 +588,7 @@ class SingleUserProfileComponent extends React.Component {
                   <div className="col-md-12">
                     <h3>Messages</h3>
                     <button type="button" class="btn btn-primary btn-send">
-                      Sent Messages
+                      Send Messages
                     </button>
                     <button type="button" class="btn btn-success btn-receive">
                       Inbox
@@ -406,7 +605,6 @@ class SingleUserProfileComponent extends React.Component {
               </div> */}
             </div>
           </div>
-          
         </div>
       </div>
     );
@@ -415,9 +613,8 @@ class SingleUserProfileComponent extends React.Component {
 
 export { SingleUserProfileComponent };
 
-const Modal = ({ handleClose, show, children }) => {
+const ModalSender = ({ handleClose, show, children }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
-
   return (
     <div className={showHideClassName}>
       <div className="modal-main container" style={{ borderRadius: "5px" }}>
@@ -428,7 +625,36 @@ const Modal = ({ handleClose, show, children }) => {
             <button
               type="button"
               className="btn btn-danger"
+              style={{float: 'right', marginBottom: '10px'}}
               onClick={handleClose}
+            >
+              Close
+            </button>
+          </div>
+          <div className="col-md-2"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ModalReceiver = ({ handleCloseReceiver, showReceiver, children }) => {
+  const showHideClassNameReceiver = showReceiver
+    ? "modal display-block"
+    : "modal display-none";
+
+  return (
+    <div className={showHideClassNameReceiver}>
+      <div className="modal-main container" style={{ borderRadius: "5px" }}>
+        <div className="row">
+          <div className="col-md-2"></div>
+          <div className="col-md-8">
+            {children}
+            <button
+              type="button"
+              className="btn btn-danger"
+              style={{float: 'right', marginBottom: '10px'}}
+              onClick={handleCloseReceiver}
             >
               Close
             </button>

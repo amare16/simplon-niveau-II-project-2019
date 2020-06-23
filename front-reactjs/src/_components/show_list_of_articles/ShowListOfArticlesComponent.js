@@ -41,10 +41,11 @@ class ShowListOfArticlesComponent extends React.Component {
   }
 
   render() {
+  
     const thStyle = {
       textAlign: "center"
     };
-    console.log("test this state items: ", this.state.items);
+    
 
     return (
       <div className="list-of-articles">

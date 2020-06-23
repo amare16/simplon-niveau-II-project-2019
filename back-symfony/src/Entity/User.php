@@ -60,6 +60,7 @@ class User implements UserInterface
      * @Groups("group_user")
      * @Groups("group_user_profile")
      * @Groups("group_user_message")
+     * @Groups("group_borrow_material")
      */
     private $username;
 
@@ -119,13 +120,14 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="id_message_sender")
+     * @Groups("group_user")
      * @Groups("group_user_profile")
-     *
      */
     private $userMessageSender;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="id_message_receiver")
+     * @Groups("group_user")
      * @Groups("group_user_profile")
      */
     private $userMessageReceiver;
@@ -150,11 +152,15 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BorrowMaterial", mappedBy="id_borrower")
+     * @Groups("group_user_profile")
+     * @Groups("group_user")
      */
     private $borrowMaterials;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\BorrowMaterial", mappedBy="id_lender")
+     * @Groups("group_user_profile")
+     * @Groups("group_user")
      */
     private $lendMaterials;
 
@@ -479,6 +485,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
     public function getUserProfile(): ?UserProfile
     {

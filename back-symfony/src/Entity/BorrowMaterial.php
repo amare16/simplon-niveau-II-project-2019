@@ -14,18 +14,24 @@ class BorrowMaterial
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $start_date;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $end_date;
 
@@ -46,9 +52,17 @@ class BorrowMaterial
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Material", inversedBy="borrowMaterial", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("group_material")
      * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
      */
     private $material;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -111,6 +125,18 @@ class BorrowMaterial
     public function setMaterial(Material $material): self
     {
         $this->material = $material;
+
+        return $this;
+    }
+
+    public function getUser(): ?string
+    {
+        return $this->user;
+    }
+
+    public function setUser(?string $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
