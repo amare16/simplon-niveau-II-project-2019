@@ -26,6 +26,7 @@ class User implements UserInterface
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
      * @Groups("group_experience")
+     * @Groups("group_material_borrower_message")
      */
     private $id;
 
@@ -39,6 +40,7 @@ class User implements UserInterface
      * @Groups("group_experience")
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
+     * @Groups("group_material_borrower_message")
      */
     private $firstName;
 
@@ -52,15 +54,19 @@ class User implements UserInterface
      * @Groups("group_experience")
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
+     * @Groups("group_material_borrower_message")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=45, unique=true)
      * @Groups("group_user")
+     * @Groups("group_article")
+     * @Groups("group_comment_article")
      * @Groups("group_user_profile")
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
+     * @Groups("group_material_borrower_message")
      */
     private $username;
 
@@ -71,6 +77,7 @@ class User implements UserInterface
      * @Groups("group_experience")
      * @Groups("group_borrow_material")
      * @Groups("group_user_profile")
+     * @Groups("group_material_borrower_message")
      */
     private $email;
 
@@ -170,6 +177,24 @@ class User implements UserInterface
      */
     private $articleLikes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MaterialBorrowerMessage", mappedBy="senderMessageId")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
+     */
+    private $materialSenderMessage;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MaterialBorrowerMessage", mappedBy="receiverMessageId")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
+     */
+    private $materialReceiverMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MaterialBorrowerMessage", mappedBy="user")
+     */
+    private $materialBorrowerMessages;
 
 
 //    /**
@@ -188,6 +213,9 @@ class User implements UserInterface
         $this->borrowMaterials = new ArrayCollection();
         $this->lendMaterials = new ArrayCollection();
         $this->articleLikes = new ArrayCollection();
+        $this->materialSenderMessage = new ArrayCollection();
+        $this->materialReceiverMessages = new ArrayCollection();
+        $this->materialBorrowerMessages = new ArrayCollection();
         //$this->userMessages = new ArrayCollection();
     }
 
@@ -629,9 +657,100 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|MaterialBorrowerMessage[]
+     */
+    public function getMaterialSenderMessage(): Collection
+    {
+        return $this->materialSenderMessage;
+    }
+
+    public function addMaterialSenderMessage(MaterialBorrowerMessage $materialSenderMessage): self
+    {
+        if (!$this->materialSenderMessage->contains($materialSenderMessage)) {
+            $this->materialSenderMessage[] = $materialSenderMessage;
+            $materialSenderMessage->setSenderMessageId($this);
+        }
+
+        return $this;
+    }
+
+    public function removematerialSenderMessage(MaterialBorrowerMessage $materialSenderMessage): self
+    {
+        if ($this->materialSenderMessage->contains($materialSenderMessage)) {
+            $this->materialSenderMessage->removeElement($materialSenderMessage);
+            // set the owning side to null (unless already changed)
+            if ($materialSenderMessage->getSenderMessageId() === $this) {
+                $materialSenderMessage->setSenderMessageId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MaterialBorrowerMessage[]
+     */
+    public function getMaterialReceiverMessages(): Collection
+    {
+        return $this->materialReceiverMessages;
+    }
+
+    public function addMaterialReceiverMessage(MaterialBorrowerMessage $materialReceiverMessage): self
+    {
+        if (!$this->materialReceiverMessages->contains($materialReceiverMessage)) {
+            $this->materialReceiverMessages[] = $materialReceiverMessage;
+            $materialReceiverMessage->setReceiverMessageId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterialReceiverMessage(MaterialBorrowerMessage $materialReceiverMessage): self
+    {
+        if ($this->materialReceiverMessages->contains($materialReceiverMessage)) {
+            $this->materialReceiverMessages->removeElement($materialReceiverMessage);
+            // set the owning side to null (unless already changed)
+            if ($materialReceiverMessage->getReceiverMessageId() === $this) {
+                $materialReceiverMessage->setReceiverMessageId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MaterialBorrowerMessage[]
+     */
+    public function getMaterialBorrowerMessages(): Collection
+    {
+        return $this->materialBorrowerMessages;
+    }
+
+    public function addMaterialBorrowerMessage(MaterialBorrowerMessage $materialBorrowerMessage): self
+    {
+        if (!$this->materialBorrowerMessages->contains($materialBorrowerMessage)) {
+            $this->materialBorrowerMessages[] = $materialBorrowerMessage;
+            $materialBorrowerMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterialBorrowerMessage(MaterialBorrowerMessage $materialBorrowerMessage): self
+    {
+        if ($this->materialBorrowerMessages->contains($materialBorrowerMessage)) {
+            $this->materialBorrowerMessages->removeElement($materialBorrowerMessage);
+            // set the owning side to null (unless already changed)
+            if ($materialBorrowerMessage->getUser() === $this) {
+                $materialBorrowerMessage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 
-   
 //    public function getAddresses(): ?Addresses
 //    {
 //        return $this->addresses;

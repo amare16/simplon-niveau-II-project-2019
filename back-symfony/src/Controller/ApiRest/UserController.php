@@ -91,6 +91,22 @@ class UserController extends AbstractFOSRestController
         $all_users = $this->userService->getAllUsers();
         return View::create($all_users, Response::HTTP_OK);
     }
+
+    /**
+     * @Rest\Get("/single-user/{userId<\d+>}")
+     * @Rest\View(serializerGroups={"group_user"})
+     */
+    public function getSingleUser($userId): View
+    {
+        $single_user = $this->userService->getSingleUser($userId);
+        if ($single_user) {
+            return View::create($single_user, Response::HTTP_OK);
+        } else {
+            return View::create(["There is no user with this id"],
+                Response::HTTP_BAD_REQUEST);
+        }
+    }
+
     /**
      * @Rest\Post("/register", name="api.register")
      * @Rest\View(serializerGroups={"group_user"})

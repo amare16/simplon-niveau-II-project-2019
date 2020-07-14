@@ -1,0 +1,66 @@
+.title {
+    
+    height: 50px;
+    margin-bottom: 15px;
+}
+.title > .title-col > h2 {
+    text-align: center;
+}
+
+.chat-board {
+    margin-bottom: 100px;
+}
+.user-list {
+    background-color: #337ab7;
+    height: 500px;
+    
+}
+
+.message {
+    background-color: #eeffe6;
+}
+
+#chat-room-form {
+    margin-top: 253px;
+}
+#msg {
+    height: 60px;
+}
+#senderUsername {
+    margin-bottom: 10px;
+}
+
+.user-profile-username {
+    background-color: white;
+    border-radius: 25px;
+    font-size:20px;
+    font-weight: bold;
+    margin-top: 30px;
+    text-align: center;
+}
+.send-message {
+    float: right;
+    background-color: #009900;
+    border-radius: 25px;
+    padding: 0 10px 0 10px;
+    margin-top: 10px;
+    color: white;
+}
+
+.receive-message {
+    float: left;
+    background-color: #337ab7;
+    border-radius: 25px;
+    padding: 0 10px 0 10px;
+    margin-top: 10px;
+    color: white;
+}
+/* make chat block column height auto */
+.row [class*="col-"]{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+  }
+  
+  .row{
+    overflow: hidden; 
+  }

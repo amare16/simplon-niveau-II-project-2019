@@ -58,6 +58,7 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CommentArticle", mappedBy="article")
+     * @Groups("group_article")
      */
     private $commentArticles;
 

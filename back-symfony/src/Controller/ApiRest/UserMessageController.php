@@ -115,7 +115,6 @@ class UserMessageController extends AbstractFOSRestController
         //$sendTime = $data['send_at'];
 
         $message_sender = $userRepository->findOneBy(['username' => $messageSender]);
-
         $message_receiver = $userRepository->findOneBy(['username' => $messageReceiver]);
 
 

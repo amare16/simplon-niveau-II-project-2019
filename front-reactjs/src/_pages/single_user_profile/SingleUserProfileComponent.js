@@ -111,6 +111,7 @@ class SingleUserProfileComponent extends React.Component {
 
   getSingleUserProfile() {
     let userProfileId = this.props.match.params.userProfileId;
+    console.log("userProfileId: ", userProfileId);
     fetch(`http://localhost:8000/api/single-user-profile/` + userProfileId, {
       method: "GET",
       mode: "cors",
@@ -133,6 +134,7 @@ class SingleUserProfileComponent extends React.Component {
       })
       .catch((error) => console.log(error));
   }
+
   handleMessageSenderChange(sender_username) {
     this.setState({
       id_message_sender: sender_username.target.value,
@@ -164,7 +166,7 @@ class SingleUserProfileComponent extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.target.reset();
-    this.setState({ message: "" });
+    //this.setState({ message: "" });
 
     let body = {
       id_message_sender: {
@@ -198,6 +200,7 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   render() {
+    
     let usernameSender = localStorage.getItem("username");
     const sender = this.state.id_message_sender === usernameSender;
     console.log("sender variable: ", sender);

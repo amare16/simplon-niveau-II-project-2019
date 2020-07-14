@@ -85,7 +85,7 @@ const Router = () => {
           <ProtectedRoute path="/edit-experience/:experienceId" component={EditExperienceComponent} />
           <ProtectedRoute path="/add-experience" component={CreateExperienceComponent} />
           <ProtectedRoute path="/message-box" component={MessageBoxComponent} />
-          <ProtectedRoute path="/message-material" component={MessagesForMaterialsComponent} />
+          <ProtectedRoute path="/message-material/:userProfileId" component={MessagesForMaterialsComponent} />
           
         </Switch>
       </BrowserRouter>

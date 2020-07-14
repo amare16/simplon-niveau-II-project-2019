@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./borrowLendMaterial.css";
 import { UserLogoutComponent } from '../UserLogoutComponent';
 import * as moment from "moment";

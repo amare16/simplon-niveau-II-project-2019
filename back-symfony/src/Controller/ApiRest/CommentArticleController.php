@@ -76,6 +76,7 @@ class CommentArticleController extends AbstractFOSRestController
         $comment->setCommentContent($comment_content);
         $comment->setAuthorName($user);
         $comment->setArticle($singleArticle);
+        $comment->setCommentedAt(new \DateTime('now'));
 
         $entityManager->persist($comment);
         $entityManager->flush();

@@ -42,6 +42,10 @@ class UserService
         return $this->userRepository->findAll();
     }
 
+    public function getSingleUser($userId) {
+        return $this->userRepository->find($userId);
+    }
+
     public function addUser($firstName, $lastName, $username, $email, $password, $telephone, $addresses)
     {
         $user = new User();

@@ -15,12 +15,14 @@ class CommentArticle
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("group_comment_article")
+     * @Groups("group_article")
      */
     private $id;
 
     /**
      * @ORM\Column(type="text", nullable=false)
      * @Groups("group_comment_article")
+     * @Groups("group_article")
      */
     private $commentContent;
 
@@ -30,6 +32,7 @@ class CommentArticle
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("group_comment_article")
+     * @Groups("group_article")
      */
     private $authorName;
 
@@ -38,6 +41,13 @@ class CommentArticle
      * @Groups("group_comment_article")
      */
     private $article;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("group_comment_article")
+     * @Groups("group_article")
+     */
+    private $commented_at;
 
     public function getId(): ?int
     {
@@ -76,6 +86,18 @@ class CommentArticle
     public function setArticle(?Article $article): self
     {
         $this->article = $article;
+
+        return $this;
+    }
+
+    public function getCommentedAt(): ?\DateTimeInterface
+    {
+        return $this->commented_at;
+    }
+
+    public function setCommentedAt(?\DateTimeInterface $commented_at): self
+    {
+        $this->commented_at = $commented_at;
 
         return $this;
     }

@@ -13,16 +13,31 @@ class ShowSingleArticleComponent extends React.Component {
       published_at: "",
       user: {
         firstName: "",
-        lastName: ""
+        lastName: "",
+        username: "",
       },
+      commentArticles: [
+        {
+          id: "",
+          commentContent: "",
+          commented_at: "",
+          authorName: {
+            id: "",
+            firstName: "",
+            lastName: "",
+            username: ""
+          },
+        },
+      ],
       commentContent: "",
       article: {
-        id: ""
+        id: "",
       },
       user: {
         firstName: "",
-        lastName: ""
-      }
+        lastName: "",
+        username: "",
+      },
     };
   }
 
@@ -32,7 +47,7 @@ class ShowSingleArticleComponent extends React.Component {
 
   handleCommentArticle(event) {
     this.setState({
-      commentContent: event.target.value
+      commentContent: event.target.value,
     });
   }
 
@@ -41,8 +56,8 @@ class ShowSingleArticleComponent extends React.Component {
     let body = {
       commentContent: this.state.commentContent,
       article: {
-        id: this.state.id
-      }
+        id: this.state.id,
+      },
     };
 
     console.log("body: ", body);
@@ -53,16 +68,16 @@ class ShowSingleArticleComponent extends React.Component {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ` + token
+          Authorization: `Bearer ` + token,
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       })
-        .then(data => {
-          data.json().then(results => {
+        .then((data) => {
+          data.json().then((results) => {
             console.log("results: ", results);
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("error test: ", error);
         });
     } else {
@@ -74,26 +89,26 @@ class ShowSingleArticleComponent extends React.Component {
     let commentId = this.props.match.params.commentId;
     fetch(`http://localhost:8000/api/single-comment-article/` + commentId, {
       method: "GET",
-      mode: "cors"
+      mode: "cors",
     })
-      .then(res => res.json())
-      .then(resultJson => {
+      .then((res) => res.json())
+      .then((resultJson) => {
         console.log("resJson result: ", resultJson);
         this.setState({
           comentContent: resultJson.commentContent,
-          user: resultJson.user
+          user: resultJson.user,
         });
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
   getArticleDetails() {
     let articleId = this.props.match.params.articleId;
     fetch(`http://localhost:8000/api/single-article/` + articleId, {
       method: "GET",
-      mode: "cors"
+      mode: "cors",
     })
-      .then(res => res.json())
-      .then(resJson => {
+      .then((res) => res.json())
+      .then((resJson) => {
         //console.log("resJson details", resJson);
         this.setState(
           {
@@ -101,42 +116,49 @@ class ShowSingleArticleComponent extends React.Component {
             title: resJson.title,
             content: resJson.content,
             published_at: resJson.published_at,
-            user: resJson.user
+            user: resJson.user,
+            commentArticles: resJson.commentArticles,
           },
           () => {
             //console.log(this.state);
           }
         );
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 
   render() {
+    console.log("username author of article: ", this.state.user.username);
     let tokenRedirect = localStorage.getItem("token");
+    console.log("articles comment: ", this.state.commentArticles);
     return (
       <div className="container-fluid">
         <div className="row" style={{ marginBottom: "20px" }}>
           <div className="col-sm-12">
             <div className="text-center">
-              {
-                tokenRedirect ? <a
-                href={"/articles"}
-                
-                style={{ borderRadius: "35px", fontSize: "25px" }}
-              >
-                
-                <p><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;&nbsp;<strong>Click here to see list of Articles</strong></p>
-              </a> : 
-              <a
-              href={"/show-list-articles"}
-              
-              style={{ borderRadius: "35px", fontSize: "25px" }}
-            >
-              
-              <p><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp;&nbsp;<strong>Click here to see list of Articles</strong></p>
-            </a>
-              }
-              
+              {tokenRedirect ? (
+                <a
+                  href={"/articles"}
+                  style={{ borderRadius: "35px", fontSize: "25px" }}
+                >
+                  <p>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <strong>Click here to see list of Articles</strong>
+                  </p>
+                </a>
+              ) : (
+                <a
+                  href={"/show-list-articles"}
+                  style={{ borderRadius: "35px", fontSize: "25px" }}
+                >
+                  <p>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <strong>Click here to see list of Articles</strong>
+                  </p>
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -170,16 +192,13 @@ class ShowSingleArticleComponent extends React.Component {
             </div>
           </div>
         </div>
-        {this.state.commentContent}
+
         <form
           name="commentContent"
           className="form-horizontal"
           onSubmit={this.submitComment.bind(this)}
         >
-          <div
-            className="col-lg-6 comment-article"
-            style={{ marginBottom: "100px" }}
-          >
+          <div className="col-lg-6 comment-article">
             <div className="form-group">
               <textarea
                 className="form-control"
@@ -193,6 +212,35 @@ class ShowSingleArticleComponent extends React.Component {
                 Comment
               </button>
             </div>
+          </div>
+          <div className="comment-div col-lg-6">
+            {this.state.commentArticles.map((comment) => {
+              return (
+                <div className="container-article-comment">
+                  <div class="text">
+                    <p>{comment.commentContent}</p>
+                  </div>
+                  <p class="attribution">
+                    by{" "}
+                    {
+                      this.state.user.username != comment.authorName.username ? (<a href="#">
+                      {comment.authorName.firstName}{" "}
+                      {comment.authorName.lastName}
+                    </a>) : (<strong style={{color: "green"}}>Author of this article</strong>)
+                    }
+                    {" "}
+                    {
+                      comment.commented_at ? (
+                        <span>at {moment(comment.commented_at).format("LT")},{" "}
+                    {moment(comment.commented_at).format("LL")}</span>
+                      ) : null
+                    }
+                    
+                    
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </form>
       </div>
