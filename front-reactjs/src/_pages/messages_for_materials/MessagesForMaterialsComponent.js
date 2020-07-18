@@ -84,7 +84,6 @@ class MessagesForMaterialsComponent extends React.Component {
     
     this.usernameStored = localStorage.getItem("username");
     this.connectedUser = this.token && this.usernameStored;
-
     this.pathname = window.location.pathname;
     this.urlId = this.pathname.split("/")[2];
 
@@ -214,21 +213,6 @@ class MessagesForMaterialsComponent extends React.Component {
   }
 
   render() {
-    this.state.listBorrowerMessages.map(listMsg => {
-      // if((listMsg.senderMessageId['username'] == this.connectedUser) && (listMsg.receiverMessageId["username"] == this.state.user.username)) {
-      //   console.log("uuuuuuuuuuuuuuuuu: ", listMsg.message)
-      // }
-
-      if((listMsg.senderMessageId["username"] == this.state.user.username) && (listMsg.receiverMessageId['username'] == this.connectedUser)) {
-        console.log("uuuuuuuuuuuuuuuuu: ", listMsg.message)
-      }
-
-
-
-
-      
-      
-    })
     console.log("value of sender username: ", this.state.senderMessageId);
     console.log("value of receiver username: ", this.state.receiverMessageId);
     console.log("this.connected user: ", this.connectedUser);
@@ -251,6 +235,21 @@ class MessagesForMaterialsComponent extends React.Component {
 
     return (
       <div class="container">
+        <div class="row title">
+          <div className="col-md-12 title-col">
+            
+            <a
+                  href={"/borrow-lend-materials"}
+                  style={{ borderRadius: "35px", fontSize: "25px", float: "right", color: "green"}}
+                >
+                  <p>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <strong>Click here to see list of Materials</strong>
+                  </p>
+                </a>
+          </div>
+        </div>
         <div class="row title">
           <div className="col-md-12 title-col">
             <h2>Messaging</h2>

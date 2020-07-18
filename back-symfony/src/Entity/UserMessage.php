@@ -51,7 +51,7 @@ class UserMessage
     private $send_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserMessage", inversedBy="user")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userMessages")
      * @Groups("group_user_message")
      */
     private $user;

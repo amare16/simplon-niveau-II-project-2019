@@ -14,13 +14,10 @@
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/start.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/CommentArticle.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/CommentArticle.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Service/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Service/UserService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/public/index.html" afterDir="false" />
@@ -29,19 +26,16 @@
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/HomeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/HomeComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/LogoComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/LogoComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/NavbarComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/NavbarComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/Router.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/Router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/WelcomePageComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/ShowSingleArticleComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/ShowSingleArticleComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/showSingleArticle.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/showSingleArticle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ArticlesComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/ArticlesComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ExperiencesComponent.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/borrow_lend_material/BorrowLendMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/borrow_lend_material/BorrowLendMaterialComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/messages_for_materials/MessagesForMaterialsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/messages_for_materials/MessagesForMaterialsComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/messages_for_materials/messagesForMaterials.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/messages_for_materials/messagesForMaterials.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/SingleUserProfileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/SingleUserProfileComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/singleUserProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/singleUserProfile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/footer.less" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/home.less" beforeDir="false" />
@@ -89,25 +83,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/MaterialBorrowerMessage.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
+            <state relative-caret-position="385">
+              <caret line="57" column="18" lean-forward="true" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
               <folding>
-                <element signature="e#30#62#0#PHP" expanded="true" />
+                <element signature="e#30#78#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="157" column="45" selection-start-line="157" selection-start-column="45" selection-end-line="157" selection-end-column="45" />
+            <state relative-caret-position="254">
+              <caret line="111" selection-start-line="111" selection-end-line="111" />
               <folding>
-                <element signature="e#44#69#0#PHP" expanded="true" />
+                <element signature="e#44#64#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -116,8 +110,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialBorrowerMessageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="31" column="71" selection-start-line="31" selection-start-column="71" selection-end-line="31" selection-end-column="71" />
+            <state relative-caret-position="1512">
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
               <folding>
                 <element signature="e#43#82#0#PHP" expanded="true" />
               </folding>
@@ -128,8 +122,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="182" column="36" selection-start-line="182" selection-start-column="36" selection-end-line="182" selection-end-column="36" />
+            <state relative-caret-position="165">
+              <caret line="200" column="77" selection-start-line="200" selection-start-column="77" selection-end-line="200" selection-end-column="77" />
               <folding>
                 <element signature="e#31#79#0#PHP" expanded="true" />
               </folding>
@@ -138,9 +132,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+              <folding>
+                <element signature="e#30#62#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="509">
+              <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+              <folding>
+                <element signature="e#30#62#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
+            <state relative-caret-position="1107">
               <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
             </state>
           </provider>
@@ -149,17 +167,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Service/UserService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
+            <state relative-caret-position="1134">
               <caret line="45" column="50" selection-start-line="45" selection-start-column="50" selection-end-line="45" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/Material.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="729">
-              <caret line="28" column="36" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -167,7 +176,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1417">
+            <state relative-caret-position="513">
               <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
             </state>
           </provider>
@@ -212,13 +221,13 @@
       <find>user</find>
       <find>usermes</find>
       <find>getUserMes</find>
-      <find>userMess</find>
       <find>message</find>
       <find>userMessa</find>
       <find>findON</find>
       <find>materialBorrowerMessages</find>
       <find>material</find>
       <find>materialBorrowerMessage</find>
+      <find>userMess</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -265,19 +274,19 @@
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserProfileController.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Entity/Material.php" />
-        <option value="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php" />
-        <option value="$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Service/MaterialBorrowerMessageService.php" />
-        <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Entity/Article.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Entity/CommentArticle.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Service/UserService.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Entity/MaterialBorrowerMessage.php" />
-        <option value="$PROJECT_DIR$/back-symfony/src/Entity/User.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialBorrowerMessageController.php" />
         <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php" />
+        <option value="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php" />
+        <option value="$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php" />
+        <option value="$PROJECT_DIR$/back-symfony/src/Entity/User.php" />
+        <option value="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" />
       </list>
     </option>
   </component>
@@ -399,10 +408,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1098" />
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
+    <option name="width" value="1376" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -428,27 +437,14 @@
               <item name="simplon-niveau-II-project-2019" type="b2602c69:ProjectViewProjectNode" />
               <item name="simplon-niveau-II-project-2019" type="462c0819:PsiDirectoryNode" />
               <item name="back-symfony" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="simplon-niveau-II-project-2019" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simplon-niveau-II-project-2019" type="462c0819:PsiDirectoryNode" />
-              <item name="back-symfony" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="packages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="simplon-niveau-II-project-2019" type="b2602c69:ProjectViewProjectNode" />
-              <item name="simplon-niveau-II-project-2019" type="462c0819:PsiDirectoryNode" />
-              <item name="back-symfony" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="simplon-niveau-II-project-2019" type="b2602c69:ProjectViewProjectNode" />
               <item name="simplon-niveau-II-project-2019" type="462c0819:PsiDirectoryNode" />
               <item name="back-symfony" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -590,17 +586,20 @@
       <workItem from="1593713595456" duration="8316000" />
       <workItem from="1593886054713" duration="1264000" />
       <workItem from="1594203737486" duration="10008000" />
-      <workItem from="1594558683436" duration="13781000" />
+      <workItem from="1594558683436" duration="16211000" />
+      <workItem from="1594984713604" duration="205000" />
+      <workItem from="1594985064106" duration="1607000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="769124000" />
+    <option name="totallyTimeSpent" value="773366000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="1912" y="-8" width="1376" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="2432" y="47" width="335" height="633" id="Project" order="0" sideWeight="0.49716714" visible="true" weight="0.24563758" />
+      <window_info active="true" content_ui="combo" x="2432" y="47" width="335" height="633" id="Project" order="0" sideWeight="0.49716714" visible="true" weight="0.16033435" />
       <window_info id="Favorites" order="1" sideWeight="0.5028329" side_tool="true" weight="0.22013423" />
       <window_info id="Structure" order="2" sideWeight="0.5028329" side_tool="true" weight="0.22013423" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
@@ -808,16 +807,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1053">
-          <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
-          <folding>
-            <element signature="e#30#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Repository/UserMessageRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -849,26 +838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1404">
-          <caret line="53" selection-start-line="50" selection-end-line="53" />
-          <folding>
-            <element signature="e#30#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1188">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="e#44#64#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Service/MaterialBorrowerMessageService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -880,16 +849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3041">
           <caret line="199" column="19" lean-forward="true" selection-start-line="199" selection-start-column="19" selection-end-line="199" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-          <folding>
-            <element signature="e#30#78#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -920,27 +879,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserProfileController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
-          <folding>
-            <element signature="e#43#70#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Service/CommentArticleService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="534">
           <caret line="29" column="65" lean-forward="true" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Service/UserService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="45" column="50" selection-start-line="45" selection-start-column="50" selection-end-line="45" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -954,24 +896,91 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php">
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/MaterialBorrowerMessage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1417">
-          <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+        <state relative-caret-position="1404">
+          <caret line="53" column="7" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
+          <folding>
+            <element signature="e#30#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3726">
+          <caret line="157" column="45" selection-start-line="157" selection-start-column="45" selection-end-line="157" selection-end-column="45" />
+          <folding>
+            <element signature="e#44#69#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialBorrowerMessageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1512">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+          <folding>
+            <element signature="e#43#82#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
+        <state relative-caret-position="1107">
           <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/MaterialBorrowerMessage.php">
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Service/UserService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
+        <state relative-caret-position="1134">
+          <caret line="45" column="50" selection-start-line="45" selection-start-column="50" selection-end-line="45" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserProfileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="48" column="7" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+          <folding>
+            <element signature="e#43#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserMessageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+          <folding>
+            <element signature="e#44#64#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+          <folding>
+            <element signature="e#30#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
           <folding>
             <element signature="e#30#62#0#PHP" expanded="true" />
           </folding>
@@ -980,30 +989,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="182" column="36" selection-start-line="182" selection-start-column="36" selection-end-line="182" selection-end-column="36" />
+        <state relative-caret-position="165">
+          <caret line="200" column="77" selection-start-line="200" selection-start-column="77" selection-end-line="200" selection-end-column="77" />
           <folding>
             <element signature="e#31#79#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialBorrowerMessageController.php">
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="31" column="71" selection-start-line="31" selection-start-column="71" selection-end-line="31" selection-end-column="71" />
+        <state relative-caret-position="385">
+          <caret line="57" column="18" lean-forward="true" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
           <folding>
-            <element signature="e#43#82#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="157" column="45" selection-start-line="157" selection-start-column="45" selection-end-line="157" selection-end-column="45" />
-          <folding>
-            <element signature="e#44#69#0#PHP" expanded="true" />
+            <element signature="e#30#78#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

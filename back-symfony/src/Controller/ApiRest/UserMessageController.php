@@ -123,6 +123,7 @@ class UserMessageController extends AbstractFOSRestController
         $userMessage->setIdMessageReceiver($message_receiver);
         $userMessage->setMessage($message);
         $userMessage->setSendAt(new \DateTime('now'));
+        $userMessage->setUser($user);
         //$userMessage->setSendAt(\DateTime::createFromFormat("Y-m-d",$sendTime));
         //$userMessage->setUser($user);
 

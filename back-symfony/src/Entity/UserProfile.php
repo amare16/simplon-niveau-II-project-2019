@@ -17,6 +17,7 @@ class UserProfile
      * @Groups("group_user_profile")
      * @Groups("group_user")
      * @Groups("group_borrow_material")
+     * @Groups("group_user_message")
      */
     private $id;
 

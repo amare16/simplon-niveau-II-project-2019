@@ -150,6 +150,7 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity="App\Entity\UserProfile", mappedBy="user", cascade={"persist", "remove"})
      * @Groups("group_user")
      * @Groups("group_borrow_material")
+     * @Groups("group_user_message")
      */
     private $userProfile;
 
@@ -196,6 +197,11 @@ class User implements UserInterface
      */
     private $materialBorrowerMessages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserMessage", mappedBy="user")
+     */
+    private $userMessages;
+
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="App\Entity\Addresses", inversedBy="users")
@@ -216,7 +222,7 @@ class User implements UserInterface
         $this->materialSenderMessage = new ArrayCollection();
         $this->materialReceiverMessages = new ArrayCollection();
         $this->materialBorrowerMessages = new ArrayCollection();
-        //$this->userMessages = new ArrayCollection();
+        $this->userMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -744,6 +750,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($materialBorrowerMessage->getUser() === $this) {
                 $materialBorrowerMessage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserMessage[]
+     */
+    public function getUserMessages(): Collection
+    {
+        return $this->userMessages;
+    }
+
+    public function addUserMessage(UserMessage $userMessage): self
+    {
+        if (!$this->userMessages->contains($userMessage)) {
+            $this->userMessages[] = $userMessage;
+            $userMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMessage(UserMessage $userMessage): self
+    {
+        if ($this->userMessages->contains($userMessage)) {
+            $this->userMessages->removeElement($userMessage);
+            // set the owning side to null (unless already changed)
+            if ($userMessage->getUser() === $this) {
+                $userMessage->setUser(null);
             }
         }
 

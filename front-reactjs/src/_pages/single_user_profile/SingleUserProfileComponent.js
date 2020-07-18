@@ -67,17 +67,51 @@ class SingleUserProfileComponent extends React.Component {
           message: "",
         },
       ],
+      userData: [
+        {
+          id: "",
+          firstName: "",
+          lastName: "",
+          username: "",
+          email: "",
+          userProfile: {
+            id: "",
+          },
+        },
+      ],
 
       show: false,
       showReceiver: false,
+      showSendAndReceive: false,
     };
 
     console.log("type of sender: ", this.state.items);
   }
 
   componentDidMount() {
+    this.getUsers();
     this.getSingleUserProfile();
     this.getMessageHere();
+  }
+
+  getUsers() {
+    fetch("http://localhost:8000/api/users", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        this.setState({
+          userData: response,
+        });
+        console.log("user results : ", response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   getMessageHere() {
@@ -107,6 +141,14 @@ class SingleUserProfileComponent extends React.Component {
 
   hideModalReceiver = () => {
     this.setState({ showReceiver: false });
+  };
+
+  showModalSendAndReceiveMessage = () => {
+    this.setState({ showSendAndReceive: true });
+  };
+
+  hideModalSendAndReceiveMessage = () => {
+    this.setState({ showSendAndReceive: false });
   };
 
   getSingleUserProfile() {
@@ -164,9 +206,9 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    //e.preventDefault();
     e.target.reset();
-    //this.setState({ message: "" });
+    this.setState({ message: "" });
 
     let body = {
       id_message_sender: {
@@ -200,8 +242,11 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   render() {
-    
+    console.log("items value: ", this.state.items)
     let usernameSender = localStorage.getItem("username");
+    let token = localStorage.getItem("token");
+    const connectedUser = token && usernameSender;
+
     const sender = this.state.id_message_sender === usernameSender;
     console.log("sender variable: ", sender);
     const receiver =
@@ -220,6 +265,9 @@ class SingleUserProfileComponent extends React.Component {
     const usernameUser = usernameSender === this.state.user.username;
     console.log("usernameUser: ", usernameUser);
 
+    this.state.id_message_sender = connectedUser;
+    this.state.id_message_receiver = this.state.user.username;
+
     let buttonMessages = (
       <div className="row">
         <div className="col-md-12">
@@ -227,7 +275,7 @@ class SingleUserProfileComponent extends React.Component {
           <button
             type="button"
             class="btn btn-primary btn-send"
-            style={{marginBottom: '10px', marginRight: '10px'}}
+            style={{ marginBottom: "10px", marginRight: "10px" }}
             onClick={this.showModal}
           >
             Send Messages
@@ -240,39 +288,64 @@ class SingleUserProfileComponent extends React.Component {
             Inbox
           </button>
 
-          <ModalSender show={this.state.show} handleClose={this.hideModal}>
+          <ModalMessagesSentByConnectedUser show={this.state.show} handleClose={this.hideModal}>
             {console.log("user sender: ", this.state.user)}
             {/* {this.state.user.userMessageSender.map(msgSender => {
                 console.log("msg sender: ", msgSender)
             })} */}
-              
-                <div class="container" id="messageSent">
-                  <table className="table table-striped">
-                    <thead>
+
+            <div class="container" id="messageSent">
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                      <strong>Sent Messages</strong>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.user.userMessageSender.map((msgSender) => {
+                    console.log("msg sender: ", msgSender);
+                    return (
                       <tr>
-                        <th><strong>Sent Messages</strong></th>
+                        {<td>
+                          <span style={{ float: "right" }}>
+                            {moment(msgSender.send_at).format(
+                              "YYYY-MM-DD, hh:mm:ss"
+                            )}
+                          </span>
+                          <br />
+                          {console.log("user name that: ", connectedUser)}
+                          {msgSender.message}
+                        </td> ? (
+                          <td>
+                            <span style={{ float: "right" }}>
+                              {moment(msgSender.send_at).format(
+                                "YYYY-MM-DD, hh:mm:ss"
+                              )}
+                            </span>
+                            <br />
+                            {msgSender.message}
+                          </td>
+                        ) : (
+                          <td>
+                            <span style={{ float: "right" }}>
+                              {moment(msgSender.send_at).format(
+                                "YYYY-MM-DD, hh:mm:ss"
+                              )}
+                            </span>
+                            <br />
+                            {msgSender.message}
+                          </td>
+                        )}
                       </tr>
-                    </thead>
-                    <tbody>
-                      
-                    {this.state.user.userMessageSender.map((msgSender) => {
-                      return(
-                        <tr>
-                          {
-                            <td><span style={{float: 'right'}}>{moment(msgSender.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgSender.message}</td> ? <td><span style={{float: 'right'}}>{moment(msgSender.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgSender.message}</td>: <td><span style={{float: 'right'}}>{moment(msgSender.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgSender.message}</td>
-                          }
-                        
-                      </tr>
-                      )
-                      
-                     })}
-                    </tbody>
-                  </table>
-                </div>
-             
-           
-          </ModalSender>
-          <ModalReceiver
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </ModalMessagesSentByConnectedUser>
+          <ModalMessagesReceivedByConnectedUser
             showReceiver={this.state.showReceiver}
             handleCloseReceiver={this.hideModalReceiver}
           >
@@ -280,32 +353,280 @@ class SingleUserProfileComponent extends React.Component {
                 console.log("msg receiver: ", msgReceiver.message)
             })} */}
             <div class="container" id="messageReceived">
-                  <table className="table table-striped">
-                    <thead>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>
+                      <strong>Received Messages</strong>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.user.userMessageReceiver.map((msgReceiver) => {
+                    return (
                       <tr>
-                        <th><strong>Received Messages</strong></th>
+                        <td>
+                          <span style={{ float: "right" }}>
+                            {moment(msgReceiver.send_at).format(
+                              "YYYY-MM-DD, hh:mm:ss"
+                            )}
+                          </span>
+                          <br />
+                          {/* {
+                            this.state.items.map(it => {
+                              // if (it.id_message_sender["username"] == it.user.username) {
+                              //   console.log("value of username test: ", it.message)
+                              // }
+                              //console.log("value of username test: ", it.user['username'])
+                              if (it.id == 4) {
+                              return (<p>{it.id_message_sender["username"]}</p>)
+                              }
+                               
+                            })
+                          } */}
+                          From <span style={{color: "red", fontWeight: 'bold'}}>Username</span>
+                          {" " }{msgReceiver.message}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.user.userMessageReceiver.map((msgReceiver) => {
-                      return(
-                        <tr>
-                        <td><span style={{float: 'right'}}>{moment(msgReceiver.send_at).format('YYYY-MM-DD, hh:mm:ss')}</span><br />{msgReceiver.message}</td>
-                      </tr>
-                      )
-                      
-                     })}
-                    </tbody>
-                  </table>
-                </div>
-          </ModalReceiver>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </ModalMessagesReceivedByConnectedUser>
         </div>
+      </div>
+    );
+
+    let buttonModalSendAndReceiveMessage = (
+      <div>
+       
+        {
+          connectedUser == this.state.user.username ? (
+            <button
+          type="button"
+          class="btn btn-warning btn-pulsate"
+          style={{ marginBottom: "10px", marginRight: "10px", display: "none"}}
+          onClick={this.showModalSendAndReceiveMessage}
+        >
+          <span style={{fontSize: "16px", fontWeight: 'bold'}}>Send Message</span> <br /> to <br /> <span style={{fontWeight: 'bold', fontSize: "16px", color: 'black'}}>{this.state.user.username.charAt(0).toUpperCase() + this.state.user.username.slice(1)}</span>
+        </button>
+          ) : (
+            <button
+          type="button"
+          class="btn btn-warning btn-pulsate"
+          style={{ marginBottom: "10px", marginRight: "10px" }}
+          onClick={this.showModalSendAndReceiveMessage}
+        >
+          <span style={{fontSize: "16px", fontWeight: 'bold'}}>Send Message</span> <br /> to <br /> <span style={{fontWeight: 'bold', fontSize: "16px", color: 'white'}}>{this.state.user.username.charAt(0).toUpperCase() + this.state.user.username.slice(1)}</span>
+        </button>
+          )
+        }
+        
+
+        <ModalSendAndReceiveMessagesChatBoard
+          showSendAndReceive={this.state.showSendAndReceive}
+          handleCloseModalSendAndReceiveMessage={this.hideModalSendAndReceiveMessage}
+        >
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12">
+                <a
+                  href={"/search-partner"}
+                  style={{
+                    borderRadius: "35px",
+                    fontSize: "25px",
+                    textAlign: "center",
+                    marginTop: "10px",
+                    color: "green",
+                  }}
+                >
+                  <p>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <strong>Click here to see list of Partner</strong>
+                  </p>
+                </a>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+                <h2>Messaging</h2>
+              </div>
+            </div>
+            <div className="row chat-board-search-partner">
+              <div className="col-md-2 userprofile-username">
+                <p className="user-profile-username">
+                  {this.state.user.username}
+                </p>
+              </div>
+              <div className="col-md-10 message-list">
+                {connectedUser && this.state.user.username
+                  ? this.state.items.map((item) => {
+                      if (
+                        item.id_message_sender["username"] == connectedUser &&
+                        item.id_message_receiver["username"] ==
+                          this.state.user.username
+                      ) {
+                        return (
+                          <div>
+                            <p className="send-message">
+                              {item.message}
+                              <br />
+                              <span style={{ float: "right" }}>
+                                {moment(item.send_at).format(
+                                  "YYYY-MM-DD, HH:mm:ss"
+                                )}
+                              </span>
+                            </p>
+                            <br />
+                          </div>
+                        );
+                      }
+
+                      if (
+                        item.id_message_sender["username"] ==
+                          this.state.user.username &&
+                        item.id_message_receiver["username"] == connectedUser
+                      ) {
+                        return (
+                          <div>
+                            <p className="receive-message">
+                              {item.message}
+                              <br />
+                              <span style={{ float: "right" }}>
+                                {moment(item.send_at).format(
+                                  "YYYY-MM-DD, HH:mm:ss"
+                                )}
+                              </span>
+                            </p>
+                            <br />
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <p style={{ display: "none" }}>{item.message}</p>
+                        );
+                      }
+                    })
+                  : null}
+
+                {connectedUser && this.state.user.username ? (
+                  <form
+                    id="chat-room-form"
+                    onSubmit={this.handleSubmit.bind(this)}
+                  >
+                    <div class="form-group align-bottom">
+                      <textarea
+                        class="form-control"
+                        name="msg"
+                        id="msg"
+                        placeholder="Enter Message"
+                        value={this.state.message}
+                        onChange={this.handleMessageChange.bind(this)}
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="form-group"  style={{display: "none" }}>
+                      <input
+                        type="text"
+                        value={this.state.id_message_sender}
+                        placeholder="Sender Username"
+                        className="form-control"
+                        id="senderUsername"
+                        name="senderUsername"
+                        onChange={this.handleMessageSenderChange.bind(this)}
+                        required
+                      />
+                      <input
+                        type="text"
+                        value={this.state.id_message_receiver}
+                        placeholder="Receiver Username"
+                        className="form-control"
+                        id="receiverUsername"
+                        name="receiverUsername"
+                        onChange={this.handleMessageReceiverChange.bind(this)}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group">{buttonActive}</div>
+                  </form>
+                ) : (
+                  <form
+                    id="chat-room-form"
+                    onSubmit={this.handleSubmit.bind(this)}
+                  >
+                    <div class="form-group">
+                      <textarea
+                        class="form-control"
+                        name="msg"
+                        id="msg"
+                        placeholder="Enter Message"
+                        value={this.state.message}
+                        onChange={this.handleMessageChange.bind(this)}
+                        disabled={true}
+                      ></textarea>
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        value={this.state.id_message_sender}
+                        placeholder="Sender Username"
+                        className="form-control"
+                        id="senderUsername"
+                        name="senderUsername"
+                        onChange={this.handleMessageSenderChange.bind(this)}
+                        required
+                        disabled={true}
+                      />
+                      <input
+                        type="text"
+                        value={this.state.id_message_receiver}
+                        placeholder="Receiver Username"
+                        className="form-control"
+                        id="receiverUsername"
+                        name="receiverUsername"
+                        onChange={this.handleMessageReceiverChange.bind(this)}
+                        required
+                        disabled={true}
+                      />
+                    </div>
+
+                    <div className="form-group">{buttonDisabled}</div>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        </ModalSendAndReceiveMessagesChatBoard>
       </div>
     );
 
     return (
       <div className="container" style={{ marginBottom: "50px" }}>
         <UserLogoutComponent />
+        {this.state.userData.map((ud) => {
+          //ud.username == localStorage.getItem("username") ? (<p>{ud.username}</p>) : console.log("not me")
+          if (ud.username == localStorage.getItem("username")) {
+            return (
+              <a
+                href={"/single-user-profile/" + ud.userProfile.id}
+                style={{
+                  borderRadius: "35px",
+                  fontSize: "25px",
+                  textAlign: "center",
+                }}
+              >
+                <p>
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  &nbsp;&nbsp;
+                  <strong>My Profile</strong>
+                </p>
+              </a>
+            );
+          }
+        })}
         <div
           className="head_title center m-y-3 wow fadeInUp"
           style={{ visibility: "visible", animationName: "fadeInUp" }}
@@ -339,13 +660,13 @@ class SingleUserProfileComponent extends React.Component {
                   </strong>
                 </span>
                 <a href={"/search-partner"}>
-                          <input
-                            type="button"
-                            className="btn btn-warning"
-                            style={{marginTop: '30px'}}
-                            value="Back to Search Partner"
-                          />
-                        </a>
+                  <input
+                    type="button"
+                    className="btn btn-warning"
+                    style={{ marginTop: "30px" }}
+                    value="Back to Search Partner"
+                  />
+                </a>
               </div>
               {/* <div className="row">
                 <div className="col-md-12" style={{ marginBottom: "45px"}}>
@@ -354,196 +675,7 @@ class SingleUserProfileComponent extends React.Component {
                         </a>
                 </div>
               </div> */}
-              {usernameUser ? (
-                <div className="row" style={{ display: "none" }}>
-                  <div
-                    className="col-md-12"
-                    style={{
-                      marginBottom: "45px",
-                      background: "linear-gradient(to left, #43cea2, #185a9d)",
-                    }}
-                  >
-                    
-                    <form onSubmit={this.handleSubmit.bind(this)}>
-                      <div className="form-group">
-                        <label
-                          htmlFor=" Email1msg"
-                          style={{ color: "white", fontWeight: "bold" }}
-                        >
-                          From
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          style={{ marginBottom: "10px" }}
-                          placeholder="Your username"
-                          value={this.state.id_message_sender}
-                          onChange={this.handleMessageSenderChange.bind(this)}
-                        />
-                        <label
-                          htmlFor=" Email1msg"
-                          style={{ color: "white", fontWeight: "bold" }}
-                        >
-                          To
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          style={{ marginBottom: "10px" }}
-                          placeholder="Receiver username"
-                          value={this.state.id_message_receiver}
-                          onChange={this.handleMessageReceiverChange.bind(this)}
-                        />
-                        {/* <select
-                            className="form-control form-control-sm"
-                            onChange={this.handleUsernameChange.bind(this)}
-                            style={{ textTransform: "capitalize" }}
-                          >
-                            <option value={username}>{username}</option>
-                          </select> */}
-                        &nbsp;&nbsp;
-                        <span
-                          style={{
-                            color: "white",
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                          }}
-                        >
-                          Message
-                        </span>
-                        &nbsp;&nbsp;
-                        {/* <select
-                            className="form-control form-control-sm"
-                            onChange={this.handleUsernameChange.bind(this)}
-                            style={{ textTransform: "capitalize" }}
-                          >
-                            <option value={this.state.user.username}>
-                              {this.state.user.username}
-                            </option>
-                          </select> */}
-                        {/* <input
-                      className="form-control"
-                      type="date"
-                      value={moment(this.state.send_at).format("YYYY-MM-DD HH:mm")}
-                      onChange={this.handleSendAtChange.bind(this)}
-                      id="example-date-input"
-                    /> */}
-                        {/* <label htmlFor=" Email1msg">Your Message</label> */}
-                        <textarea
-                          className="form-control"
-                          value={this.state.message}
-                          placeholder="Enter Your message"
-                          onChange={this.handleMessageChange.bind(this)}
-                        ></textarea>
-                      </div>
-
-                      {/* <button type="submit" className="btn btn-primary">
-                          Send Message
-                        </button> */}
-                      <div className="single_c_text text-md-left text-xs-center">
-                        {sender && receiver && !usernameUser
-                          ? buttonActive
-                          : buttonDisabled}
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              ) : (
-                <div className="row insert-message-row">
-                  <div
-                    className="col-md-12"
-                    style={{
-                      marginBottom: "45px",
-                      background: "linear-gradient(to left, #43cea2, #185a9d)",
-                    }}
-                  >
-                    <form onSubmit={this.handleSubmit.bind(this)}>
-                      <div className="form-group">
-                        
-                      <p style={{textAlign: "center", color: 'white', fontSize: '30px'}}><strong>Send Message</strong></p>
-                        <label
-                          htmlFor=" Email1msg"
-                          style={{ color: "white", fontWeight: "bold" }}
-                        >
-                          From
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          style={{ marginBottom: "10px" }}
-                          placeholder="Your username"
-                          value={this.state.id_message_sender}
-                          onChange={this.handleMessageSenderChange.bind(this)}
-                        />
-                        <label
-                          htmlFor=" Email1msg"
-                          style={{ color: "white", fontWeight: "bold" }}
-                        >
-                          To
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          style={{ marginBottom: "10px" }}
-                          placeholder="Receiver username"
-                          value={this.state.id_message_receiver}
-                          onChange={this.handleMessageReceiverChange.bind(this)}
-                        />
-                        {/* <select
-                            className="form-control form-control-sm"
-                            onChange={this.handleUsernameChange.bind(this)}
-                            style={{ textTransform: "capitalize" }}
-                          >
-                            <option value={username}>{username}</option>
-                          </select> */}
-                        &nbsp;&nbsp;
-                        <span
-                          style={{
-                            color: "white",
-                            fontWeight: "bold",
-                            fontSize: "20px",
-                          }}
-                        >
-                          Message
-                        </span>
-                        &nbsp;&nbsp;
-                        {/* <select
-                            className="form-control form-control-sm"
-                            onChange={this.handleUsernameChange.bind(this)}
-                            style={{ textTransform: "capitalize" }}
-                          >
-                            <option value={this.state.user.username}>
-                              {this.state.user.username}
-                            </option>
-                          </select> */}
-                        {/* <input
-                      className="form-control"
-                      type="date"
-                      value={moment(this.state.send_at).format("YYYY-MM-DD HH:mm")}
-                      onChange={this.handleSendAtChange.bind(this)}
-                      id="example-date-input"
-                    /> */}
-                        {/* <label htmlFor=" Email1msg">Your Message</label> */}
-                        <textarea
-                          className="form-control"
-                          value={this.state.message}
-                          placeholder="Enter Your message"
-                          onChange={this.handleMessageChange.bind(this)}
-                        ></textarea>
-                      </div>
-
-                      {/* <button type="submit" className="btn btn-primary">
-                          Send Message
-                        </button> */}
-                      <div className="single_c_text text-md-left text-xs-center">
-                        {sender && receiver && !usernameUser
-                          ? buttonActive
-                          : buttonDisabled}
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              )}
+             
 
               {/* <div className="single_c_text text-md-left text-xs-center">
                 <a href={"/search-partner"}>
@@ -582,7 +714,7 @@ class SingleUserProfileComponent extends React.Component {
                 <div className="col-md-12"></div>
               </div>
               <div className="row row-empty">
-                <div className="col-md-12"></div>
+                <div className="col-md-12">{buttonModalSendAndReceiveMessage}</div>
               </div>
               {usernameUser ? (
                 buttonMessages
@@ -616,7 +748,7 @@ class SingleUserProfileComponent extends React.Component {
 
 export { SingleUserProfileComponent };
 
-const ModalSender = ({ handleClose, show, children }) => {
+const ModalMessagesSentByConnectedUser = ({ handleClose, show, children }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
   return (
     <div className={showHideClassName}>
@@ -628,7 +760,7 @@ const ModalSender = ({ handleClose, show, children }) => {
             <button
               type="button"
               className="btn btn-danger"
-              style={{float: 'right', marginBottom: '10px'}}
+              style={{ float: "right", marginBottom: "10px" }}
               onClick={handleClose}
             >
               Close
@@ -641,7 +773,7 @@ const ModalSender = ({ handleClose, show, children }) => {
   );
 };
 
-const ModalReceiver = ({ handleCloseReceiver, showReceiver, children }) => {
+const ModalMessagesReceivedByConnectedUser = ({ handleCloseReceiver, showReceiver, children }) => {
   const showHideClassNameReceiver = showReceiver
     ? "modal display-block"
     : "modal display-none";
@@ -656,13 +788,47 @@ const ModalReceiver = ({ handleCloseReceiver, showReceiver, children }) => {
             <button
               type="button"
               className="btn btn-danger"
-              style={{float: 'right', marginBottom: '10px'}}
+              style={{ float: "right", marginBottom: "10px" }}
               onClick={handleCloseReceiver}
             >
               Close
             </button>
           </div>
           <div className="col-md-2"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ModalSendAndReceiveMessagesChatBoard = ({
+  handleCloseModalSendAndReceiveMessage,
+  showSendAndReceive,
+  children,
+}) => {
+  const showHideClassNameModalSendAndReceiveMessage = showSendAndReceive
+    ? "modal display-block"
+    : "modal display-none";
+
+  return (
+    <div className={showHideClassNameModalSendAndReceiveMessage}>
+      <div
+        className="modal-main container"
+        id="modal-main"
+        style={{ borderRadius: "5px" }}
+      >
+        <div className="row">
+          <div className="col-md-12">
+            {children}
+            <button
+              type="button"
+              className="btn btn-danger"
+              style={{ float: "right", marginBottom: "10px" }}
+              onClick={handleCloseModalSendAndReceiveMessage}
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

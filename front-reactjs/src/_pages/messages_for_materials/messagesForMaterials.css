@@ -56,11 +56,11 @@
     color: white;
 }
 /* make chat block column height auto */
-.row [class*="col-"]{
+.chat-board [class*="col-"]{
     margin-bottom: -99999px;
     padding-bottom: 99999px;
   }
   
-  .row{
+  .chat-board{
     overflow: hidden; 
   }
