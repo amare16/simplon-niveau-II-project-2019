@@ -13,7 +13,10 @@ class EditArticleComponent extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    //this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
+    this.handlePublishedAtChange = this.handlePublishedAtChange.bind(this);
   }
 
   componentWillMount() {
@@ -41,15 +44,35 @@ class EditArticleComponent extends React.Component {
     .catch(error => console.log(error))
   }
 
-  handleInputChange(e) {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-
+  handleTitleChange(data) {
     this.setState({
-      [name]: value
-    });
-  }
+        title: data.target.value
+    })
+}
+
+handleContentChange(even) {
+  this.setState({
+      content: even.target.value
+  })
+  console.log("test content: ", this.state.content)
+}
+
+handlePublishedAtChange(event) {
+  console.log("event value publish: ", event.target.value)
+  this.setState({
+      published_at: event.target.value
+  })
+}
+
+  // handleInputChange(e) {
+  //   const target = e.target;
+  //   const value = target.value;
+  //   const name = target.name;
+
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // }
 
   editArticle(newArticle) {
     let token = localStorage.getItem('token');
@@ -88,6 +111,26 @@ class EditArticleComponent extends React.Component {
     return (
       <div className="container edit-article-container">
         <div className="row">
+                <div className="col-md-12">
+                <a
+                  href={"/articles"}
+                  style={{
+                    borderRadius: "35px",
+                    fontSize: "25px",
+                    textAlign: "center",
+                    marginTop: "10px",
+                    color: "green",
+                  }}
+                >
+                  <p>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <strong>Back to list of Articles</strong>
+                  </p>
+                </a>
+                </div>
+              </div>
+        <div className="row">
           <div className="col-md-2"></div>
 
           <div className="col-md-8">
@@ -105,7 +148,7 @@ class EditArticleComponent extends React.Component {
                   className="form-control"
                   name="title"
                   value={this.state.title}
-                  onChange={this.handleInputChange}
+                  onChange={this.handleTitleChange}
                 />
               </div>
 
@@ -116,7 +159,7 @@ class EditArticleComponent extends React.Component {
                   className="form-control"
                   name="content"
                   value={this.state.content}
-                  onChange={this.handleInputChange}
+                  onChange={this.handleContentChange}
                 ></textarea>
               </div>
 
@@ -126,8 +169,8 @@ class EditArticleComponent extends React.Component {
                   type="date"
                   className="form-control"
                   name="published_at"
-                  value={moment(this.state.published_at).format("YY-MM-DD")}
-                  onChange={this.handleInputChange}
+                  value={this.state.published_at}
+                  onChange={this.handlePublishedAtChange}
                 />
               </div>
 

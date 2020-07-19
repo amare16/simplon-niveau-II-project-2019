@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleLikeRepository")
  */
@@ -13,16 +13,21 @@ class ArticleLike
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_article_like")
+     * @Groups("group_article")
+     * @Groups("group_user")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="likes")
+     * @Groups("group_article_like")
      */
     private $article;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articleLikes")
+     * @Groups("group_article_like")
      */
     private $user;
 

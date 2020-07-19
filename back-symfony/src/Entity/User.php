@@ -27,6 +27,9 @@ class User implements UserInterface
      * @Groups("group_borrow_material")
      * @Groups("group_experience")
      * @Groups("group_material_borrower_message")
+     * @Groups("group_article_like")
+     * @Groups("group_comment_experience")
+     *
      */
     private $id;
 
@@ -41,6 +44,8 @@ class User implements UserInterface
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
      * @Groups("group_material_borrower_message")
+     * @Groups("group_article_like")
+     * @Groups("group_comment_experience")
      */
     private $firstName;
 
@@ -55,6 +60,8 @@ class User implements UserInterface
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
      * @Groups("group_material_borrower_message")
+     * @Groups("group_article_like")
+     * @Groups("group_comment_experience")
      */
     private $lastName;
 
@@ -67,6 +74,8 @@ class User implements UserInterface
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
      * @Groups("group_material_borrower_message")
+     * @Groups("group_article_like")
+     * @Groups("group_comment_experience")
      */
     private $username;
 
@@ -78,6 +87,8 @@ class User implements UserInterface
      * @Groups("group_borrow_material")
      * @Groups("group_user_profile")
      * @Groups("group_material_borrower_message")
+     * @Groups("group_article_like")
+     * @Groups("group_comment_experience")
      */
     private $email;
 

@@ -2,6 +2,7 @@ import React from "react";
 import * as moment from "moment";
 import { NavbarComponent } from "../_components/NavbarComponent";
 import { UserLogoutComponent } from "./UserLogoutComponent";
+import { Redirect } from "react-router-dom";
 
 class ArticlesComponent extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class ArticlesComponent extends React.Component {
     };
   }
   componentDidMount() {
+    
     return fetch("http://localhost:8000/api/articles", {
       method: "GET",
       mode: "cors"
@@ -37,6 +39,27 @@ class ArticlesComponent extends React.Component {
         console.error(error);
       });
   }
+
+  showArticlesAfterDelete() {
+    setTimeout(() => {
+      fetch("http://localhost:8000/api/articles", {
+      method: "GET",
+      mode: "cors"
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log("what is the value of : ", responseJson);
+        this.setState({
+          items: responseJson
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }, 200);
+    
+  }
+
   deleteArticle(e, id) {
 
     console.log("id article:", id);
@@ -53,8 +76,10 @@ class ArticlesComponent extends React.Component {
         }
       })
         .then(res => {
-          this.setState({ message: "This article is successfully Inserted ", res})
-            this.props.history.push("/articles");
+          this.setState({ message: "This article is successfully Inserted ", res});
+          this.showArticlesAfterDelete();
+            //this.props.history.push("/articles");
+            //return (<Redirect to={'/articles'} />)
         })
         .catch(err => err);
     }

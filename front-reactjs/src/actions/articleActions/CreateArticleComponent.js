@@ -71,6 +71,26 @@ class CreateArticleComponent extends React.Component {
     return (
       <div className="container create-article-container">
         <div className="row">
+          <div className="col-md-12">
+          <a
+                  href={"/articles"}
+                  style={{
+                    borderRadius: "35px",
+                    fontSize: "25px",
+                    textAlign: "center",
+                    marginTop: "10px",
+                    color: "green",
+                  }}
+                >
+                  <p>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <strong>Back to list of Articles</strong>
+                  </p>
+                </a>
+          </div>
+        </div>
+        <div className="row">
           <div className="col-md-2"></div>
 
           <div className="col-md-8">
@@ -83,7 +103,10 @@ class CreateArticleComponent extends React.Component {
                        className="form-control"
                        name="title"
                        value={this.state.title}
-                       onChange={this.handleTitleChange}/>  
+                       onChange={this.handleTitleChange}
+                       required
+                />  
+                       
               </div>
 
               <div className="form-group">
@@ -94,6 +117,7 @@ class CreateArticleComponent extends React.Component {
                   name="content"
                   value={this.state.content}
                   onChange={this.handleContentChange}
+                  required
                 ></textarea>
               </div>
 
@@ -105,6 +129,7 @@ class CreateArticleComponent extends React.Component {
                   name="published_at"
                   value={this.state.published_at}
                   onChange={this.handlePublishedAtChange}
+                  required
                 />
               </div>
 
@@ -112,9 +137,10 @@ class CreateArticleComponent extends React.Component {
                 <button type="submit" className="btn btn-primary pull-left create-article-create">
                   Create
                 </button>&nbsp;&nbsp;&nbsp;
-                <button className="btn btn-secondary pull-left create-article-back">Back</button>
+                
               </div>
             </form>
+            
           </div>
           <div className="col-md-2"></div>
         </div>

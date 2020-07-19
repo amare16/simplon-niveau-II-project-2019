@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as moment from "moment";
+import {LikeButtonArticles} from "./../like_button_articles/LikeButtonArticles";
 import "./showSingleArticle.css";
 
 class ShowSingleArticleComponent extends React.Component {
@@ -28,6 +29,11 @@ class ShowSingleArticleComponent extends React.Component {
             username: ""
           },
         },
+      ],
+      likes: [
+        {
+          id: ""
+        }
       ],
       commentContent: "",
       article: {
@@ -118,6 +124,7 @@ class ShowSingleArticleComponent extends React.Component {
             published_at: resJson.published_at,
             user: resJson.user,
             commentArticles: resJson.commentArticles,
+            likes: resJson.likes,
           },
           () => {
             //console.log(this.state);
@@ -183,7 +190,12 @@ class ShowSingleArticleComponent extends React.Component {
                 style={{ fontStyle: "italic", color: "green" }}
               >
                 {moment(this.state.published_at).format("LLL")}
-              </p>
+              </p> {" "}
+              <span className="react-like"></span>
+              <LikeButtonArticles test={this.props.likes}/>
+              <span>{this.state.likes.length}</span>
+
+
               <p className="text-right">
                 <strong style={{ color: "green" }}>
                   {this.state.user.firstName + " " + this.state.user.lastName}

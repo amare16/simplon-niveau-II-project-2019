@@ -26,16 +26,30 @@ class ArticleLikeController extends AbstractFOSRestController
      * @var ArticleRepository
      */
     private $articleRepository;
+    /**
+     * @var ArticleLikeRepository
+     */
+    private $articleLikeRepository;
 
     public function __construct(EntityManagerInterface $entityManager,
-                                ArticleRepository $articleRepository)
+                                ArticleRepository $articleRepository,
+                                ArticleLikeRepository $articleLikeRepository)
     {
 
         $this->entityManager = $entityManager;
         $this->articleRepository = $articleRepository;
+        $this->articleLikeRepository = $articleLikeRepository;
     }
 
-
+    /**
+     * @Rest\Get("/all-article-likes")
+     * @Rest\View(serializerGroups={"group_article_like"})
+     */
+    public function getAllArticleLike(): View
+    {
+        $all_article_likes = $this->articleLikeRepository->findAll();
+        return View::create($all_article_likes, Response::HTTP_OK);
+    }
 
     /**
      * @Rest\Post("/add-article-like")

@@ -6,6 +6,8 @@ namespace App\Controller\ApiRest;
 
 use App\Entity\Article;
 use App\Entity\Experience;
+use App\Entity\ExperienceLike;
+use App\Repository\ExperienceLikeRepository;
 use App\Repository\ExperienceRepository;
 use App\Service\ExperienceService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,13 +34,20 @@ class ExperienceController extends AbstractFOSRestController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var ExperienceLikeRepository
+     */
+    private $experienceLikeRepository;
 
     public function __construct(ExperienceService $experienceService,
-                                ExperienceRepository $experienceRepository, EntityManagerInterface $entityManager)
+                                ExperienceRepository $experienceRepository,
+                                EntityManagerInterface $entityManager,
+                                ExperienceLikeRepository $experienceLikeRepository)
     {
         $this->experienceService = $experienceService;
         $this->experienceRepository = $experienceRepository;
         $this->entityManager = $entityManager;
+        $this->experienceLikeRepository = $experienceLikeRepository;
     }
 
     /**
@@ -152,5 +161,56 @@ class ExperienceController extends AbstractFOSRestController
             return View::create(["You have not the right to delete this experience"], Response::HTTP_BAD_REQUEST);
         }
 
+    }
+
+    /**
+     * @Rest\Get("/single-experience-like/{id<\d+>}/like", name="experience_like");
+     *
+     * @param Experience $experience
+     * @param EntityManagerInterface $entityManager
+     * @param ExperienceLikeRepository $experienceLikeRepository
+     * @return View
+     */
+    public function likeExperience(Experience $experience,
+                                   EntityManagerInterface $entityManager,
+                                   ExperienceLikeRepository $experienceLikeRepository): View
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return View::create([
+                'code' => 403,
+                'message' => 'Unauthorized!'
+            ], 403);
+        }
+
+        if ($experience->isLikedByUser($user)) {
+            $like = $this->experienceLikeRepository->findOneBy([
+                'experience' => $experience,
+                'user' => $user
+            ]);
+
+            $entityManager->remove($like);
+            $entityManager->flush();
+
+            return View::create([
+                'code' => 200,
+                'message' => 'Like well deleted',
+                'likes' => $experienceLikeRepository->count(['experience' => $experience])
+            ], 200);
+        }
+
+        $like = new ExperienceLike();
+        $like->setExperience($experience)
+            ->setUser($user);
+
+        $entityManager->persist($like);
+        $entityManager->flush();
+
+        return View::create([
+            'code' => 200,
+            'message' => 'Like well added',
+            'likes' => $experienceLikeRepository->count(['experience' => $experience])
+        ], 200);
     }
 }

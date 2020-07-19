@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -15,24 +17,28 @@ class Experience
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups("group_experience")
+     * @Groups("group_comment_experience")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("group_experience")
+     * @Groups("group_comment_experience")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Groups("group_experience")
+     * @Groups("group_comment_experience")
      */
     private $content;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups("group_experience")
+     * @Groups("group_comment_experience")
      */
     private $published_at;
 
@@ -40,8 +46,27 @@ class Experience
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="experiences")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("group_experience")
+     * @Groups("group_comment_experience")
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CommentExperience", mappedBy="experience")
+     * @Groups("group_experience")
+     */
+    private $commentExperiences;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExperienceLike", mappedBy="experience")
+     * @Groups("group_experience")
+     */
+    private $experienceLikes;
+
+    public function __construct()
+    {
+        $this->commentExperiences = new ArrayCollection();
+        $this->experienceLikes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -94,5 +119,88 @@ class Experience
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|CommentExperience[]
+     */
+    public function getCommentExperiences(): Collection
+    {
+        return $this->commentExperiences;
+    }
+
+    public function addCommentExperience(CommentExperience $commentExperience): self
+    {
+        if (!$this->commentExperiences->contains($commentExperience)) {
+            $this->commentExperiences[] = $commentExperience;
+            $commentExperience->setExperience($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentExperience(CommentExperience $commentExperience): self
+    {
+        if ($this->commentExperiences->contains($commentExperience)) {
+            $this->commentExperiences->removeElement($commentExperience);
+            // set the owning side to null (unless already changed)
+            if ($commentExperience->getExperience() === $this) {
+                $commentExperience->setExperience(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExperienceLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->experienceLikes;
+    }
+
+    public function addLike(ExperienceLike $like): self
+    {
+        if (!$this->experienceLikes->contains($like)) {
+            $this->experienceLikes[] = $like;
+            $like->setExperience($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(ExperienceLike $like): self
+    {
+        if ($this->experienceLikes->contains($like)) {
+            $this->experienceLikes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getExperience() === $this) {
+                $like->setExperience(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
+
+    /**
+     * lets you know if this experience is "like" by a user
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->experienceLikes as $like)
+        {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+        return false;
     }
 }

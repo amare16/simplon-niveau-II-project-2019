@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as moment from "moment";
 import { NavbarComponent } from "../NavbarComponent";
-import {LikeButtonArticles} from "./../like_button_articles/LikeButtonArticles";
+//import {LikeButtonArticles} from "./../like_button_articles/LikeButtonArticles";
 import "./showListOfArticles.css";
 
 class ShowListOfArticlesComponent extends React.Component {
@@ -70,8 +70,8 @@ class ShowListOfArticlesComponent extends React.Component {
                         <strong style={{color: "green"}}>{item.user.firstName + " " + item.user.lastName}</strong>
                       </p>
                       
-                      <span className="react-like"></span>
-                      <LikeButtonArticles test={this.props.likes}/>
+                      {/* <span className="react-like"></span>
+                      <LikeButtonArticles test={this.props.likes}/> */}
                       
                         
                      

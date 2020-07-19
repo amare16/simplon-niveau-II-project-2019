@@ -17,7 +17,7 @@ class LogoComponent extends React.Component {
         } else {
             return(
                 <div className="logo">
-                    <a href="http://localhost:3000/login"><img className="img-logo" src="http://localhost:3000/logo.png" alt="logo"></img></a>
+                    <a href="http://localhost:3000/home"><img className="img-logo" src="http://localhost:3000/logo.png" alt="logo"></img></a>
                 
                 </div>
             );

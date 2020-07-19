@@ -39,6 +39,25 @@ class ExperiencesComponent extends React.Component {
         })
     }
 
+    showExperiencesAfterDelete() {
+      setTimeout(() => {
+        fetch(`http://localhost:8000/api/experiences`, {
+            method: "GET",
+            mode: "cors"
+        })
+        .then(response => response.json())
+        .then(resJson => {
+            console.log("res json: ", resJson)
+            this.setState({
+                items: resJson
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        })
+      }, 500)
+    }
+
     deleteExperience(e, id) {
       if(window.confirm("Are you sure to delete this experience?")) {
         console.log("id experience:", id);
@@ -54,7 +73,7 @@ class ExperiencesComponent extends React.Component {
         .then(res => {
           console.log("result: ", res)
           this.setState({res})
-          this.props.history.push("/experiences");
+          this.showExperiencesAfterDelete();
         })
         .catch(err => {
           console.error(err);

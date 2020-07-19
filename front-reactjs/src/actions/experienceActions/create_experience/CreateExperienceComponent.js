@@ -63,6 +63,26 @@ class CreateExperienceComponent extends React.Component {
         return (
           <div className="container create-experience-container">
             <div className="row">
+                <div className="col-md-12">
+                <a
+                  href={"/experiences"}
+                  style={{
+                    borderRadius: "35px",
+                    fontSize: "25px",
+                    textAlign: "center",
+                    marginTop: "10px",
+                    color: "green",
+                  }}
+                >
+                  <p>
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    &nbsp;&nbsp;
+                    <strong>Back to list of Experiences</strong>
+                  </p>
+                </a>
+                </div>
+              </div>
+            <div className="row">
               <div className="col-md-2"></div>
     
               <div className="col-md-8">
@@ -75,7 +95,9 @@ class CreateExperienceComponent extends React.Component {
                            className="form-control"
                            name="title"
                            value={this.state.title}
-                           onChange={this.handleTitleChange}/>  
+                           onChange={this.handleTitleChange}
+                           required
+                    />  
                   </div>
     
                   <div className="form-group">
@@ -86,6 +108,7 @@ class CreateExperienceComponent extends React.Component {
                       name="content"
                       value={this.state.content}
                       onChange={this.handleContentChange}
+                      required
                     ></textarea>
                   </div>
     
@@ -97,6 +120,7 @@ class CreateExperienceComponent extends React.Component {
                       name="published_at"
                       value={this.state.published_at}
                       onChange={this.handlePublishedAtChange}
+                      required
                     />
                   </div>
     

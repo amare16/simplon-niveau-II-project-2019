@@ -13,27 +13,28 @@ class LikeButtonArticles extends React.Component {
     
   }
 
-  handleClick(id) {
-    // event.preventDefault();
-    let token = localStorage.getItem("token");    
-    console.log("id: ", id);
+  handleClick() {
+    //event.preventDefault();
+    // let token = localStorage.getItem("token");   
+    // let id = this.props.match.params.id; 
+    // console.log("id: ", id);
 
-    fetch(`http://localhost:8000/api/single-article-like/` + id + '/like', {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ` + token
-      }
-    })
-    .then(response => response.json())
-    .then(responseJson => {
-      console.log("responseJson", responseJson);
+    // fetch(`http://localhost:8000/api/single-article-like/` + id + '/like', {
+    //   method: 'GET',
+    //   mode: 'cors',
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ` + token
+    //   }
+    // })
+    // .then(response => response.json())
+    // .then(responseJson => {
+    //   console.log("responseJson", responseJson);
      
-    })
-    // const isLiked = this.state.isLiked;
-    // console.log("is liked: ", isLiked)
-    // const likes = this.state.likes + (isLiked ? -1 : 1);
+    // })
+    const isLiked = this.state.isLiked;
+    console.log("is liked: ", isLiked)
+    const likes = this.state.likes + (isLiked ? -1 : 1);
 
     // // this set state is the same as the below one
     // // this.setState({

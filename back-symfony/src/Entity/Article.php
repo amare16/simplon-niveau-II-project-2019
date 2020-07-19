@@ -21,6 +21,7 @@ class Article
      * @ORM\Column(type="integer")
      * @Groups("group_article")
      * @Groups("group_comment_article")
+     * @Groups("group_article_like")
      */
     private $id;
 
@@ -64,6 +65,7 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ArticleLike", mappedBy="article")
+     * @Groups("group_article")
      */
     private $likes;
     
