@@ -8,46 +8,65 @@ class CreateMaterialComponent extends React.Component {
     this.state = {
       name: "",
       description: "",
-      availability: Boolean()
+      availability: Boolean(),
+      borrowed_date: "",
+      return_date: "",
     };
-
   }
 
   handleNameChange(nameEvent) {
-      this.setState({
-          name: nameEvent.target.value
-      })
+    this.setState({
+      name: nameEvent.target.value,
+    });
   }
 
   handleDescriptionChange(descriptionEvent) {
     this.setState({
-        description: descriptionEvent.target.value
-    })
-}
+      description: descriptionEvent.target.value,
+    });
+  }
 
-handleAvailabilityChange(availabilityEvent) {
+  handleAvailabilityChange(availabilityEvent) {
     this.setState({
-        availability: availabilityEvent.target.value
-    })
-}
-  
+      availability: availabilityEvent.target.value,
+    });
+  }
+
+  handleBorrowedDateChange(borrowedDateEvent) {
+    this.setState({
+      borrowed_date: borrowedDateEvent.target.value,
+    });
+  }
+
+  handleReturnDateChange(returnDateEvent) {
+    this.setState({
+      return_date: returnDateEvent.target.value,
+    });
+  }
 
   handleSubmit(e) {
-      e.preventDefault();
-      
-      
-    let token = localStorage.getItem('token');
+    e.preventDefault();
+    e.target.reset();
+    this.setState({ name: "" });
+    this.setState({ description: "" });
+    this.setState({ availability: false });
+    this.setState({ borrowed_date: "" });
+    this.setState({ return_date: "" });
+
+    let token = localStorage.getItem("token");
     fetch(`http://localhost:8000/api/add-material`, {
-        method: "post",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ` + token },
-            body: JSON.stringify(this.state)
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ` + token,
+      },
+      body: JSON.stringify(this.state),
     })
-    .then(data => data.json())
-    .then(dataJson => {
-        console.log("data json: ", dataJson)
-    })
+      .then((data) => data.json())
+      .then((dataJson) => {
+        console.log("data json: ", dataJson);
+        this.props.history.push("/borrow-lend-materials");
+      });
   }
 
   render() {
@@ -83,8 +102,10 @@ handleAvailabilityChange(availabilityEvent) {
                     />
                   </div>
                   <div class="form-check form-check-inline">
-                  <label class="form-check-label" for="inlineRadio2">Availability</label>&nbsp;&nbsp;
-                  &nbsp;
+                    <label class="form-check-label" for="inlineRadio2">
+                      Availability
+                    </label>
+                    &nbsp;&nbsp; &nbsp;
                     <input
                       class="form-check-input"
                       type="radio"
@@ -92,6 +113,29 @@ handleAvailabilityChange(availabilityEvent) {
                       id="inlineRadio2"
                       value={this.state.availability}
                       onChange={this.handleAvailabilityChange.bind(this)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <h3 className="create-material-borrowed-date">
+                      Borrowed Date
+                    </h3>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="borrowed_date"
+                      value={this.state.borrowed_date}
+                      onChange={this.handleBorrowedDateChange.bind(this)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <h3 className="create-material-return-date">Return Date</h3>
+                    <input
+                      type="date"
+                      className="form-control"
+                      name="return_date"
+                      value={this.state.return_date}
+                      onChange={this.handleReturnDateChange.bind(this)}
                     />
                   </div>
                 </div>
@@ -109,8 +153,15 @@ handleAvailabilityChange(availabilityEvent) {
                   </div>
                   <div>
                     <button type="submit" className="btn btn-primary">
-                      Add
-                    </button>
+                      Add Material
+                    </button>&nbsp;&nbsp;
+                    <a href={"/borrow-lend-materials"}>
+                      <input
+                        type="button"
+                        className="btn btn-success"
+                        value="Back to List of Materials"
+                      />
+                    </a>
                   </div>
                 </div>
               </div>

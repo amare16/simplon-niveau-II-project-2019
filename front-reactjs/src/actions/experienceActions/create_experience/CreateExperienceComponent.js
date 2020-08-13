@@ -50,7 +50,7 @@ class CreateExperienceComponent extends React.Component {
         .then(data => data.json())
         .then(dataJson => {
             this.setState({ dataJson })
-            this.props.history.push("/experiences");
+            //this.props.history.push("/experiences");
         })
         .catch(error => {
             console.error("error test: ",error);

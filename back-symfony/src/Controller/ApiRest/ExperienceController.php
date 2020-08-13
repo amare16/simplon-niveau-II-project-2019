@@ -148,6 +148,9 @@ class ExperienceController extends AbstractFOSRestController
     {
         $user = $this->getUser();
         $experience = $this->experienceRepository->find($experienceId);
+        foreach($experience->getCommentExperiences() as $commentExperience) {
+            $this->entityManager->remove($commentExperience);
+        }
         if (!$experience) {
             throw new EntityNotFoundException('Experience with id '. $experienceId. ' does not exist!');
         }

@@ -130,7 +130,7 @@ handlePublishedAtChange(event) {
                 </a>
                 </div>
               </div>
-        <div className="row">
+        <div className="row" style={{ marginBottom: "50px"}}>
           <div className="col-md-2"></div>
 
           <div className="col-md-8">

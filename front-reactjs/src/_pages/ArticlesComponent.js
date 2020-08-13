@@ -15,7 +15,9 @@ class ArticlesComponent extends React.Component {
           content: "",
           publishedAt: "",
           user: {
-            firstName: ""
+            firstName: "",
+            lastName: "",
+            username: ""
           },
           message: null
         }
@@ -62,8 +64,8 @@ class ArticlesComponent extends React.Component {
 
   deleteArticle(e, id) {
 
-    console.log("id article:", id);
-
+    console.log("id: ", id);
+    
     if (window.confirm("Are you sure to delete this article?")) {
       let token = localStorage.getItem("token");
       console.log("token", token);
@@ -86,6 +88,8 @@ class ArticlesComponent extends React.Component {
   }
 
   render() {
+    let username = localStorage.getItem("username");
+    console.log("username in the LS", username)
     const thStyle = {
       textAlign: "center"
     };
@@ -129,14 +133,18 @@ class ArticlesComponent extends React.Component {
                           <i className="fa fa-eye" aria-hidden="true"></i> Show
                         </a>
                         &nbsp;&nbsp;
-                        <a
+                        
+                        {
+                          username === item.user.username ? (
+                            <span>
+                              <a
                           href={"/edit-article/" + item.id}
                           className="btn btn-sm btn-warning"
                         >
                           <i className="fa fa-edit" aria-hidden="true"></i> Edit
                         </a>
                         &nbsp;&nbsp;
-                        <a
+                            <a
                           
                           onClick={(e) => this.deleteArticle(e, item.id)}
                           className="btn btn-sm btn-danger"
@@ -145,6 +153,39 @@ class ArticlesComponent extends React.Component {
                           <i className="fa fa-delete" aria-hidden="true"></i>{" "}
                           Delete
                         </a>
+                            </span>
+                            
+                          ) : (
+                            <span>
+                            <a
+                          href={"/edit-article/" + item.id}
+                          className="btn btn-sm btn-secondary disabled"
+                          style={{pointerEvents: "none", color: "#ccc"}}
+                        >
+                          <i className="fa fa-edit" aria-hidden="true"></i> Edit
+                        </a>
+                        &nbsp;&nbsp;
+                            <a
+                          onClick={(e) => this.deleteArticle(e, item.id)}
+                          className="btn btn-sm btn-secondary disabled"
+                          style={{pointerEvents: "none", color: "#ccc"}}
+                          disabled={true}
+                        >
+                          <i className="fa fa-delete" aria-hidden="true"></i>{" "}
+                          Delete
+                        </a>
+                        </span>
+                          )
+                        }
+                        {/* <a
+                          
+                          onClick={(e) => this.deleteArticle(e, item.id)}
+                          className="btn btn-sm btn-danger"
+                          style={{cursor: "pointer"}}
+                        >
+                          <i className="fa fa-delete" aria-hidden="true"></i>{" "}
+                          Delete
+                        </a> */}
                         {/* <button
                           type="button"
                           onClick={e => this.deleteArticle(e, item.id)}

@@ -59,6 +59,8 @@ class ShowSingleArticleComponent extends React.Component {
 
   submitComment(e) {
     e.preventDefault();
+    e.target.reset();
+    this.setState({ commentContent: "" });
     let body = {
       commentContent: this.state.commentContent,
       article: {
@@ -82,6 +84,7 @@ class ShowSingleArticleComponent extends React.Component {
           data.json().then((results) => {
             console.log("results: ", results);
           });
+          setInterval(this.getArticleDetails(), 500);
         })
         .catch((error) => {
           console.error("error test: ", error);
@@ -91,22 +94,23 @@ class ShowSingleArticleComponent extends React.Component {
     }
   }
 
-  getSingleComment() {
-    let commentId = this.props.match.params.commentId;
-    fetch(`http://localhost:8000/api/single-comment-article/` + commentId, {
-      method: "GET",
-      mode: "cors",
-    })
-      .then((res) => res.json())
-      .then((resultJson) => {
-        console.log("resJson result: ", resultJson);
-        this.setState({
-          comentContent: resultJson.commentContent,
-          user: resultJson.user,
-        });
-      })
-      .catch((error) => console.log(error));
-  }
+  // getSingleComment() {
+  //   let commentId = this.props.match.params.commentId;
+  //   console.log("comment article id: ", commentId);
+  //   fetch(`http://localhost:8000/api/single-comment-article/` + commentId, {
+  //     method: "GET",
+  //     mode: "cors",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((resultJson) => {
+  //       console.log("resJson result: ", resultJson);
+  //       this.setState({
+  //         comentContent: resultJson.commentContent,
+  //         user: resultJson.user,
+  //       });
+  //     })
+  //     .catch((error) => console.log(error));
+  // }
   getArticleDetails() {
     let articleId = this.props.match.params.articleId;
     fetch(`http://localhost:8000/api/single-article/` + articleId, {
@@ -115,7 +119,7 @@ class ShowSingleArticleComponent extends React.Component {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        //console.log("resJson details", resJson);
+        console.log("resJson details", resJson);
         this.setState(
           {
             id: resJson.id,
@@ -207,7 +211,7 @@ class ShowSingleArticleComponent extends React.Component {
 
         <form
           name="commentContent"
-          className="form-horizontal"
+          className="form-horizontal form-horizontal-article"
           onSubmit={this.submitComment.bind(this)}
         >
           <div className="col-lg-6 comment-article">
@@ -225,7 +229,9 @@ class ShowSingleArticleComponent extends React.Component {
               </button>
             </div>
           </div>
-          <div className="comment-div col-lg-6">
+          
+        </form>
+        <div className="comment-div-article col-lg-6">
             {this.state.commentArticles.map((comment) => {
               return (
                 <div className="container-article-comment">
@@ -243,8 +249,9 @@ class ShowSingleArticleComponent extends React.Component {
                     {" "}
                     {
                       comment.commented_at ? (
-                        <span>at {moment(comment.commented_at).format("LT")},{" "}
-                    {moment(comment.commented_at).format("LL")}</span>
+                    //     <span>at {moment(comment.commented_at).format("LT")},{" "}
+                    // {moment(comment.commented_at).format("LL")}</span>
+                        <span>{moment(comment.commented_at).startOf("minutes").fromNow()}</span>
                       ) : null
                     }
                     
@@ -254,7 +261,6 @@ class ShowSingleArticleComponent extends React.Component {
               );
             })}
           </div>
-        </form>
       </div>
     );
   }

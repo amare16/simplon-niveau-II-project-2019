@@ -8,6 +8,7 @@ use App\Repository\MaterialRepository;
 use App\Repository\UserRepository;
 use App\Entity\BorrowMaterial;
 use App\Service\BorrowMaterialService;
+use App\Service\MaterialService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -34,16 +35,22 @@ class BorrowMateralController extends AbstractFOSRestController
      * @var MaterialRepository
      */
     private $materialRepository;
+    /**
+     * @var MaterialService
+     */
+    private $materialService;
 
     public function __construct(BorrowMaterialService $borrowMaterialService,
                                 UserRepository $userRepository,
                                 MaterialRepository $materialRepository,
-                                EntityManagerInterface $entityManager)
+                                EntityManagerInterface $entityManager,
+                                MaterialService $materialService)
     {
         $this->borrowMaterialService = $borrowMaterialService;
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
         $this->materialRepository = $materialRepository;
+        $this->materialService = $materialService;
     }
 
     /**
@@ -73,39 +80,36 @@ class BorrowMateralController extends AbstractFOSRestController
         }
     }
 
+
+
     /**
      * @Rest\Post("/add-borrow-material")
      * @Rest\View(serializerGroups={"group_borrow_material"})
      */
-    public function addBorrowMaterial(Request $request,
-                                      UserRepository $userRepository,
-                                      MaterialRepository $materialRepository,
-                                      EntityManagerInterface $entityManager): View
+
+    public function addSingleBorrowedMaterial(Request $request,
+                                               UserRepository $userRepository,
+                                               MaterialRepository $materialRepository,
+                                               EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
         $data = json_decode($request->getContent(), true);
 
         $materialBorrower= $data['id_borrower']['username'];
         $materialLender = $data['id_lender']['username'];
-        $startDate = $data['start_date'];
-        $endDate = $data['end_date'];
         $material = $data['material'];
+
 
         $material_borrower = $userRepository->findOneBy(['username' => $materialBorrower]);
 
         $material_lender = $userRepository->findOneBy(['username' => $materialLender]);
-
-//        $material_borrower = $userRepository->findOneBy(['id' => $materialBorrower]);
-//        $material_lender = $userRepository->findOneBy(['id' => $materialLender]);
-        //dd($material_lender);
         $material_id = $materialRepository->findOneBy(['id' => $material]);
 
         $materialBorrowerLender = new BorrowMaterial();
         $materialBorrowerLender->setIdBorrower($material_borrower);
         $materialBorrowerLender->setIdLender($material_lender);
-        $materialBorrowerLender->setStartDate(\DateTime::createFromFormat('Y-m-d', $startDate));
-        $materialBorrowerLender->setEndDate(\DateTime::createFromFormat('Y-m-d', $endDate));
         $materialBorrowerLender->setMaterial($material_id);
+        $materialBorrowerLender->setUser($user);
 
         if(in_array('ROLE_USER', $user->getRoles())) {
             $entityManager->persist($materialBorrowerLender);
@@ -114,6 +118,10 @@ class BorrowMateralController extends AbstractFOSRestController
         } else {
             return View::create(["You are not a user! So please register to add borrowed information!"], Response::HTTP_BAD_REQUEST);
         }
+
+
+
+
 
     }
 }

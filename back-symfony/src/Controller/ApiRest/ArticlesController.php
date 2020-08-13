@@ -196,6 +196,13 @@ class ArticlesController extends AbstractFOSRestController
     {
         $user = $this->getUser();
         $article = $this->articleRepository->find($articleId);
+        foreach($article->getCommentArticles() as $comment) {
+            $this->entityManager->remove($comment);
+        }
+        foreach($article->getLikes() as $like) {
+            $this->entityManager->remove($like);
+        }
+
         if (!$article) {
             throw new EntityNotFoundException('Article with id '. $articleId. ' does not exist!');
         }

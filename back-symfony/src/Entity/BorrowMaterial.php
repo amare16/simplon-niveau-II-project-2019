@@ -19,21 +19,21 @@ class BorrowMaterial
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups("group_borrow_material")
-     * @Groups("group_user")
-     * @Groups("group_user_profile")
-     */
-    private $start_date;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups("group_borrow_material")
-     * @Groups("group_user")
-     * @Groups("group_user_profile")
-     */
-    private $end_date;
+//    /**
+//     * @ORM\Column(type="datetime")
+//     * @Groups("group_borrow_material")
+//     * @Groups("group_user")
+//     * @Groups("group_user_profile")
+//     */
+//    private $start_date;
+//
+//    /**
+//     * @ORM\Column(type="datetime")
+//     * @Groups("group_borrow_material")
+//     * @Groups("group_user")
+//     * @Groups("group_user_profile")
+//     */
+//    private $end_date;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="borrowMaterials")
@@ -44,7 +44,7 @@ class BorrowMaterial
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="lendMaterials")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups("group_borrow_material")
      */
     private $id_lender;
@@ -60,38 +60,41 @@ class BorrowMaterial
     private $material;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="borrowLenderMaterials")
+     * @Groups("group_borrow_material")
      */
     private $user;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
-    {
-        return $this->start_date;
-    }
-
-    public function setStartDate(\DateTimeInterface $start_date): self
-    {
-        $this->start_date = $start_date;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->end_date;
-    }
-
-    public function setEndDate(\DateTimeInterface $end_date): self
-    {
-        $this->end_date = $end_date;
-
-        return $this;
-    }
+//    public function getStartDate(): ?\DateTimeInterface
+//    {
+//        return $this->start_date;
+//    }
+//
+//    public function setStartDate(\DateTimeInterface $start_date): self
+//    {
+//        $this->start_date = $start_date;
+//
+//        return $this;
+//    }
+//
+//    public function getEndDate(): ?\DateTimeInterface
+//    {
+//        return $this->end_date;
+//    }
+//
+//    public function setEndDate(\DateTimeInterface $end_date): self
+//    {
+//        $this->end_date = $end_date;
+//
+//        return $this;
+//    }
 
     public function getIdBorrower(): ?User
     {
@@ -129,15 +132,17 @@ class BorrowMaterial
         return $this;
     }
 
-    public function getUser(): ?string
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?string $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
         return $this;
     }
+
+
 }

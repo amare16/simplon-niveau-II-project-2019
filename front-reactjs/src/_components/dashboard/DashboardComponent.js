@@ -8,10 +8,24 @@ class DashboardComponent extends React.Component {
     super(props);
 
     this.state = {
+      userData: [
+        {
+          id: "",
+          firstName: "",
+          lastName: "",
+          username: "",
+          email: "",
+          userProfile: {
+            id: "",
+          },
+        },
+      ],
       redirect: false
     };
   }
-
+  componentDidMount() {
+    this.getUsers();
+  }
   componentWillMount() {
     console.log("token value: ", localStorage.getItem("token"));
     if (localStorage.getItem("token")) {
@@ -27,11 +41,32 @@ class DashboardComponent extends React.Component {
   //   localStorage.removeItem("token")
   //   this.setState({ redirect: true });
   // }
+  getUsers() {
+    fetch("http://localhost:8000/api/users", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        this.setState({
+          userData: response,
+        });
+        console.log("user results : ", response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   render() {
+    
     if (this.state.redirect) {
       return <Redirect to="/login" />;
     }
+    
 
     const style = {
       height: "200px"

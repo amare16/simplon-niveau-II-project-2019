@@ -90,6 +90,7 @@ class UserProfileController extends AbstractFOSRestController
         $userProfile->setContentAbout($contentAbout);
         $userProfile->setContentAspiration($contentAspiration);
         $userProfile->setHobby($hobby);
+        $userProfile->setCreatedOn(new \DateTime('now'));
         $userProfile->setUser($user);
 
         if (in_array('ROLE_USER', $user->getRoles())) {
@@ -115,19 +116,20 @@ class UserProfileController extends AbstractFOSRestController
         $contentAspiration = $data['content_aspiration'];
         $hobby = $data['hobby'];
 
-        $useProfile = $this->userProfileRepository->find($userProfileId);
+        $userProfile = $this->userProfileRepository->find($userProfileId);
 
-        if (!$useProfile) {
+        if (!$userProfile) {
             throw new EntityNotFoundException('User profile with id '.$userProfileId.' does not exist!');
         }
 
-        $useProfile->setContentAbout($contentAbout);
-        $useProfile->setContentAspiration($contentAspiration);
-        $useProfile->setHobby($hobby);
-        $useProfile->setUser($user);
+        $userProfile->setContentAbout($contentAbout);
+        $userProfile->setContentAspiration($contentAspiration);
+        $userProfile->setHobby($hobby);
+        $userProfile->setCreatedOn(new \DateTime('now'));
+        $userProfile->setUser($user);
 
         if(in_array('ROLE_USER', $user->getRoles(), true)) {
-            $entityManager->persist($useProfile);
+            $entityManager->persist($userProfile);
             $entityManager->flush();
             return View::create("You modified your profile successfully!", Response::HTTP_OK);
         } else {

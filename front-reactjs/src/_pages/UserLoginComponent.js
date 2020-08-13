@@ -14,14 +14,30 @@ class UserLoginComponent extends React.Component {
       password: '',
       loginError: 'ldlldld',
       redirect: false,
-      liked: Number,
-      disliked: Number
+      userData: [
+        {
+          id: "",
+          firstName: "",
+          lastName: "",
+          username: "",
+          email: "",
+          userProfile: {
+            id: "",
+          },
+          user_loggedin_first_time: true
+        },
+      ],
+      hasUserProfileId: false,
     }
     //console.log('this state value: ', this.state)
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     
+  }
+
+  componentDidMount() {
+    this.getUsers();
   }
 
   handleChange = (type, e) => {
@@ -46,6 +62,26 @@ class UserLoginComponent extends React.Component {
   //   console.log(name, value);
   // }
 
+  getUsers() {
+    fetch("http://localhost:8000/api/users", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        this.setState({
+          userData: response,
+        });
+        console.log("user results : ", response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   handleSubmit(e){
     e.preventDefault();
     //console.log("SUBMITTING", this.state);
@@ -53,9 +89,6 @@ class UserLoginComponent extends React.Component {
       username: this.state.username,
       password: this.state.password
     };
-
-    
-
     
       fetch(`http://localhost:8000/api/login_check`, {
           method: "POST",
@@ -69,17 +102,21 @@ class UserLoginComponent extends React.Component {
           
           if (res.status === 200) {
             res.json().then(data => {
-              
+              console.log('dataaaaaaaaaaa: ', data);
               let user = {
                 token: data.token,
                 username: userData.username
               }
-              //console.log("data value: ", userData.username)
+              console.log("data value: ", userData.username)
              //console.log("test json stringfy:",JSON.stringify({token: data.token, username: userData.username}))
+           
+             
              localStorage.setItem('token', data.token);
              localStorage.setItem('username', userData.username);
-
-              
+             
+            this.state.userData.map(userD => {
+              localStorage.setItem('user_loggedin_first_time', userD.user_loggedin_first_time)
+            })
               this.props.history.push('/dashboard')
             })
             
@@ -102,6 +139,7 @@ class UserLoginComponent extends React.Component {
     //   console.log("why it is not redirect? ", this.state.redirect);
     //   return (<Redirect to={'/dashboard'} />)
     // }
+    console.log('tieisll: ', this.state.user_loggedin_first_time)
 
     if(localStorage.getItem("token")) {
       return (<Redirect to={'/dashboard'} />)

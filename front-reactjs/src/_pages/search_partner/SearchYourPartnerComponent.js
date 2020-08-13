@@ -128,7 +128,6 @@ class SearchYourPartnerComponent extends React.Component {
                       {result.user_type.map((res, i) => (
                         <td key={i}>{res.name}</td>
                       ))}
-                      
                       <td>
                         <a href={"/single-user-profile/" + result.userProfile.id}  className="btn btn-sm btn-info">
                           <i className="fa fa-eye" aria-hidden="true"></i> Profile

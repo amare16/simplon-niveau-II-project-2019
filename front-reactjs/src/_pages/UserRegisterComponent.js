@@ -164,7 +164,8 @@ class UserRegisterComponent extends React.Component {
             console.log("Successfully ", this.state.username, "registered: ", results);
             console.log("user value is: ", user)
           });
-        }).then(() => this.setState({ redirect: true }))
+        }).then(() => this.setState({ redirect: true }));
+
         
       } else {
         password2.style.backgroundColor = dangerColor;

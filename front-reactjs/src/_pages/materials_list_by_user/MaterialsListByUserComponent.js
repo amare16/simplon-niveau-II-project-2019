@@ -1,10 +1,10 @@
 import React from "react";
-import "./borrowLendMaterial.css";
+import "./materailsListByUser.css";
 import { UserLogoutComponent } from "../UserLogoutComponent";
 import * as moment from "moment";
 import SearchResults from "react-filter-search";
 
-class BorrowLendMaterialComponent extends React.Component {
+class MaterialsListByUserComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -133,9 +133,6 @@ class BorrowLendMaterialComponent extends React.Component {
             />
           </a>
         </div>
-        <div>
-          <h2 className="title" style={{color: "#3333ff", textAlign: "center"}}>List of Materials</h2>
-        </div>
         <SearchResults
           value={value}
           data={data}
@@ -156,7 +153,7 @@ class BorrowLendMaterialComponent extends React.Component {
                   {results.map(
                     (result, index) => (
                       console.log("test conn: ", result),
-                      connectedUsername !== result.user.username ? (
+                      connectedUsername == result.user.username ? (
                         <tr key={index.id}>
                           <td>
                             {result.user.firstName}&nbsp;
@@ -190,37 +187,50 @@ class BorrowLendMaterialComponent extends React.Component {
                           </td>
                           
                           {
-                          result.availability ? (<td>
+                          connectedUsername === result.user.username ? (
+                            <td>
+                              <a
+                          href={"/edit-material/" + result.id}
+                          className="btn btn-sm btn-warning"
+                        >
+                          <i className="fa fa-edit" aria-hidden="true"></i> Edit
+                        </a>
+                        </td>) : (<td>
                             <a
-                              href={
-                                "/message-material/" +
-                                result.user.userProfile.id
-                              }
-                              className="btn btn-sm btn-success"
-                            >
-                              <i
-                                className="fa fa-comments"
-                                aria-hidden="true"
-                              ></i>{" "}
-                              Contact Me
-                            </a>
-                          </td>) : (<td>
+                          href={"/edit-material/" + result.id}
+                          className="btn btn-sm btn-secondary disabled"
+                          style={{pointerEvents: "none", color: "#ccc"}}
+                        >
+                          <i className="fa fa-edit" aria-hidden="true"></i> Edit
+                        </a>
+                        </td>) }
+                        {
+                          connectedUsername === result.user.username ? (
+                            <td>
                             <a
-                              href={
-                                "/message-material/" +
-                                result.user.userProfile.id
-                              }
-                              className="btn btn-sm btn-success"
-                              style={{pointerEvents: "none", cursor: "default", backgroundColor: "red"}}
-                            >
-                              <i
-                                className="fa fa-comments"
-                                aria-hidden="true"
-                              ></i>{" "}
-                              Contact Me
-                            </a>
-                          </td>)
-                          }
+                          
+                          onClick={(e) => this.deleteMaterial(e, result.id)}
+                          className="btn btn-sm btn-danger"
+                          style={{cursor: "pointer"}}
+                        >
+                          <i className="fa fa-delete" aria-hidden="true"></i>{" "}
+                          Delete
+                        </a>
+                            </td>
+                          ) : (
+                            
+                            <td> <a
+                           onClick={(e) => this.deleteMaterial(e, result.id)}
+                           className="btn btn-sm btn-secondary disabled"
+                           style={{pointerEvents: "none", color: "#ccc"}}
+                           disabled={true}
+                         >
+                           <i className="fa fa-delete" aria-hidden="true"></i>{" "}
+                           Delete
+                         </a>
+                         </td>
+                           )
+                        }
                           
                         </tr>
                       ) : (
@@ -250,22 +260,6 @@ class BorrowLendMaterialComponent extends React.Component {
                               Material Details
                             </a>
                           </td>
-
-                          <td>
-                            <a
-                              href={
-                                "/message-material/" +
-                                result.user.userProfile.id
-                              }
-                              className="btn btn-sm btn-success"
-                            >
-                              <i
-                                className="fa fa-comments"
-                                aria-hidden="true"
-                              ></i>{" "}
-                              Contact Me
-                            </a>
-                          </td>
                         </tr>
                       )
                     )
@@ -280,4 +274,4 @@ class BorrowLendMaterialComponent extends React.Component {
   }
 }
 
-export { BorrowLendMaterialComponent };
+export { MaterialsListByUserComponent };

@@ -1,10 +1,10 @@
 import React from "react";
-import "./borrowLendMaterial.css";
-import { UserLogoutComponent } from "../UserLogoutComponent";
+import "./listOfMaterialsForGuest.css";
 import * as moment from "moment";
+import { NavbarComponent } from "../NavbarComponent";
 import SearchResults from "react-filter-search";
 
-class BorrowLendMaterialComponent extends React.Component {
+class ListOfMaterialsForGuestComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +15,11 @@ class BorrowLendMaterialComponent extends React.Component {
   }
 
   componentDidMount() {
-    return fetch("http://localhost:8000/api/materials", {
+    this.getListOfMaterials();
+  }
+
+  getListOfMaterials() {
+    fetch("http://localhost:8000/api/materials", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -96,7 +100,8 @@ class BorrowLendMaterialComponent extends React.Component {
     console.log("connected : ", connectedUsername);
     return (
       <div className="container-fluid borrow-materials-list">
-        {connectedUsername ? <UserLogoutComponent /> : null}
+          <NavbarComponent />
+        
         <div className="d-flex justify-content-center">
           <div className="searchbar-borrow-lend">
             <input
@@ -280,4 +285,4 @@ class BorrowLendMaterialComponent extends React.Component {
   }
 }
 
-export { BorrowLendMaterialComponent };
+export { ListOfMaterialsForGuestComponent };

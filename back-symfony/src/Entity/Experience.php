@@ -155,28 +155,28 @@ class Experience
     /**
      * @return Collection|ExperienceLike[]
      */
-    public function getLikes(): Collection
+    public function getExperienceLikes(): Collection
     {
         return $this->experienceLikes;
     }
 
-    public function addLike(ExperienceLike $like): self
+    public function addExperienceLike(ExperienceLike $experienceLike): self
     {
-        if (!$this->experienceLikes->contains($like)) {
-            $this->experienceLikes[] = $like;
-            $like->setExperience($this);
+        if (!$this->experienceLikes->contains($experienceLike)) {
+            $this->experienceLikes[] = $experienceLike;
+            $experienceLike->setExperience($this);
         }
 
         return $this;
     }
 
-    public function removeLike(ExperienceLike $like): self
+    public function removeExperienceLike(ExperienceLike $experienceLike): self
     {
-        if ($this->experienceLikes->contains($like)) {
-            $this->experienceLikes->removeElement($like);
+        if ($this->experienceLikes->contains($experienceLike)) {
+            $this->experienceLikes->removeElement($experienceLike);
             // set the owning side to null (unless already changed)
-            if ($like->getExperience() === $this) {
-                $like->setExperience(null);
+            if ($experienceLike->getExperience() === $this) {
+                $experienceLike->setExperience(null);
             }
         }
 

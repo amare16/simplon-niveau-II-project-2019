@@ -10,15 +10,16 @@
     margin-bottom: 35px;
   }
 
-  .form-horizontal {
-      margin-bottom: 100px;
+  .form-horizontal-article {
+      margin-bottom: 40px;
   }
 
   .container-article-comment {
     background: #e6e6e6;
 }
-.comment-div {
+.comment-div-article {
     margin: 0 auto;
+    margin-bottom: 100px;
 }
 
 .attribution {

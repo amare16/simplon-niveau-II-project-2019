@@ -206,6 +206,7 @@ class MessagesForMaterialsComponent extends React.Component {
       .then((dataJson) => {
         console.log("json: ", dataJson);
         this.setState({ dataJson });
+        setInterval(this.getMessageHere(), 100);
       })
       .catch((error) => {
         console.error("The data is not inserted: ", error);
@@ -240,7 +241,7 @@ class MessagesForMaterialsComponent extends React.Component {
             
             <a
                   href={"/borrow-lend-materials"}
-                  style={{ borderRadius: "35px", fontSize: "25px", float: "right", color: "green"}}
+                  style={{ borderRadius: "35px", fontSize: "25px", color: "green", textAlign: "center"}}
                 >
                   <p>
                     <i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -266,7 +267,7 @@ class MessagesForMaterialsComponent extends React.Component {
                 if((listMsg.senderMessageId['username'] == this.connectedUser) && (listMsg.receiverMessageId["username"] == this.state.user.username)) {
                   return <div>
                       <p className="send-message">{listMsg.message}<br /><span style={{float: 'right'}}>{moment(listMsg.send_at).format("YYYY-MM-DD, HH:mm:ss")}</span></p>
-                      <br />
+                      <br /><br />
                     </div>
                 }
 
@@ -295,7 +296,7 @@ class MessagesForMaterialsComponent extends React.Component {
                   onChange={this.handleMessageChange.bind(this)}
                 ></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group" style={{display: "none" }}>
                 <input
                   type="text"
                   value={this.state.senderMessageId}

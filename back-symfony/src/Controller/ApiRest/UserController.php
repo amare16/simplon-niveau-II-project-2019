@@ -142,7 +142,9 @@ class UserController extends AbstractFOSRestController
         $user->setCity($city);
         $user->setZipCode($zipCode);
         $user->addUserType($user_type_name);
-        //dd($user);
+        $user->setUserLoggedinFirstTime(false);
+
+
         $entityManager->persist($user);
         $entityManager->flush();
 

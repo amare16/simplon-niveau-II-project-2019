@@ -73,6 +73,11 @@ class NavbarComponent extends React.Component {
                   Experiences
                 </a>
               </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/list-of-materials-for-guest">
+                  Materials
+                </a>
+              </li>
             </ul>
             <ul className="navbar-nav ml-auto">
               { buttonDashboard }

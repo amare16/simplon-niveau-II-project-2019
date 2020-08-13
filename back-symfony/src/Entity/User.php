@@ -29,6 +29,7 @@ class User implements UserInterface
      * @Groups("group_material_borrower_message")
      * @Groups("group_article_like")
      * @Groups("group_comment_experience")
+     * @Groups("group_material")
      *
      */
     private $id;
@@ -46,6 +47,7 @@ class User implements UserInterface
      * @Groups("group_material_borrower_message")
      * @Groups("group_article_like")
      * @Groups("group_comment_experience")
+     * @Groups("group_material")
      */
     private $firstName;
 
@@ -62,6 +64,7 @@ class User implements UserInterface
      * @Groups("group_material_borrower_message")
      * @Groups("group_article_like")
      * @Groups("group_comment_experience")
+     * @Groups("group_material")
      */
     private $lastName;
 
@@ -71,11 +74,13 @@ class User implements UserInterface
      * @Groups("group_article")
      * @Groups("group_comment_article")
      * @Groups("group_user_profile")
+     * @Groups("group_experience")
      * @Groups("group_user_message")
      * @Groups("group_borrow_material")
      * @Groups("group_material_borrower_message")
      * @Groups("group_article_like")
      * @Groups("group_comment_experience")
+     * @Groups("group_material")
      */
     private $username;
 
@@ -89,6 +94,7 @@ class User implements UserInterface
      * @Groups("group_material_borrower_message")
      * @Groups("group_article_like")
      * @Groups("group_comment_experience")
+     * @Groups("group_material")
      */
     private $email;
 
@@ -108,6 +114,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, name="city", nullable=true)
      * @Groups("group_user")
      * @Groups("group_borrow_material")
+     * @Groups("group_material")
      */
     private $city;
 
@@ -116,6 +123,13 @@ class User implements UserInterface
      * @Groups("group_user")
      */
     private $zip_code;
+
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("group_user")
+     */
+    private $user_loggedin_first_time;
 
 
     // we won't at Column annotation because we don't want this field in the database
@@ -162,6 +176,7 @@ class User implements UserInterface
      * @Groups("group_user")
      * @Groups("group_borrow_material")
      * @Groups("group_user_message")
+     * @Groups("group_material")
      */
     private $userProfile;
 
@@ -190,6 +205,11 @@ class User implements UserInterface
     private $articleLikes;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExperienceLike", mappedBy="user")
+     */
+    private $experienceLikes;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\MaterialBorrowerMessage", mappedBy="senderMessageId")
      * @Groups("group_user")
      * @Groups("group_user_profile")
@@ -213,6 +233,17 @@ class User implements UserInterface
      */
     private $userMessages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Material", mappedBy="user")
+     */
+    private $materials;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BorrowMaterial", mappedBy="user")
+     */
+    private $borrowLenderMaterials;
+
+
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="App\Entity\Addresses", inversedBy="users")
@@ -230,10 +261,13 @@ class User implements UserInterface
         $this->borrowMaterials = new ArrayCollection();
         $this->lendMaterials = new ArrayCollection();
         $this->articleLikes = new ArrayCollection();
+        $this->experienceLikes = new ArrayCollection();
         $this->materialSenderMessage = new ArrayCollection();
         $this->materialReceiverMessages = new ArrayCollection();
         $this->materialBorrowerMessages = new ArrayCollection();
         $this->userMessages = new ArrayCollection();
+        $this->materials = new ArrayCollection();
+        $this->borrowLenderMaterials = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -675,6 +709,38 @@ class User implements UserInterface
     }
 
     /**
+     * @return Collection|ExperienceLike[]
+     */
+    public function getExperienceLikes(): Collection
+    {
+        return $this->experienceLikes;
+    }
+
+    public function addExperienceLike(ExperienceLike $experienceLike): self
+    {
+        if (!$this->experienceLikes->contains($experienceLike)) {
+            $this->experienceLikes[] = $experienceLike;
+            $experienceLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperienceLike(ExperienceLike $experienceLike): self
+    {
+        if ($this->experienceLikes->contains($experienceLike)) {
+            $this->experienceLikes->removeElement($experienceLike);
+            // set the owning side to null (unless already changed)
+            if ($experienceLike->getUser() === $this) {
+                $experienceLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
      * @return Collection|MaterialBorrowerMessage[]
      */
     public function getMaterialSenderMessage(): Collection
@@ -794,6 +860,80 @@ class User implements UserInterface
                 $userMessage->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Material[]
+     */
+    public function getMaterials(): Collection
+    {
+        return $this->materials;
+    }
+
+    public function addMaterial(Material $material): self
+    {
+        if (!$this->materials->contains($material)) {
+            $this->materials[] = $material;
+            $material->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterial(Material $material): self
+    {
+        if ($this->materials->contains($material)) {
+            $this->materials->removeElement($material);
+            // set the owning side to null (unless already changed)
+            if ($material->getUser() === $this) {
+                $material->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BorrowMaterial[]
+     */
+    public function getBorrowLenderMaterials(): Collection
+    {
+        return $this->borrowLenderMaterials;
+    }
+
+    public function addBorrowLenderMaterial(BorrowMaterial $borrowLenderMaterial): self
+    {
+        if (!$this->borrowLenderMaterials->contains($borrowLenderMaterial)) {
+            $this->borrowLenderMaterials[] = $borrowLenderMaterial;
+            $borrowLenderMaterial->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrowLenderMaterial(BorrowMaterial $borrowLenderMaterial): self
+    {
+        if ($this->borrowLenderMaterials->contains($borrowLenderMaterial)) {
+            $this->borrowLenderMaterials->removeElement($borrowLenderMaterial);
+            // set the owning side to null (unless already changed)
+            if ($borrowLenderMaterial->getUser() === $this) {
+                $borrowLenderMaterial->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserLoggedinFirstTime(): ?bool
+    {
+        return $this->user_loggedin_first_time;
+    }
+
+    public function setUserLoggedinFirstTime(?bool $user_loggedin_first_time): self
+    {
+        $this->user_loggedin_first_time = $user_loggedin_first_time;
 
         return $this;
     }

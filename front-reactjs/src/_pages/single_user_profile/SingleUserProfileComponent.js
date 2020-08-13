@@ -1,5 +1,6 @@
 import React from "react";
 import { UserLogoutComponent } from "../UserLogoutComponent";
+import { EditMaterialComponent } from "../../actions/materialActions/edit_material/EditMaterialComponent";
 import "./singleUserProfile.css";
 import * as moment from "moment";
 
@@ -12,6 +13,7 @@ class SingleUserProfileComponent extends React.Component {
       content_about: "",
       content_aspiration: "",
       hobby: "",
+      created_on: "",
       user: {
         id: "",
         firstName: "",
@@ -167,6 +169,7 @@ class SingleUserProfileComponent extends React.Component {
             content_about: resJson.content_about,
             content_aspiration: resJson.content_aspiration,
             hobby: resJson.hobby,
+            created_on: resJson.created_on,
             user: resJson.user,
           },
           () => {
@@ -206,7 +209,7 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   handleSubmit(e) {
-    //e.preventDefault();
+    e.preventDefault();
     e.target.reset();
     this.setState({ message: "" });
 
@@ -234,6 +237,7 @@ class SingleUserProfileComponent extends React.Component {
       .then((dataJson) => {
         console.log("json: ", dataJson);
         this.setState({ dataJson });
+        setInterval(this.getMessageHere(), 100);
       })
       .catch((error) => {
         console.error("The data is not inserted: ", error);
@@ -242,7 +246,7 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   render() {
-    console.log("items value: ", this.state.items)
+    console.log('created on : ', this.state.created_on)
     let usernameSender = localStorage.getItem("username");
     let token = localStorage.getItem("token");
     const connectedUser = token && usernameSender;
@@ -610,7 +614,11 @@ class SingleUserProfileComponent extends React.Component {
           //ud.username == localStorage.getItem("username") ? (<p>{ud.username}</p>) : console.log("not me")
           if (ud.username == localStorage.getItem("username")) {
             return (
-              <a
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-2"></div>
+                  <div className="col-md-3">
+                  <a
                 href={"/single-user-profile/" + ud.userProfile.id}
                 style={{
                   borderRadius: "35px",
@@ -622,11 +630,36 @@ class SingleUserProfileComponent extends React.Component {
                   <i class="fa fa-user" aria-hidden="true"></i>
                   &nbsp;&nbsp;
                   <strong>My Profile</strong>
+                  
                 </p>
               </a>
+                  </div>
+                  <div className="col-md-2"></div>
+                  <div className="col-md-3">
+                  <a
+              href={"/edit-user-profile/" + ud.userProfile.id}
+              style={{
+                borderRadius: "35px",
+                fontSize: "25px",
+                textAlign: "center",
+              }}
+            >
+              <p>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                &nbsp;&nbsp;
+                <strong>Edit your profile</strong>
+              </p>
+            </a>
+                  </div>
+                  <div className="col-md-2"></div>
+                </div>
+              </div>
+              
+              
             );
           }
         })}
+        
         <div
           className="head_title center m-y-3 wow fadeInUp"
           style={{ visibility: "visible", animationName: "fadeInUp" }}
@@ -636,7 +669,7 @@ class SingleUserProfileComponent extends React.Component {
 
         <div className="single_profile">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-4">
               <div className="single_center_img">
                 <img
                   className="img_circle"
@@ -658,7 +691,15 @@ class SingleUserProfileComponent extends React.Component {
                   <strong id="pulsate-username">
                     {this.state.user.username}
                   </strong>
-                </span>
+                </span><br />
+                {
+                  this.state.user.username == usernameSender ? (
+                  <span><span style={{color: "green", fontWeight: 'bold'}}> My profile is created on: </span> <span style={{color: "red", fontStyle: "italic"}}>{moment(this.state.created_on).format("LL")}</span></span>) : (
+                    <span><span style={{color: "green", fontWeight: 'bold'}}>{this.state.user.username.charAt(0).toUpperCase() + 
+                      this.state.user.username.slice(1)}</span> profile is created on: <span style={{color: "red", fontStyle: "italic"}}>{moment(this.state.created_on).format("LL")}</span></span>)
+                  
+                }
+                
                 <a href={"/search-partner"}>
                   <input
                     type="button"
@@ -667,6 +708,20 @@ class SingleUserProfileComponent extends React.Component {
                     value="Back to Search Partner"
                   />
                 </a>
+                {
+                    this.state.user.username == usernameSender ? (
+                      <div class="container" style={{marginTop: "23px", backgroundColor: "darkturquoise"}}>
+                        <div class="row">
+                          
+                          <div class="col-md-12">
+                            <h5>My Materials List</h5> 
+                            <a href={"/materials-list-by-user"}><button className="btn btn-success" style={{marginBottom: "10px"}}>My materials list</button></a>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    ) : null
+               }
               </div>
               {/* <div className="row">
                 <div className="col-md-12" style={{ marginBottom: "45px"}}>
@@ -683,7 +738,7 @@ class SingleUserProfileComponent extends React.Component {
                 </a>
               </div> */}
             </div>
-            <div className="col-md-6">
+            <div className="col-md-5">
               <div className="row">
                 <div className="col-md-12">
                   <h3>About Me</h3>

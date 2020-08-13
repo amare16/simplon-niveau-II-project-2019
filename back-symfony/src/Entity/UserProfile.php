@@ -18,6 +18,7 @@ class UserProfile
      * @Groups("group_user")
      * @Groups("group_borrow_material")
      * @Groups("group_user_message")
+     * @Groups("group_material")
      */
     private $id;
 
@@ -39,6 +40,13 @@ class UserProfile
      * @Groups("group_user")
      */
     private $hobby;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("group_user_profile")
+     * @Groups("group_user")
+     */
+    private $created_on;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="userProfile", cascade={"persist", "remove"})
@@ -97,6 +105,18 @@ class UserProfile
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCreatedOn(): ?\DateTimeInterface
+    {
+        return $this->created_on;
+    }
+
+    public function setCreatedOn(?\DateTimeInterface $created_on): self
+    {
+        $this->created_on = $created_on;
 
         return $this;
     }

@@ -77,7 +77,7 @@ class EditExperienceComponent extends React.Component {
 
     editExperience(newExperience) {
         let token = localStorage.getItem('token');
-        console.log("inside token: ", token)
+        console.log("inside token: ", this.props.match.params.experienceId)
         fetch(`http://localhost:8000/api/edit-experience/${this.props.match.params.experienceId}`, {
             method: "PUT",
             mode: "cors",

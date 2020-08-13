@@ -83,6 +83,8 @@ class ExperiencesComponent extends React.Component {
     
 
     render() {
+      let username = localStorage.getItem("username");
+      console.log("username in the LS", username)
         const thStyle = {
             textAlign: "center"
           };
@@ -127,21 +129,49 @@ class ExperiencesComponent extends React.Component {
                           <i className="fa fa-eye" aria-hidden="true"></i> Show
                         </a>
                         &nbsp;&nbsp;
-                        <a
+                        
+                        {
+                          username === item.user.username ? (
+                            <span>
+                            <a
                           href={"/edit-experience/" + item.id}
                           className="btn btn-sm btn-warning"
                         >
                           <i className="fa fa-edit" aria-hidden="true"></i> Edit
                         </a>
                         &nbsp;&nbsp;
-                        <a
-                          className="btn btn-sm btn-danger"
-                          style={{cursor: "pointer"}}
-                          onClick={(e) => this.deleteExperience(e, item.id)}
-                        >
-                          <i className="fa fa-delete" aria-hidden="true"></i>{" "}
-                          Delete
-                        </a>
+                            <a
+                            className="btn btn-sm btn-danger"
+                            style={{cursor: "pointer"}}
+                            onClick={(e) => this.deleteExperience(e, item.id)}
+                          >
+                            <i className="fa fa-delete" aria-hidden="true"></i>{" "}
+                            Delete
+                          </a>
+                          </span>) : (
+                            <span>
+                              <a
+                            href={"/edit-experience/" + item.id}
+                            className="btn btn-sm btn-secondary disabled"
+                            style={{pointerEvents: "none", color: "#ccc"}}
+                          >
+                            <i className="fa fa-edit" aria-hidden="true"></i> Edit
+                          </a>
+                          &nbsp;&nbsp;
+                             <a
+                             title="You can't delete me!"
+                             className="btn btn-sm btn-secondary disabled"
+                             style={{pointerEvents: "none", color: "#ccc"}}
+                             onClick={(e) => this.deleteExperience(e, item.id)}
+                           >
+                             <i className="fa fa-delete" aria-hidden="true"></i>{" "}
+                             Delete
+                           </a>
+                            </span>
+                            
+                          )
+                        }
+                       
                                                 
                       </div>
                     </td>

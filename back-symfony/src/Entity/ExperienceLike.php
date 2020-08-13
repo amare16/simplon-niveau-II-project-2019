@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExperienceLikeRepository")
@@ -13,16 +14,20 @@ class ExperienceLike
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("group_experience")
+     * @Groups("group_experience_like")
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Experience")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Experience", inversedBy="experienceLikes")
+     * @Groups("group_experience_like")
      */
     private $experience;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="experienceLikes")
+     * @Groups("group_experience_like")
      */
     private $user;
 

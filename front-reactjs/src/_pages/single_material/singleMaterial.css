@@ -1,0 +1,23 @@
+/* pulsate borrow button */
+.btn-pulsate {
+    animation: animate 3s linear infinite;
+    border-radius: 50%;
+    height: 140px;
+    width: 140px;
+    background-color: #24ca4e;
+  }
+  
+  @keyframes animate {
+    0% {
+      box-shadow: 0 0 0 0 rgba(209, 100, 167, 0.7), 0 0 0 0 rgba(255, 109, 74, .7);
+    }
+    40% {
+      box-shadow: 0 0 0 25px rgba(255, 109, 74, 0), 0 0 0 15px rgba(255, 109, 74, 0);
+    }
+    80% {
+      box-shadow: 0 0 0 25px rgba(255, 109, 74, 0), 0 0 0 15px rgba(255, 109, 74, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 109, 74, 0), 0 0 0 0 rgba(255, 109, 74, 0);
+    }
+  }

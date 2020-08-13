@@ -109,7 +109,7 @@ and (min-width: 1025px)
 and (max-width: 1600px)
   {
     .back-to-dashboard {
-        margin-left: 375px;
+        margin-left: 185px;
     }
     #input-search-borrow-lend {
         width: 450px;

@@ -51,6 +51,31 @@ class Material
      */
     private $borrowMaterial;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="materials")
+     * @Groups("group_material")
+     * @Groups("group_borrow_material")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("group_material")
+     * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
+     */
+    private $borrowed_date;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("group_material")
+     * @Groups("group_borrow_material")
+     * @Groups("group_user")
+     * @Groups("group_user_profile")
+     */
+    private $return_date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,4 +133,41 @@ class Material
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getBorrowedDate(): ?\DateTimeInterface
+    {
+        return $this->borrowed_date;
+    }
+
+    public function setBorrowedDate(?\DateTimeInterface $borrowed_date): self
+    {
+        $this->borrowed_date = $borrowed_date;
+
+        return $this;
+    }
+
+    public function getReturnDate(): ?\DateTimeInterface
+    {
+        return $this->return_date;
+    }
+
+    public function setReturnDate(?\DateTimeInterface $return_date): self
+    {
+        $this->return_date = $return_date;
+
+        return $this;
+    }
+
 }

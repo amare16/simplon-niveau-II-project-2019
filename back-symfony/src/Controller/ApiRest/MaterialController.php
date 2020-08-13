@@ -32,14 +32,20 @@ class MaterialController extends AbstractFOSRestController
      * @var MaterialRepository
      */
     private $materialRepository;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
 
     public function __construct(MaterialService $materialService,
-                                JWTEncoderInterface $JWTEncoder, MaterialRepository $materialRepository)
+                                JWTEncoderInterface $JWTEncoder,
+                                MaterialRepository $materialRepository, EntityManagerInterface $entityManager)
     {
 
         $this->materialService = $materialService;
         $this->JWTEncoder = $JWTEncoder;
         $this->materialRepository = $materialRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -80,12 +86,16 @@ class MaterialController extends AbstractFOSRestController
         $name = $data['name'];
         $description = $data['description'];
         $availability = $data['availability'];
+        $borrowed_date = $data['borrowed_date'];
+        $return_date = $data['return_date'];
 
         $material = new Material();
         $material->setName($name);
         $material->setDescription($description);
         $material->setAvailability($availability);
-
+        $material->setBorrowedDate(\DateTime::createFromFormat('Y-m-d', $borrowed_date));
+        $material->setReturnDate(\DateTime::createFromFormat('Y-m-d', $return_date));
+        $material->setUser($user);
 
         if(in_array('ROLE_USER', $user->getRoles())) {
             $entityManager->persist($material);
@@ -108,6 +118,9 @@ class MaterialController extends AbstractFOSRestController
         $name = $data['name'];
         $description = $data['description'];
         $availability = $data['availability'];
+        $borrowed_date = $data['borrowed_date'];
+        $return_date = $data['return_date'];
+
 
         $material = $this->materialRepository->find($materialId);
 
@@ -118,6 +131,8 @@ class MaterialController extends AbstractFOSRestController
         $material->setName($name);
         $material->setDescription($description);
         $material->setAvailability($availability);
+        $material->setBorrowedDate(\DateTime::createFromFormat('Y-m-d', $borrowed_date));
+        $material->setReturnDate(\DateTime::createFromFormat('Y-m-d', $return_date));
 
         if(in_array('ROLE_USER', $user->getRoles())) {
             $entityManager->persist($material);
@@ -125,6 +140,33 @@ class MaterialController extends AbstractFOSRestController
             return View::create("You modified a material successfully!", Response::HTTP_OK);
         } else {
             return View::create(["You are not a user! So please register to modify a material!"], Response::HTTP_BAD_REQUEST);
+        }
+
+    }
+
+    /**
+     * @Rest\Delete("/delete-material/{materialId}")
+     */
+    public function deleteMaterial(int $materialId)
+    {
+        $user = $this->getUser();
+        $material = $this->materialRepository->find($materialId);
+
+
+        if (!$material) {
+            throw new EntityNotFoundException('Material with id '. $materialId. ' does not exist!');
+        }
+
+        // Todo: 400 response - Invalid input
+        // Todo: 404 response - Response not found
+        // Incase our Post was a success we need to return a 201 HTTP CREATED response with the created object
+        if(in_array('ROLE_USER', $user->getRoles(), true)) {
+            $this->entityManager->remove($material);
+            $this->entityManager->flush();
+            return View::create("Material which is entitled ' " .$material->getName(). " ' has been deleted",
+                Response::HTTP_OK);
+        } else {
+            return View::create(["You have not the right to delete this article"], Response::HTTP_BAD_REQUEST);
         }
 
     }
