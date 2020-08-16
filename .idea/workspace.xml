@@ -21,7 +21,6 @@
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentExperienceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentExperienceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ExperienceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ExperienceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php" afterDir="false" />
@@ -31,7 +30,6 @@
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/ArticleLike.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/ArticleLike.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/BorrowMaterial.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/Experience.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/Experience.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/ExperienceLike.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/ExperienceLike.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/Material.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/Material.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" afterDir="false" />
@@ -45,32 +43,14 @@
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/LogoComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/LogoComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/NavbarComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/NavbarComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/WelcomePageComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/dashboard/DashboardComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/dashboard/DashboardComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/ShowSingleArticleComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/ShowSingleArticleComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/showSingleArticle.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/showSingleArticle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_experience/ShowSingleExperienceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_experience/ShowSingleExperienceComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_experience/showSingleExperience.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_experience/showSingleExperience.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ArticlesComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/ArticlesComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ExperiencesComponent.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/borrow_lend_material/borrowLendMaterial.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/borrow_lend_material/borrowLendMaterial.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/experiences/ExperiencesComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/experiences/ExperiencesComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/messages_for_materials/MessagesForMaterialsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/messages_for_materials/MessagesForMaterialsComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/search_partner/SearchYourPartnerComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/search_partner/SearchYourPartnerComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_material/SingleMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_material/SingleMaterialComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_material/singleMaterial.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_material/singleMaterial.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/SingleUserProfileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_user_profile/SingleUserProfileComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/articleActions/EditArticleComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/articleActions/EditArticleComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/borrowMaterialActions/create_borrow_material/CreateBorrowMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/borrowMaterialActions/create_borrow_material/CreateBorrowMaterialComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/create_experience/CreateExperienceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/create_experience/CreateExperienceComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/edit_experience/EditExperienceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/edit_experience/EditExperienceComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/create_material/CreateMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/create_material/CreateMaterialComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/create_material/createMaterial.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/create_material/createMaterial.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/edit_material/EditMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/edit_material/EditMaterialComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/userProfileActions/CreateUserProfileComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/userProfileActions/EditUserProfileComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/commentExperienceActions/edit_comment_experience/EditCommentExperienceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/commentExperienceActions/edit_comment_experience/EditCommentExperienceComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/footer.less" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/home.less" beforeDir="false" />
@@ -166,7 +146,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="359">
@@ -178,19 +158,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/back-symfony/.env">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="581">
+            <state relative-caret-position="3321">
               <caret line="128" column="49" selection-start-line="128" selection-start-column="49" selection-end-line="128" selection-end-column="49" />
               <folding>
                 <element signature="e#31#79#0#PHP" expanded="true" />
@@ -647,11 +618,14 @@
       <workItem from="1597153271008" duration="472000" />
       <workItem from="1597176147411" duration="2315000" />
       <workItem from="1597221005973" duration="1982000" />
+      <workItem from="1597340797092" duration="921000" />
+      <workItem from="1597497716728" duration="569000" />
+      <workItem from="1597525604963" duration="601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="848364000" />
+    <option name="totallyTimeSpent" value="850455000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -996,6 +970,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1863">
@@ -1036,6 +1017,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3321">
+          <caret line="128" column="49" selection-start-line="128" selection-start-column="49" selection-end-line="128" selection-end-column="49" />
+          <folding>
+            <element signature="e#31#79#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/CommentArticleController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2214">
@@ -1066,16 +1057,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="128" column="49" selection-start-line="128" selection-start-column="49" selection-end-line="128" selection-end-column="49" />
-          <folding>
-            <element signature="e#31#79#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="359">
@@ -1083,13 +1064,6 @@
           <folding>
             <element signature="e#44#69#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
         </state>
       </provider>
     </entry>

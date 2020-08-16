@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as moment from "moment";
 import {LikeButtonArticles} from "./../like_button_articles/LikeButtonArticles";
 import "./showSingleArticle.css";
+import ModalEditArticleCommentComponent from "./editArticleComment/ModalEditArticleCommentComponent.js";
 
 class ShowSingleArticleComponent extends React.Component {
   constructor(props) {
@@ -44,7 +45,9 @@ class ShowSingleArticleComponent extends React.Component {
         lastName: "",
         username: "",
       },
+      requiredItem: 0
     };
+    this.replaceModalItem = this.replaceModalItem.bind(this);
   }
 
   componentWillMount() {
@@ -54,6 +57,12 @@ class ShowSingleArticleComponent extends React.Component {
   handleCommentArticle(event) {
     this.setState({
       commentContent: event.target.value,
+    });
+  }
+
+  replaceModalItem(index) {
+    this.setState({
+      requiredItem: index
     });
   }
 
@@ -94,23 +103,7 @@ class ShowSingleArticleComponent extends React.Component {
     }
   }
 
-  // getSingleComment() {
-  //   let commentId = this.props.match.params.commentId;
-  //   console.log("comment article id: ", commentId);
-  //   fetch(`http://localhost:8000/api/single-comment-article/` + commentId, {
-  //     method: "GET",
-  //     mode: "cors",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((resultJson) => {
-  //       console.log("resJson result: ", resultJson);
-  //       this.setState({
-  //         comentContent: resultJson.commentContent,
-  //         user: resultJson.user,
-  //       });
-  //     })
-  //     .catch((error) => console.log(error));
-  // }
+
   getArticleDetails() {
     let articleId = this.props.match.params.articleId;
     fetch(`http://localhost:8000/api/single-article/` + articleId, {
@@ -138,10 +131,70 @@ class ShowSingleArticleComponent extends React.Component {
       .catch((error) => console.log(error));
   }
 
+  showSingleArticleAfterCommentDelete() {
+    setTimeout(() => {
+      let articleId = this.props.match.params.articleId;
+      fetch(`http://localhost:8000/api/single-article/` + articleId, {
+        method: "GET",
+        mode: "cors",
+      })
+        .then((res) => res.json())
+        .then((resJson) => {
+          console.log("res json: ", resJson);
+          this.setState(
+            {
+            id: resJson.id,
+            title: resJson.title,
+            content: resJson.content,
+            published_at: resJson.published_at,
+            user: resJson.user,
+            commentArticles: resJson.commentArticles,
+            likes: resJson.likes,
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+        });
+    }, 200);
+  }
+  deleteCommentArticle(e, id) {
+    if (localStorage.getItem("token") && localStorage.getItem("username")) {
+      if (window.confirm("Are you sure to delete this comment article?")) {
+        console.log("id article:", id);
+        let token = localStorage.getItem("token");
+        fetch(`http://localhost:8000/api/delete-comment-article/` + id, {
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ` + token,
+          },
+        })
+          .then((res) => {
+            console.log("result: ", res);
+            this.setState({ res });
+            this.showSingleArticleAfterCommentDelete();
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    } else {
+      this.props.history.push("/login");
+    }
+  }
+
   render() {
     console.log("username author of article: ", this.state.user.username);
     let tokenRedirect = localStorage.getItem("token");
     console.log("articles comment: ", this.state.commentArticles);
+
+    const requiredItem = this.state.requiredItem;
+    console.log("this.state.requiredItem: ", requiredItem)
+    let modalData = this.state.commentArticles[requiredItem];
+    console.log("modal data: ", modalData);
+
     return (
       <div className="container-fluid">
         <div className="row" style={{ marginBottom: "20px" }}>
@@ -232,13 +285,38 @@ class ShowSingleArticleComponent extends React.Component {
           
         </form>
         <div className="comment-div-article col-lg-6">
-            {this.state.commentArticles.map((comment) => {
+            {this.state.commentArticles.map((comment, index) => {
               return (
                 <div className="container-article-comment">
                   <div class="text">
                     <p>{comment.commentContent}</p>
                   </div>
                   <p class="attribution">
+                  {comment.authorName.username ==
+                  localStorage.getItem("username") && (
+                    <div style={{float: "left"}}>
+                      <i
+                      title="Edit your comment"
+                      className="fa fa-edit fa-lg"
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      style={{color: "green" }}
+                      aria-hidden="true"
+                      onClick={() => this.replaceModalItem(index)}
+                    ></i>&nbsp;&nbsp;&nbsp;
+                     
+                  <i
+                      title="Delete your comment"
+                      className="fa fa-trash-o fa-lg del-btn"
+                      style={{color: "red" }}
+                      aria-hidden="true"
+                      onClick={(e) =>
+                        this.deleteCommentArticle(e, comment.id)
+                      }
+                    ></i>
+                    </div>
+                  )
+                  }
                     by{" "}
                     {
                       this.state.user.username != comment.authorName.username ? (<a href="#">
@@ -261,6 +339,12 @@ class ShowSingleArticleComponent extends React.Component {
               );
             })}
           </div>
+          <ModalEditArticleCommentComponent
+          id={modalData.id}
+          commentContent={modalData.commentContent}
+          articleId = {this.props.match.params.articleId}
+          
+        />
       </div>
     );
   }

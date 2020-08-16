@@ -20,9 +20,9 @@ class EditCommentExperienceComponent extends React.Component {
 
   getSingleCommentExperience() {
     let commentExperienceId = this.props.match.params.commentExperienceId;
-    console.log("commentExperienceId: ", commentExperienceId);
+    //console.log("commentExperienceId: ", commentExperienceId);
     fetch(
-      `http://localhost:8000/api/single-comment-experience/${this.props.match.params.commentExperienceId}`,
+      `http://localhost:8000/api/single-comment-experience/${commentExperienceId}`,
       {
         method: "GET",
         mode: "cors",
@@ -55,9 +55,10 @@ class EditCommentExperienceComponent extends React.Component {
   editCommentExperience(newCommentExperience) {
     console.log("blallalalll")
     let token = localStorage.getItem("token");
-    console.log("inside token: ", this.props.match.params.commentExperienceId);
+    const commentExperienceId = this.props.match.params.commentExperienceId;
+    console.log("edit comment experience id: ", commentExperienceId);
     fetch(
-      `http://localhost:8000/api/edit-comment-experience/${this.props.match.params.commentExperienceId}`,
+      `http://localhost:8000/api/edit-comment-experience/${commentExperienceId}`,
       {
         method: "PUT",
         mode: "cors",
