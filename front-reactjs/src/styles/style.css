@@ -5,7 +5,9 @@
 }
 /* App Component */
 .card {
-  width: 50%;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
   background: #e6ffe6;
   margin-top: 50px;
   margin: 0 auto;
@@ -17,6 +19,7 @@
   font-size: 60px;
   cursor: pointer;
 }
+
 
 /* Home Component */
 .jumbotron {

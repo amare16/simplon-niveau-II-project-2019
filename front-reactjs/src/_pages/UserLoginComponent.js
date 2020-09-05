@@ -12,7 +12,7 @@ class UserLoginComponent extends React.Component {
     this.state = {
       username: '',
       password: '',
-      loginError: 'ldlldld',
+      loginError: '',
       redirect: false,
       userData: [
         {
@@ -24,7 +24,8 @@ class UserLoginComponent extends React.Component {
           userProfile: {
             id: "",
           },
-          user_loggedin_first_time: true
+          user_connected: false,
+          last_login_at: ""
         },
       ],
       hasUserProfileId: false,
@@ -90,6 +91,7 @@ class UserLoginComponent extends React.Component {
       password: this.state.password
     };
     
+    
       fetch(`http://localhost:8000/api/login_check`, {
           method: "POST",
           headers: {
@@ -99,7 +101,7 @@ class UserLoginComponent extends React.Component {
           
         })
         .then(res => {
-          
+          console.log("existed username: ", res)
           if (res.status === 200) {
             res.json().then(data => {
               console.log('dataaaaaaaaaaa: ', data);
@@ -107,28 +109,44 @@ class UserLoginComponent extends React.Component {
                 token: data.token,
                 username: userData.username
               }
-              console.log("data value: ", userData.username)
+              console.log("data value: ", user)
              //console.log("test json stringfy:",JSON.stringify({token: data.token, username: userData.username}))
            
              
              localStorage.setItem('token', data.token);
              localStorage.setItem('username', userData.username);
-             
+            //  let test = this.state.userData.map(userD => userD.user_connected);
+            //  console.log("this test connected: ", test);
             this.state.userData.map(userD => {
-              localStorage.setItem('user_loggedin_first_time', userD.user_loggedin_first_time)
+              
+              if ((localStorage.getItem("username") == userD.username)) {
+                if (userD.user_connected == false) {
+                  //console.log("redirect to add profile page");
+                  this.props.history.push('/add-user-profile');
+                }
+                else {
+                  //console.log("redirect to dashboard");
+                  this.props.history.push('/dashboard');
+                 
+                }
+              } 
             })
-              this.props.history.push('/dashboard')
-            })
-            
+              //this.props.history.push('/dashboard');
+            });
+
             //this.setState({ redirect: true })
           } else {
             const error = new Error(res.error);
             throw error;
+           
+            
           }
         })
         .catch(err => {
-          console.error(err);
+          console.log("error result: ", err);
           alert('Error logging in please try again');
+         
+          
         })       
     
 }
@@ -139,11 +157,13 @@ class UserLoginComponent extends React.Component {
     //   console.log("why it is not redirect? ", this.state.redirect);
     //   return (<Redirect to={'/dashboard'} />)
     // }
-    console.log('tieisll: ', this.state.user_loggedin_first_time)
+    console.log('user data value to get user connected : ', this.state.userData)
+    console.log("entered username: ", this.state.username)
+    console.log("entered password: ", this.state.password)
 
-    if(localStorage.getItem("token")) {
-      return (<Redirect to={'/dashboard'} />)
-    }
+    // if(localStorage.getItem("token")) {
+    //   return (<Redirect to={'/dashboard'} />)
+    // }
    
     return (
       <div className="container login-container h-100">
@@ -177,6 +197,8 @@ class UserLoginComponent extends React.Component {
                     required
                   ></input>
                 </div>
+                {/* <div>
+                  <h3>{this.state.loginError}</h3></div> */}
                 <div className="input-group mb-2">
                   <div className="input-group-append">
                     <span className="input-group-text">

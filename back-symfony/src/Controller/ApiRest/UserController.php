@@ -89,6 +89,7 @@ class UserController extends AbstractFOSRestController
     public function listUsers(): View
     {
         $all_users = $this->userService->getAllUsers();
+        //dd($all_users);
         return View::create($all_users, Response::HTTP_OK);
     }
 
@@ -142,7 +143,10 @@ class UserController extends AbstractFOSRestController
         $user->setCity($city);
         $user->setZipCode($zipCode);
         $user->addUserType($user_type_name);
-        $user->setUserLoggedinFirstTime(false);
+        $user->setUserConnected(false);
+        $user->setCreatedAt(new \DateTime('now'));
+        $user->setLastLoginAt(null);
+
 
 
         $entityManager->persist($user);
@@ -158,16 +162,19 @@ class UserController extends AbstractFOSRestController
 
     /**
      * @Rest\Post("/login", name="api_login")
+     * @Rest\View(serializerGroups={"group_user"})
      */
-    public function login()
+    public function login(EntityManagerInterface $entityManager): View
     {
-//        $userTest = $this->getUser();
-//        $token = $this->jwt_encoder->encode(['username' => $userTest]);
-//        dd($token);
-        $this->getUser();
-        return $this->json([
-            'user' => $this->getUser()
-        ]);
+        $userTest = $this->getUser();
+        $token = $this->jwt_encoder->encode(['username' => $userTest]);
+        return View::create($token, Response::HTTP_OK);
+
+
+//        $this->getUser();
+//        return $this->json([
+//            'user' => $this->getUser()
+//        ]);
         
 
     }

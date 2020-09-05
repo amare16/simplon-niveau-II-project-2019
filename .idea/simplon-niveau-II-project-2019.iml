@@ -23,6 +23,8 @@
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/react/socket" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/react/stream" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/apache-pack" />
+      <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/debug-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/debug-pack" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/google-mailer" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/mailer" />
       <excludeFolder url="file://$MODULE_DIR$/back-symfony/vendor/symfony/property-info" />

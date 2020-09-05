@@ -74,7 +74,7 @@ class CreateExperienceComponent extends React.Component {
                     color: "green",
                   }}
                 >
-                  <p>
+                  <p style={{color: "wheat"}}>
                     <i class="fa fa-list-alt" aria-hidden="true"></i>
                     &nbsp;&nbsp;
                     <strong>Back to list of Experiences</strong>

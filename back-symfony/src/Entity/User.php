@@ -129,7 +129,19 @@ class User implements UserInterface
      * @ORM\Column(type="boolean", nullable=true)
      * @Groups("group_user")
      */
-    private $user_loggedin_first_time;
+    public $user_connected;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("group_user")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("group_user")
+     */
+    private $last_login_at;
 
 
     // we won't at Column annotation because we don't want this field in the database
@@ -242,7 +254,6 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\BorrowMaterial", mappedBy="user")
      */
     private $borrowLenderMaterials;
-
 
 
 //    /**
@@ -926,14 +937,38 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getUserLoggedinFirstTime(): ?bool
+    public function getUserConnected(): ?bool
     {
-        return $this->user_loggedin_first_time;
+        return $this->user_connected;
     }
 
-    public function setUserLoggedinFirstTime(?bool $user_loggedin_first_time): self
+    public function setUserConnected(?bool $user_connected): self
     {
-        $this->user_loggedin_first_time = $user_loggedin_first_time;
+        $this->user_connected = $user_connected;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getLastLoginAt(): ?\DateTimeInterface
+    {
+        return $this->last_login_at;
+    }
+
+    public function setLastLoginAt(?\DateTimeInterface $last_login_at): self
+    {
+        $this->last_login_at = $last_login_at;
 
         return $this;
     }

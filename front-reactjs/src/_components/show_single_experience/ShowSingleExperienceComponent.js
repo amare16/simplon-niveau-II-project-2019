@@ -130,7 +130,7 @@ class ShowSingleExperienceComponent extends React.Component {
     });
   }
 
-
+  
   showSingleExperienceAfterCommentDelete() {
     setTimeout(() => {
       let experienceId = this.props.match.params.experienceId;
@@ -356,7 +356,6 @@ class ShowSingleExperienceComponent extends React.Component {
           id={modalData.id}
           commentContent={modalData.commentContent}
           experienceId = {this.props.match.params.experienceId}
-          
         />
       </div>
     );

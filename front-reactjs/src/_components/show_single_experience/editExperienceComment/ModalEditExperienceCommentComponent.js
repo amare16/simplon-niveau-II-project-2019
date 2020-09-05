@@ -6,32 +6,7 @@ class ModalEditExperiencCommentComponent extends Component {
     
     this.state = {
       id: "",
-      commentContent: "",
-      singleExperience: [
-        {
-          id: "",
-      title: "",
-      content: "",
-      published_at: "",
-      user: {
-        firstName: "",
-        lastName: "",
-      },
-      commentExperiences: [
-        {
-          id: "",
-          commentContent: "",
-          commentedAt: "",
-          authorName: {
-            id: "",
-            firstName: "",
-            lastName: "",
-            username: "",
-          },
-        },
-      ],
-        }
-      ],
+      commentContent: "", 
       
     };
     this.handleSave = this.handleSave.bind(this);
@@ -67,31 +42,33 @@ class ModalEditExperiencCommentComponent extends Component {
 }
 
 
-showSingleExperienceAfterEditExperienceComment() {
- // console.log("experience id props: ", this.props.experienceId)
- 
-    fetch(`http://localhost:8000/api/single-experience/` + this.props.experienceId, {
-    method: "GET",
-    mode: "cors",
-  })
-    .then((res) => res.json())
-    .then((resJson) => {
-      console.log("show exp res json: ", resJson);
-      this.setState(
-        {
-          // id: resJson.id,
-          // title: resJson.title,
-          // content: resJson.content,
-          // published_at: resJson.published_at,
-          // commentExperiences: resJson.commentExperiences,
-          // user: resJson.user,
-          singleExperience: resJson.singleExperience
-        }
+// showSingleExperienceAfterEditExperienceComment() {
+//  // console.log("experience id props: ", this.props.experienceId)
+//  setTimeout(() => {
+//   fetch(`http://localhost:8000/api/single-experience/` + this.props.experienceId, {
+//     method: "GET",
+//     mode: "cors",
+//   })
+//     .then((res) => res.json())
+//     .then((resJson) => {
+//       console.log("show exp res json: ", resJson);
+//       this.setState(
+//         {
+//           // id: resJson.id,
+//           // title: resJson.title,
+//           // content: resJson.content,
+//           // published_at: resJson.published_at,
+//           // commentExperiences: resJson.commentExperiences,
+//           // user: resJson.user,
+//           singleExperience: resJson.singleExperience
+//         }
         
-      );
-    });
+//       );
+//     });
+//  }, 500);
+    
   
-}
+// }
 
 editCommentExperience(newCommentExperience, nextProps) {
   //console.log("blallalalll", this.nextProps.id)
@@ -114,43 +91,11 @@ editCommentExperience(newCommentExperience, nextProps) {
       console.log("response from getDetails: ", response);
       this.setState({
         response,
-      })
-      
-      //this.props.history.push('/experiences');
+      });
     })
     .catch((err) => console.error(err));
 }
-  // componentWillMount() {
-  //   this.getSingleCommentExperience();
-  // }
-
-  // getSingleCommentExperience() {
-  //   let commentExperienceId = this.props.match.params.commentExperienceId;
-  //   //console.log("commentExperienceId: ", commentExperienceId);
-  //   fetch(
-  //     `http://localhost:8000/api/single-comment-experience/${commentExperienceId}`,
-  //     {
-  //       method: "GET",
-  //       mode: "cors",
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then((resJson) => {
-  //       console.log("res json single comment: ", resJson);
-  //       this.setState(
-  //         {
-  //           id: resJson.id,
-  //           commentContent: resJson.commentContent,
-  //         },
-  //         () => {
-  //           console.log("get single comment experience: ", this.state);
-  //         }
-  //       );
-       
-  //     });
-  // }
-
-  
+    
 
   commentContentHandler(e) {
     this.setState({ commentContent: e.target.value });
@@ -164,13 +109,19 @@ editCommentExperience(newCommentExperience, nextProps) {
       id: this.state.id
     }
 
+    const item = this.state;
+
     this.editCommentExperience(newCommentExperience, nextProps);
-    setInterval(this.showSingleExperienceAfterEditExperienceComment(), 500);
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 1000);
+    //this.props.saveExperienceCommentDetails(item)
+    
 
   }
 
   render() {
-    console.log("props of get single experience: ", this.props.experienceId)
+    console.log("props of get single experience: ", this.props.experienceId);
     return (
       <div
         className="modal fade"

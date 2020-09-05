@@ -93,7 +93,7 @@ class ShowSingleArticleComponent extends React.Component {
           data.json().then((results) => {
             console.log("results: ", results);
           });
-          setInterval(this.getArticleDetails(), 500);
+          setInterval(this.getArticleDetails(), 200);
         })
         .catch((error) => {
           console.error("error test: ", error);

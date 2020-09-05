@@ -6,34 +6,9 @@ class ModalEditArticleCommentComponent extends Component {
     
     this.state = {
       id: "",
-      commentContent: "",
-      singleArticle: [
-        {
-          id: "",
-      title: "",
-      content: "",
-      published_at: "",
-      user: {
-        firstName: "",
-        lastName: "",
-      },
-      commentArticles: [
-        {
-          id: "",
-          commentContent: "",
-          commentedAt: "",
-          authorName: {
-            id: "",
-            firstName: "",
-            lastName: "",
-            username: "",
-          },
-        },
-      ],
-        }
-      ],
-      
+      commentContent: "", 
     };
+    
     this.handleSave = this.handleSave.bind(this);
   }
 
@@ -63,31 +38,31 @@ class ModalEditArticleCommentComponent extends Component {
 }
 
 
-showSingleArticleAfterEditArticleComment() {
- // console.log("experience id props: ", this.props.experienceId)
+// showSingleArticleAfterEditArticleComment() {
+//  // console.log("experience id props: ", this.props.experienceId)
  
-    fetch(`http://localhost:8000/api/single-article/` + this.props.articleId, {
-    method: "GET",
-    mode: "cors",
-  })
-    .then((res) => res.json())
-    .then((resJson) => {
-      console.log("show exp res json: ", resJson);
-      this.setState(
-        {
-          // id: resJson.id,
-          // title: resJson.title,
-          // content: resJson.content,
-          // published_at: resJson.published_at,
-          // commentExperiences: resJson.commentExperiences,
-          // user: resJson.user,
-          singleArticle: resJson.singleArticle
-        }
+//     fetch(`http://localhost:8000/api/single-article/` + this.props.articleId, {
+//     method: "GET",
+//     mode: "cors",
+//   })
+//     .then((res) => res.json())
+//     .then((resJson) => {
+//       console.log("show exp res json: ", resJson);
+//       this.setState(
+//         {
+//           // id: resJson.id,
+//           // title: resJson.title,
+//           // content: resJson.content,
+//           // published_at: resJson.published_at,
+//           // commentExperiences: resJson.commentExperiences,
+//           // user: resJson.user,
+//           singleArticle: resJson.singleArticle
+//         }
         
-      );
-    });
+//       );
+//     });
   
-}
+// }
 
 editCommentArticle(newCommentArticle, nextProps) {
   //console.log("blallalalll", this.nextProps.id)
@@ -130,9 +105,12 @@ editCommentArticle(newCommentArticle, nextProps) {
     }
 
     this.editCommentArticle(newCommentArticle, nextProps);
-    setInterval(this.showSingleArticleAfterEditArticleComment(), 500);
-
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 1000);
+  
   }
+  
 
   render() {
     console.log("props of get single experience: ", this.props.articleId)

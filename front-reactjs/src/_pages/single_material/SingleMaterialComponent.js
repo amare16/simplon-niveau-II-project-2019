@@ -50,6 +50,7 @@ class SingleMaterialComponent extends React.Component {
   }
 
   handleSubmit(e) {
+    console.log("I am clicked");
     e.preventDefault();
 
     let body = {
