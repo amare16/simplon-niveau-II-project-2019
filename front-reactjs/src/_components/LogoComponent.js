@@ -10,14 +10,15 @@ class LogoComponent extends React.Component {
         if (token) {
             return(
                 <div className="logo">
-                    <a href="http://localhost:3000/home"><img className="img-logo" src="http://localhost:3000/logo.png" alt="logo"></img></a>
+                    <a href="http://localhost:3000/home"><img className="img-logo" src="http://localhost:3000/logo.png" width="170" height="170" alt="logo"></img></a>
                 
                 </div>
             );
-        } else {
+        } 
+        else {
             return(
                 <div className="logo">
-                    <a href="http://localhost:3000/home"><img className="img-logo" src="http://localhost:3000/logo.png" alt="logo"></img></a>
+                    <a href="http://localhost:3000/home"><img className="img-logo" src="http://localhost:3000/logo.png" width="170" height="170" alt="logo"></img></a>
                 
                 </div>
             );

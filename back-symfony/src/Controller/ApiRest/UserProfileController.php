@@ -14,6 +14,8 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\FileBag;
 
 
 class UserProfileController extends AbstractFOSRestController
@@ -81,17 +83,22 @@ class UserProfileController extends AbstractFOSRestController
     public function createUserProfile(Request $request, EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $contentAbout = $data['content_about'];
-        $contentAspiration = $data['content_aspiration'];
-        $hobby = $data['hobby'];
-
+        $contentAbout = $request->request->get('content_about');
+        $contentAspiration = $request->request->get('content_aspiration');
+        $hobby = $request->request->get('hobby');
+        //$filename = $request->files->get('filename')->getClientOriginalName();
+        $image_upload = $request->files->get('imageFile');
+        $filename = $image_upload->getClientOriginalName();
+        //dd($image_upload);
         $userProfile = new UserProfile();
         $userProfile->setContentAbout($contentAbout);
         $userProfile->setContentAspiration($contentAspiration);
         $userProfile->setHobby($hobby);
+        $userProfile->setFilename($filename);
+        $userProfile->setImageFile($image_upload);
         $userProfile->setCreatedOn(new \DateTime('now'));
         $userProfile->setUser($user);
+        //dd($userProfile);
 
         if (in_array('ROLE_USER', $user->getRoles())) {
             $entityManager->persist($userProfile);
@@ -103,7 +110,7 @@ class UserProfileController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Put("/edit-user-profile/{userProfileId<\d+>}")
+     * @Rest\Post("/edit-user-profile/{userProfileId<\d+>}")
      * @Rest\View(serializerGroups={"group_user_profile"})
      */
     public function editUserProfile(int $userProfileId,
@@ -111,12 +118,14 @@ class UserProfileController extends AbstractFOSRestController
                                     EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $contentAbout = $data['content_about'];
-        $contentAspiration = $data['content_aspiration'];
-        $hobby = $data['hobby'];
-
+        //$data = json_decode($request->getContent(), true);
+        $contentAbout = $request->request->get('content_about');
+        $contentAspiration = $request->request->get('content_aspiration');
+        $hobby = $request->request->get('hobby');
+        $image_upload = $request->files->get('imageFile');
+        //$filename = $image_upload->getClientOriginalName();
         $userProfile = $this->userProfileRepository->find($userProfileId);
+
 
         if (!$userProfile) {
             throw new EntityNotFoundException('User profile with id '.$userProfileId.' does not exist!');
@@ -125,9 +134,11 @@ class UserProfileController extends AbstractFOSRestController
         $userProfile->setContentAbout($contentAbout);
         $userProfile->setContentAspiration($contentAspiration);
         $userProfile->setHobby($hobby);
-        $userProfile->setCreatedOn(new \DateTime('now'));
+        $userProfile->setImageFile($image_upload);
+        //$userProfile->setFilename($filename);
+        $userProfile->setUpdatedAt(new \DateTime('now'));
         $userProfile->setUser($user);
-
+        //dd($userProfile);
         if(in_array('ROLE_USER', $user->getRoles(), true)) {
             $entityManager->persist($userProfile);
             $entityManager->flush();

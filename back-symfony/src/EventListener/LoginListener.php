@@ -33,7 +33,7 @@ class LoginListener
 
 
         $user = $event->getAuthenticationToken()->getUser();
-        //dump($user);
+        //dd($user);
         //dd(method_exists($user, 'setUserConnected'));
 
         // Update your field here.

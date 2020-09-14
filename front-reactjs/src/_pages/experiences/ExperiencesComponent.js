@@ -1,110 +1,135 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { UserLogoutComponent } from "../UserLogoutComponent";
-import { NavbarComponent } from '../../_components/NavbarComponent';
-import moment from 'moment';
+import { NavbarComponent } from "../../_components/NavbarComponent";
+import PaginationExperiences from "./PaginatiationExperiences";
+import moment from "moment";
 
 class ExperiencesComponent extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            items: [
-                {
-                    title: "",
-                    content: "",
-                    published_at: "",
-                    user: {
-                        firstName: ""
-                    }
-                }
-            ]
-        }
-        console.log(this.state)
-    }
+    this.state = {
+      items: [
+        {
+          title: "",
+          content: "",
+          published_at: "",
+          user: {
+            firstName: "",
+          },
+        },
+      ],
+      currentPage: 1,
+      itemsPerPage: 2,
+    };
+    console.log(this.state);
+  }
 
-    componentDidMount() {
-        return fetch(`http://localhost:8000/api/experiences`, {
-            method: "GET",
-            mode: "cors"
-        })
-        .then(response => response.json())
-        .then(resJson => {
-            console.log("res json: ", resJson)
-            this.setState({
-                items: resJson
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        })
-    }
+  componentDidMount() {
+    return fetch(`http://localhost:8000/api/experiences`, {
+      method: "GET",
+      mode: "cors",
+    })
+      .then((response) => response.json())
+      .then((resJson) => {
+        console.log("res json: ", resJson);
+        this.setState({
+          items: resJson,
+          currentPage: 1,
+          itemsPerPage: 2,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
-    showExperiencesAfterDelete() {
-      setTimeout(() => {
-        fetch(`http://localhost:8000/api/experiences`, {
-            method: "GET",
-            mode: "cors"
-        })
-        .then(response => response.json())
-        .then(resJson => {
-            console.log("res json: ", resJson)
-            this.setState({
-                items: resJson
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        })
-      }, 500)
-    }
+  paginate(pageNumber) {
+    this.setState({
+      currentPage: pageNumber,
+    });
+  }
 
-    deleteExperience(e, id) {
-      if(window.confirm("Are you sure to delete this experience?")) {
-        console.log("id experience:", id);
-        let token = localStorage.getItem("token");
-        fetch(`http://localhost:8000/api/delete-experience/` + id, {
-          method: "DELETE",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-             Authorization: `Bearer ` + token
-          }
+  showExperiencesAfterDelete() {
+    setTimeout(() => {
+      fetch(`http://localhost:8000/api/experiences`, {
+        method: "GET",
+        mode: "cors",
+      })
+        .then((response) => response.json())
+        .then((resJson) => {
+          console.log("res json: ", resJson);
+          this.setState({
+            items: resJson,
+          });
         })
-        .then(res => {
-          console.log("result: ", res)
-          this.setState({res})
+        .catch((error) => {
+          console.error(error);
+        });
+    }, 500);
+  }
+
+  deleteExperience(e, id) {
+    if (window.confirm("Are you sure to delete this experience?")) {
+      console.log("id experience:", id);
+      let token = localStorage.getItem("token");
+      fetch(`http://localhost:8000/api/delete-experience/` + id, {
+        method: "DELETE",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + token,
+        },
+      })
+        .then((res) => {
+          console.log("result: ", res);
+          this.setState({ res });
           this.showExperiencesAfterDelete();
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
-        })
-      }
+        });
     }
-    
+  }
 
-    render() {
-      let username = localStorage.getItem("username");
-      console.log("username in the LS", username)
-        const thStyle = {
-            textAlign: "center"
-          };
+  render() {
+    console.log('url path: ', this.match)
+    let username = localStorage.getItem("username");
+    console.log("username in the LS", username);
+    const thStyle = {
+      textAlign: "center",
+    };
+    // Get current items
+    const indexOfLastItem = this.state.currentPage * this.state.itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
+    const currentItems = this.state.items.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
 
-        return(
-            <div>
-                <UserLogoutComponent />
-                <NavbarComponent />
-                
-                <div className="container table-responsive" style={{ marginBottom: "60px"}}>
+    return (
+      <div>
+        <UserLogoutComponent />
+        <NavbarComponent />
+
+        <div
+          className="container table-responsive"
+          style={{ marginBottom: "60px" }}
+        >
           <h1>List of Experiences</h1>
-          
           <a href="/add-experience">
             <i
               className="add-experience-icon fa fa-plus-circle fa-3x"
               aria-hidden="false"
             ></i>
-          </a>&nbsp;&nbsp;
+          </a>
+          &nbsp;&nbsp;
           <a href="/dashboard">
-          <i class="fa fa-arrow-circle-o-left fa-3x" aria-hidden="true" style={{color: "green"}}></i>
+            <i
+              class="fa fa-arrow-circle-o-left fa-3x"
+              aria-hidden="true"
+              style={{ color: "green" }}
+            ></i>
           </a>
           <table className="table table-striped table-hover">
             <thead>
@@ -117,74 +142,86 @@ class ExperiencesComponent extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.items.map(item => {
+              {currentItems.map((item) => {
                 //console.log("an item value: ", typeof(item.user))
                 return (
                   <tr>
                     <td>{item.title}</td>
-                    <td>{moment(item.published_at).format('LLL')}</td>
+                    <td>{moment(item.published_at).format("LLL")}</td>
                     <td>
                       <div className="item-actions">
-                        <a href={"/show-experience/" + item.id}  className="btn btn-sm btn-info">
+                        <a
+                          href={"/show-experience/" + item.id}
+                          className="btn btn-sm btn-info"
+                        >
                           <i className="fa fa-eye" aria-hidden="true"></i> Show
                         </a>
                         &nbsp;&nbsp;
-                        
-                        {
-                          username === item.user.username ? (
-                            <span>
+                        {username === item.user.username ? (
+                          <span>
                             <a
-                          href={"/edit-experience/" + item.id}
-                          className="btn btn-sm btn-warning"
-                        >
-                          <i className="fa fa-edit" aria-hidden="true"></i> Edit
-                        </a>
-                        &nbsp;&nbsp;
+                              href={"/edit-experience/" + item.id}
+                              className="btn btn-sm btn-warning"
+                            >
+                              <i className="fa fa-edit" aria-hidden="true"></i>{" "}
+                              Edit
+                            </a>
+                            &nbsp;&nbsp;
                             <a
-                            className="btn btn-sm btn-danger"
-                            style={{cursor: "pointer"}}
-                            onClick={(e) => this.deleteExperience(e, item.id)}
-                          >
-                            <i className="fa fa-delete" aria-hidden="true"></i>{" "}
-                            Delete
-                          </a>
-                          </span>) : (
-                            <span>
-                              <a
-                            href={"/edit-experience/" + item.id}
-                            className="btn btn-sm btn-secondary disabled"
-                            style={{pointerEvents: "none", color: "#ccc"}}
-                          >
-                            <i className="fa fa-edit" aria-hidden="true"></i> Edit
-                          </a>
-                          &nbsp;&nbsp;
-                             <a
-                             title="You can't delete me!"
-                             className="btn btn-sm btn-secondary disabled"
-                             style={{pointerEvents: "none", color: "#ccc"}}
-                             onClick={(e) => this.deleteExperience(e, item.id)}
-                           >
-                             <i className="fa fa-delete" aria-hidden="true"></i>{" "}
-                             Delete
-                           </a>
-                            </span>
-                            
-                          )
-                        }
-                       
-                                                
+                              className="btn btn-sm btn-danger"
+                              style={{ cursor: "pointer" }}
+                              onClick={(e) => this.deleteExperience(e, item.id)}
+                            >
+                              <i
+                                className="fa fa-delete"
+                                aria-hidden="true"
+                              ></i>{" "}
+                              Delete
+                            </a>
+                          </span>
+                        ) : (
+                          <span>
+                            <a
+                              href={"/edit-experience/" + item.id}
+                              className="btn btn-sm btn-secondary disabled"
+                              style={{ pointerEvents: "none", color: "#ccc" }}
+                            >
+                              <i className="fa fa-edit" aria-hidden="true"></i>{" "}
+                              Edit
+                            </a>
+                            &nbsp;&nbsp;
+                            <a
+                              title="You can't delete me!"
+                              className="btn btn-sm btn-secondary disabled"
+                              style={{ pointerEvents: "none", color: "#ccc" }}
+                              onClick={(e) => this.deleteExperience(e, item.id)}
+                            >
+                              <i
+                                className="fa fa-delete"
+                                aria-hidden="true"
+                              ></i>{" "}
+                              Delete
+                            </a>
+                          </span>
+                        )}
                       </div>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
+            <PaginationExperiences
+          itemsPerPage={this.state.itemsPerPage}
+          totalItems={this.state.items.length}
+          paginate={this.paginate.bind(this)}
+        />
           </table>
+         
         </div>
-            </div>
-        );
-    }
-
+       
+      </div>
+    );
+  }
 }
 
 export { ExperiencesComponent };

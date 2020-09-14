@@ -99,6 +99,7 @@ class CreateMaterialComponent extends React.Component {
                       value={this.state.name}
                       placeholder=" Enter Your Material Name"
                       onChange={this.handleNameChange.bind(this)}
+                      required
                     />
                   </div>
                   <div class="form-check form-check-inline">
@@ -113,6 +114,7 @@ class CreateMaterialComponent extends React.Component {
                       id="inlineRadio2"
                       value={this.state.availability}
                       onChange={this.handleAvailabilityChange.bind(this)}
+                      
                     />
                   </div>
                   <div className="form-group">
@@ -136,6 +138,7 @@ class CreateMaterialComponent extends React.Component {
                       name="return_date"
                       value={this.state.return_date}
                       onChange={this.handleReturnDateChange.bind(this)}
+                      required
                     />
                   </div>
                 </div>

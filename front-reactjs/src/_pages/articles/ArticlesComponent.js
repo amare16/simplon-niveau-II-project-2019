@@ -1,7 +1,9 @@
 import React from "react";
 import * as moment from "moment";
-import { NavbarComponent } from "../_components/NavbarComponent";
-import { UserLogoutComponent } from "./UserLogoutComponent";
+import { NavbarComponent } from "../../_components/NavbarComponent";
+import { UserLogoutComponent } from "../UserLogoutComponent";
+import PaginationArticles from "./PaginationArticles";
+import "./articles.css";
 import { Redirect } from "react-router-dom";
 
 class ArticlesComponent extends React.Component {
@@ -21,7 +23,9 @@ class ArticlesComponent extends React.Component {
           },
           message: null
         }
-      ]
+      ],
+      currentPage: 1,
+      itemsPerPage: 2,
     };
   }
   componentDidMount() {
@@ -34,12 +38,20 @@ class ArticlesComponent extends React.Component {
       .then(responseJson => {
         console.log("what is the value of : ", responseJson);
         this.setState({
-          items: responseJson
+          items: responseJson,
+          currentPage: 1,
+          itemsPerPage: 2,
         });
       })
       .catch(error => {
         console.error(error);
       });
+  }
+
+  paginate(pageNumber) {
+    this.setState({
+      currentPage: pageNumber,
+    });
   }
 
   showArticlesAfterDelete() {
@@ -94,6 +106,14 @@ class ArticlesComponent extends React.Component {
       textAlign: "center"
     };
 
+    // Get current items
+    const indexOfLastItem = this.state.currentPage * this.state.itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
+    const currentItems = this.state.items.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
+
     return (
       <div>
         <UserLogoutComponent />
@@ -121,7 +141,7 @@ class ArticlesComponent extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.items.map(item => {
+              {currentItems.map(item => {
                 //console.log("an item value: ", typeof(item.user))
                 return (
                   <tr>
@@ -199,6 +219,11 @@ class ArticlesComponent extends React.Component {
                 );
               })}
             </tbody>
+            <PaginationArticles
+          itemsPerPage={this.state.itemsPerPage}
+          totalItems={this.state.items.length}
+          paginate={this.paginate.bind(this)}
+        />
           </table>
         </div>
       </div>

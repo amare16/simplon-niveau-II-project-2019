@@ -3,6 +3,7 @@ import "./borrowLendMaterial.css";
 import { UserLogoutComponent } from "../UserLogoutComponent";
 import * as moment from "moment";
 import SearchResults from "react-filter-search";
+import PaginationBorrowLendMaterials from "./PaginationBorrowLendMaterials";
 
 class BorrowLendMaterialComponent extends React.Component {
   constructor(props) {
@@ -11,6 +12,9 @@ class BorrowLendMaterialComponent extends React.Component {
     this.state = {
       data: [],
       value: "",
+      currentPage: 1,
+      itemsPerPage: 2,
+
     };
   }
 
@@ -26,12 +30,20 @@ class BorrowLendMaterialComponent extends React.Component {
       .then((response) => {
         this.setState({
           data: response,
+          currentPage: 1,
+          itemsPerPage: 4,
         });
         console.log("response result: ", response);
       })
       .catch((error) => {
         console.error(error);
       });
+  }
+
+  paginate(pageNumber) {
+    this.setState({
+      currentPage: pageNumber,
+    });
   }
 
   handleChange = (event) => {
@@ -94,6 +106,15 @@ class BorrowLendMaterialComponent extends React.Component {
     let usernameStored = localStorage.getItem("username");
     let connectedUsername = token && usernameStored;
     console.log("connected : ", connectedUsername);
+
+    // Get current items
+    const indexOfLastItem = this.state.currentPage * this.state.itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
+    const currentItems = this.state.data.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
+
     return (
       <div className="container-fluid borrow-materials-list">
         {connectedUsername ? <UserLogoutComponent /> : null}
@@ -115,7 +136,7 @@ class BorrowLendMaterialComponent extends React.Component {
             </a>
           </div>
         </div>
-        <div className="back-to-dashboard" style={{ marginBottom: "10px" }}>
+        <div className="back-to-dashboard-borrow-lend" style={{ marginBottom: "10px" }}>
         <a href={"/add-material"}>
             <input
               type="button"
@@ -138,7 +159,7 @@ class BorrowLendMaterialComponent extends React.Component {
         </div>
         <SearchResults
           value={value}
-          data={data}
+          data={currentItems}
           renderResults={(results) => (
             <div className="table-responsive-lg">
               <table className="table table-striped table-hover mx-auto w-75">
@@ -271,6 +292,11 @@ class BorrowLendMaterialComponent extends React.Component {
                     )
                   )}
                 </tbody>
+                <PaginationBorrowLendMaterials
+          itemsPerPage={this.state.itemsPerPage}
+          totalItems={this.state.data.length}
+          paginate={this.paginate.bind(this)}
+          />
               </table>
             </div>
           )}

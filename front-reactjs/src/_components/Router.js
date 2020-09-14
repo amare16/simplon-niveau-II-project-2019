@@ -12,7 +12,7 @@ import { ShowListOfExperiencesComponent } from "./show_list_of_experiences/ShowL
 import { ShowSingleExperienceComponent } from "./show_single_experience/ShowSingleExperienceComponent";
 
 import { SearchYourPartnerComponent } from "../_pages/search_partner/SearchYourPartnerComponent";
-import { ArticlesComponent } from "../_pages/ArticlesComponent";
+import { ArticlesComponent } from "../_pages/articles/ArticlesComponent";
 import { ExperiencesComponent } from "../_pages/experiences/ExperiencesComponent";
 import { EventsComponent } from "../_pages/EventsComponent";
 import { UserLoginComponent } from "../_pages/UserLoginComponent";

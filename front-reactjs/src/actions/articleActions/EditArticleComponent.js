@@ -9,7 +9,7 @@ class EditArticleComponent extends React.Component {
       id: "",
       title: "",
       content: "",
-      published_at: ""
+      published_at: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,44 +25,51 @@ class EditArticleComponent extends React.Component {
 
   getArticleDetails() {
     let articleId = this.props.match.params.articleId;
-    fetch(`http://localhost:8000/api/single-article/` + articleId,{
+    fetch(`http://localhost:8000/api/single-article/` + articleId, {
       method: "GET",
-      mode: "cors"
+      mode: "cors",
     })
-    .then(res => res.json())
-    .then(resJson => {
-      console.log("resJson details", resJson)
-      this.setState({
-        id: resJson.id,
-        title: resJson.title,
-        content: resJson.content,
-        published_at: resJson.published_at
-      }, () => {
-          console.log(this.state);
-      });
-    })
-    .catch(error => console.log(error))
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log("resJson details", resJson);
+        this.setState(
+          {
+            id: resJson.id,
+            title: resJson.title,
+            content: resJson.content,
+            published_at: resJson.published_at,
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
+      })
+      .catch((error) => console.log(error));
   }
 
   handleTitleChange(data) {
     this.setState({
-        title: data.target.value
-    })
-}
+      title: data.target.value,
+    });
+  }
 
-handleContentChange(even) {
-  this.setState({
-      content: even.target.value
-  })
-  console.log("test content: ", this.state.content)
-}
+  handleContentChange(even) {
+    this.setState({
+      content: even.target.value,
+    });
+    console.log("test content: ", this.state.content);
+  }
 
-handlePublishedAtChange(event) {
-  console.log("event value publish: ", event.target.value)
-  this.setState({
-      published_at: event.target.value
-  })
-}
+  handlePublishedAtChange(event) {
+    console.log("event value publish: ", event.target.value);
+    this.setState({
+      published_at: event.target.value,
+    });
+  }
+
+  cancelEditArticle = () => {
+    window.history.back();
+  };
 
   // handleInputChange(e) {
   //   const target = e.target;
@@ -75,62 +82,63 @@ handlePublishedAtChange(event) {
   // }
 
   editArticle(newArticle) {
-    let token = localStorage.getItem('token');
-    console.log("inside token: ", token)
-    fetch(`http://localhost:8000/api/edit-article/${this.props.match.params.articleId}`, {
-      method: "PUT",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ` + token
-      },
-      body: JSON.stringify(this.state)
-     
-    })
-    .then(response => {
-      console.log("response from getDetails: ", response)
-      this.props.history.push('/articles');
-    })
-    .catch(err => console.log(err));
+    let token = localStorage.getItem("token");
+    console.log("inside token: ", token);
+    fetch(
+      `http://localhost:8000/api/edit-article/${this.props.match.params.articleId}`,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + token,
+        },
+        body: JSON.stringify(this.state),
+      }
+    )
+      .then((response) => {
+        console.log("response from getDetails: ", response);
+        this.props.history.push("/articles");
+      })
+      .catch((err) => console.log(err));
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    console.log("uuuuuuuuuu", this.props.match.params.articleId)
+    console.log("uuuuuuuuuu", this.props.match.params.articleId);
     let newArticle = {
       title: this.state.title,
       content: this.state.content,
-      published_at: this.state.published_at
+      published_at: this.state.published_at,
     };
     this.editArticle(newArticle);
-  
   }
 
   render() {
     return (
       <div className="container edit-article-container">
         <div className="row">
-                <div className="col-md-12">
-                <a
-                  href={"/articles"}
-                  style={{
-                    borderRadius: "35px",
-                    fontSize: "25px",
-                    textAlign: "center",
-                    marginTop: "10px",
-                    color: "green",
-                  }}
-                >
-                  <p>
-                    <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    &nbsp;&nbsp;
-                    <strong>Back to list of Articles</strong>
-                  </p>
-                </a>
-                </div>
-              </div>
-        <div className="row" style={{ marginBottom: "50px"}}>
+          <div className="col-md-12">
+            <a
+              href={"/articles"}
+              style={{
+                borderRadius: "35px",
+                fontSize: "25px",
+                textAlign: "center",
+                marginTop: "10px",
+                color: "green",
+              }}
+            >
+              <p>
+                <i class="fa fa-list-alt" aria-hidden="true"></i>
+                &nbsp;&nbsp;
+                <strong>Back to list of Articles</strong>
+              </p>
+            </a>
+          </div>
+        </div>
+        <div className="row" style={{ marginBottom: "50px" }}>
           <div className="col-md-2"></div>
 
           <div className="col-md-8">
@@ -180,6 +188,14 @@ handlePublishedAtChange(event) {
                   className="btn btn-primary pull-left edit-article-create"
                 >
                   Save
+                </button>
+                &nbsp;&nbsp;
+                <button
+                  type="submit"
+                  className="btn btn-danger"
+                  onClick={this.cancelEditArticle.bind(this)}
+                >
+                  Cancel
                 </button>
               </div>
             </form>

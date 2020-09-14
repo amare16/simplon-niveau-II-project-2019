@@ -115,10 +115,10 @@ class UserLoginComponent extends React.Component {
              
              localStorage.setItem('token', data.token);
              localStorage.setItem('username', userData.username);
-            //  let test = this.state.userData.map(userD => userD.user_connected);
-            //  console.log("this test connected: ", test);
+             let test = this.state.userData.map(userD => userD.user_connected);
+             console.log("this test connected: ", test);
             this.state.userData.map(userD => {
-              
+              console.log('test test: ', userD)
               if ((localStorage.getItem("username") == userD.username)) {
                 if (userD.user_connected == false) {
                   //console.log("redirect to add profile page");
@@ -144,7 +144,10 @@ class UserLoginComponent extends React.Component {
         })
         .catch(err => {
           console.log("error result: ", err);
-          alert('Error logging in please try again');
+          this.setState({
+            loginError: 'Error logging in, please try again'
+          })
+          //alert('Error logging in please try again');
          
           
         })       
@@ -157,6 +160,7 @@ class UserLoginComponent extends React.Component {
     //   console.log("why it is not redirect? ", this.state.redirect);
     //   return (<Redirect to={'/dashboard'} />)
     // }
+    console.log("login error: ", this.state.loginError)
     console.log('user data value to get user connected : ', this.state.userData)
     console.log("entered username: ", this.state.username)
     console.log("entered password: ", this.state.password)
@@ -182,6 +186,8 @@ class UserLoginComponent extends React.Component {
             </div>
             <div className="d-flex justify-content-center form-container">
               <form onSubmit={this.handleSubmit} className="form">
+              { this.state.loginError &&
+  <h6 className="error" style={{color: "red", textAlign: "center"}}> { this.state.loginError } </h6> }
                 <div className="input-group mb-3">
                   <div className="input-group-append">
                     <span className="input-group-text">
@@ -235,19 +241,26 @@ class UserLoginComponent extends React.Component {
                   </button> */}
                   <input className="form-submit btn btn-success" type="submit" value="Login"/>
                 </div>
-              </form>              
-            </div>
-
-            <div className="mt-4">
-              <div className="d-flex justify-content-center links">
+                <div className="d-flex justify-content-center links">
               Pas encore de compte ?{" "}
                 <a href="/register" className="ml-2">
                 S'inscrire!
                 </a>
               </div>
-              <div className="d-flex justify-content-center links">
+              </form>  
+                          
+            </div>
+
+            <div className="mt-4 forget-password">
+              {/* <div className="d-flex justify-content-center links">
+              Pas encore de compte ?{" "}
+                <a href="/register" className="ml-2">
+                S'inscrire!
+                </a>
+              </div> */}
+              {/* <div className="d-flex justify-content-center links">
                 <a href="#">Mot de passe oublié?</a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

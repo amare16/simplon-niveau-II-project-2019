@@ -3,6 +3,7 @@ import { UserLogoutComponent } from "../UserLogoutComponent";
 import { EditMaterialComponent } from "../../actions/materialActions/edit_material/EditMaterialComponent";
 import "./singleUserProfile.css";
 import * as moment from "moment";
+import { data } from "jquery";
 
 class SingleUserProfileComponent extends React.Component {
   constructor(props) {
@@ -14,6 +15,8 @@ class SingleUserProfileComponent extends React.Component {
       content_aspiration: "",
       hobby: "",
       created_on: "",
+      updated_at: "",
+      imageFile: null,
       user: {
         id: "",
         firstName: "",
@@ -163,6 +166,9 @@ class SingleUserProfileComponent extends React.Component {
       .then((res) => res.json())
       .then((resJson) => {
         console.log("res json:", resJson);
+        let base64Flag = "resJson:image/jpeg;base64";
+        console.log("base64flag: ", base64Flag);
+        //let imageStr = this.ar
         this.setState(
           {
             id: resJson.id,
@@ -170,6 +176,8 @@ class SingleUserProfileComponent extends React.Component {
             content_aspiration: resJson.content_aspiration,
             hobby: resJson.hobby,
             created_on: resJson.created_on,
+            updated_at: resJson.updated_at,
+            imageFile: resJson.imageFile,
             user: resJson.user,
           },
           () => {
@@ -246,7 +254,7 @@ class SingleUserProfileComponent extends React.Component {
   }
 
   render() {
-    console.log('created on : ', this.state.created_on)
+    console.log("created on : ", this.state.filename);
     let usernameSender = localStorage.getItem("username");
     let token = localStorage.getItem("token");
     const connectedUser = token && usernameSender;
@@ -292,7 +300,10 @@ class SingleUserProfileComponent extends React.Component {
             Inbox
           </button>
 
-          <ModalMessagesSentByConnectedUser show={this.state.show} handleClose={this.hideModal}>
+          <ModalMessagesSentByConnectedUser
+            show={this.state.show}
+            handleClose={this.hideModal}
+          >
             {console.log("user sender: ", this.state.user)}
             {/* {this.state.user.userMessageSender.map(msgSender => {
                 console.log("msg sender: ", msgSender)
@@ -388,8 +399,11 @@ class SingleUserProfileComponent extends React.Component {
                                
                             })
                           } */}
-                          From <span style={{color: "red", fontWeight: 'bold'}}>Username</span>
-                          {" " }{msgReceiver.message}
+                          From{" "}
+                          <span style={{ color: "red", fontWeight: "bold" }}>
+                            Username
+                          </span>{" "}
+                          {msgReceiver.message}
                         </td>
                       </tr>
                     );
@@ -404,33 +418,53 @@ class SingleUserProfileComponent extends React.Component {
 
     let buttonModalSendAndReceiveMessage = (
       <div>
-       
-        {
-          connectedUser == this.state.user.username ? (
-            <button
-          type="button"
-          class="btn btn-warning btn-pulsate"
-          style={{ marginBottom: "10px", marginRight: "10px", display: "none"}}
-          onClick={this.showModalSendAndReceiveMessage}
-        >
-          <span style={{fontSize: "16px", fontWeight: 'bold'}}>Send Message</span> <br /> to <br /> <span style={{fontWeight: 'bold', fontSize: "16px", color: 'black'}}>{this.state.user.username.charAt(0).toUpperCase() + this.state.user.username.slice(1)}</span>
-        </button>
-          ) : (
-            <button
-          type="button"
-          class="btn btn-warning btn-pulsate"
-          style={{ marginBottom: "10px", marginRight: "10px" }}
-          onClick={this.showModalSendAndReceiveMessage}
-        >
-          <span style={{fontSize: "16px", fontWeight: 'bold'}}>Send Message</span> <br /> to <br /> <span style={{fontWeight: 'bold', fontSize: "16px", color: 'white'}}>{this.state.user.username.charAt(0).toUpperCase() + this.state.user.username.slice(1)}</span>
-        </button>
-          )
-        }
-        
+        {connectedUser == this.state.user.username ? (
+          <button
+            type="button"
+            class="btn btn-warning btn-pulsate"
+            style={{
+              marginBottom: "10px",
+              marginRight: "10px",
+              display: "none",
+            }}
+            onClick={this.showModalSendAndReceiveMessage}
+          >
+            <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+              Send Message
+            </span>{" "}
+            <br /> to <br />{" "}
+            <span
+              style={{ fontWeight: "bold", fontSize: "16px", color: "black" }}
+            >
+              {this.state.user.username.charAt(0).toUpperCase() +
+                this.state.user.username.slice(1)}
+            </span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            class="btn btn-warning btn-pulsate"
+            style={{ marginBottom: "10px", marginRight: "10px" }}
+            onClick={this.showModalSendAndReceiveMessage}
+          >
+            <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+              Send Message
+            </span>{" "}
+            <br /> to <br />{" "}
+            <span
+              style={{ fontWeight: "bold", fontSize: "16px", color: "white" }}
+            >
+              {this.state.user.username.charAt(0).toUpperCase() +
+                this.state.user.username.slice(1)}
+            </span>
+          </button>
+        )}
 
         <ModalSendAndReceiveMessagesChatBoard
           showSendAndReceive={this.state.showSendAndReceive}
-          handleCloseModalSendAndReceiveMessage={this.hideModalSendAndReceiveMessage}
+          handleCloseModalSendAndReceiveMessage={
+            this.hideModalSendAndReceiveMessage
+          }
         >
           <div className="container">
             <div className="row">
@@ -531,7 +565,7 @@ class SingleUserProfileComponent extends React.Component {
                         required
                       ></textarea>
                     </div>
-                    <div class="form-group"  style={{display: "none" }}>
+                    <div class="form-group" style={{ display: "none" }}>
                       <input
                         type="text"
                         value={this.state.id_message_sender}
@@ -618,48 +652,45 @@ class SingleUserProfileComponent extends React.Component {
                 <div className="row">
                   <div className="col-md-2"></div>
                   <div className="col-md-3">
-                  <a
-                href={"/single-user-profile/" + ud.userProfile.id}
-                style={{
-                  borderRadius: "35px",
-                  fontSize: "25px",
-                  textAlign: "center",
-                }}
-              >
-                <p>
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  &nbsp;&nbsp;
-                  <strong>My Profile</strong>
-                  
-                </p>
-              </a>
+                    <a
+                      href={"/single-user-profile/" + ud.userProfile.id}
+                      style={{
+                        borderRadius: "35px",
+                        fontSize: "25px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <p>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        &nbsp;&nbsp;
+                        <strong>My Profile</strong>
+                      </p>
+                    </a>
                   </div>
                   <div className="col-md-2"></div>
                   <div className="col-md-3">
-                  <a
-              href={"/edit-user-profile/" + ud.userProfile.id}
-              style={{
-                borderRadius: "35px",
-                fontSize: "25px",
-                textAlign: "center",
-              }}
-            >
-              <p>
-                <i class="fa fa-user" aria-hidden="true"></i>
-                &nbsp;&nbsp;
-                <strong>Edit your profile</strong>
-              </p>
-            </a>
+                    <a
+                      href={"/edit-user-profile/" + ud.userProfile.id}
+                      style={{
+                        borderRadius: "35px",
+                        fontSize: "25px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <p>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        &nbsp;&nbsp;
+                        <strong>Edit your profile</strong>
+                      </p>
+                    </a>
                   </div>
                   <div className="col-md-2"></div>
                 </div>
               </div>
-              
-              
             );
           }
         })}
-        
+
         <div
           className="head_title center m-y-3 wow fadeInUp"
           style={{ visibility: "visible", animationName: "fadeInUp" }}
@@ -671,12 +702,16 @@ class SingleUserProfileComponent extends React.Component {
           <div className="row">
             <div className="col-md-4">
               <div className="single_center_img">
-                <img
-                  className="img_circle"
-                  src="https://previews.123rf.com/images/bsd555/bsd5551808/bsd555180801568/106558427-user-account-circle-glyph-color-icon-user-profile-picture-userpic-silhouette-symbol-on-white-backgro.jpg"
-                  width="103"
-                  height="103"
-                />
+                {this.state.imageFile ? (
+                  <img src={this.state.imageFile} width="103" height="103" />
+                ) : (
+                  <img
+                    className="img_circle"
+                    src="https://previews.123rf.com/images/bsd555/bsd5551808/bsd555180801568/106558427-user-account-circle-glyph-color-icon-user-profile-picture-userpic-silhouette-symbol-on-white-backgro.jpg"
+                    width="103"
+                    height="103"
+                  />
+                )}
               </div>
               <div
                 className="single_c_text text-md-left text-xs-center"
@@ -691,15 +726,47 @@ class SingleUserProfileComponent extends React.Component {
                   <strong id="pulsate-username">
                     {this.state.user.username}
                   </strong>
-                </span><br />
-                {
-                  this.state.user.username == usernameSender ? (
-                  <span><span style={{color: "green", fontWeight: 'bold'}}> My profile is created on: </span> <span style={{color: "red", fontStyle: "italic"}}>{moment(this.state.created_on).format("LL")}</span></span>) : (
-                    <span><span style={{color: "green", fontWeight: 'bold'}}>{this.state.user.username.charAt(0).toUpperCase() + 
-                      this.state.user.username.slice(1)}</span> profile is created on: <span style={{color: "red", fontStyle: "italic"}}>{moment(this.state.created_on).format("LL")}</span></span>)
-                  
-                }
-                
+                </span>
+                <br />
+                {this.state.user.username == usernameSender ? (
+                  <div>
+                    <span>
+                      <span style={{ color: "green", fontWeight: "bold" }}>
+                        {" "}
+                        My profile is created on:{" "}
+                      </span>{" "}
+                      <span style={{ color: "red", fontStyle: "italic" }}>
+                        {moment(this.state.created_on).format("ll")}
+                      </span>
+                    </span><br />
+                    <span>
+                    Updated at:{" "}
+                    <span style={{ color: "green", fontStyle: "italic" }}>
+                      {moment(this.state.updated_at).format("ll")}
+                    </span>
+                    </span>
+                  </div>
+                ) : (
+                  <div>
+                  <span>
+                    <span style={{ color: "green", fontWeight: "bold" }}>
+                      {this.state.user.username.charAt(0).toUpperCase() +
+                        this.state.user.username.slice(1)}
+                    </span>{" "}
+                    profile is created on:{" "}
+                    <span style={{ color: "red", fontStyle: "italic" }}>
+                      {moment(this.state.created_on).format("ll")}
+                    </span>
+                  </span><br />
+                  <span>
+                  Updated at:{" "}
+                  <span style={{ color: "green", fontStyle: "italic" }}>
+                    {moment(this.state.updated_at).format("ll")}
+                  </span>
+                </span>
+                </div>
+                )}
+
                 <a href={"/search-partner"}>
                   <input
                     type="button"
@@ -708,20 +775,29 @@ class SingleUserProfileComponent extends React.Component {
                     value="Back to Search Partner"
                   />
                 </a>
-                {
-                    this.state.user.username == usernameSender ? (
-                      <div class="container" style={{marginTop: "23px", backgroundColor: "darkturquoise"}}>
-                        <div class="row">
-                          
-                          <div class="col-md-12">
-                            <h5>My Materials List</h5> 
-                            <a href={"/materials-list-by-user"}><button className="btn btn-success" style={{marginBottom: "10px"}}>My materials list</button></a>
-                          </div>
-                          
-                        </div>
+                {this.state.user.username == usernameSender ? (
+                  <div
+                    class="container"
+                    style={{
+                      marginTop: "23px",
+                      backgroundColor: "darkturquoise",
+                    }}
+                  >
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5>My Materials List</h5>
+                        <a href={"/materials-list-by-user"}>
+                          <button
+                            className="btn btn-success"
+                            style={{ marginBottom: "10px" }}
+                          >
+                            My materials list
+                          </button>
+                        </a>
                       </div>
-                    ) : null
-               }
+                    </div>
+                  </div>
+                ) : null}
               </div>
               {/* <div className="row">
                 <div className="col-md-12" style={{ marginBottom: "45px"}}>
@@ -730,7 +806,6 @@ class SingleUserProfileComponent extends React.Component {
                         </a>
                 </div>
               </div> */}
-             
 
               {/* <div className="single_c_text text-md-left text-xs-center">
                 <a href={"/search-partner"}>
@@ -769,7 +844,9 @@ class SingleUserProfileComponent extends React.Component {
                 <div className="col-md-12"></div>
               </div>
               <div className="row row-empty">
-                <div className="col-md-12">{buttonModalSendAndReceiveMessage}</div>
+                <div className="col-md-12">
+                  {buttonModalSendAndReceiveMessage}
+                </div>
               </div>
               {usernameUser ? (
                 buttonMessages
@@ -828,7 +905,11 @@ const ModalMessagesSentByConnectedUser = ({ handleClose, show, children }) => {
   );
 };
 
-const ModalMessagesReceivedByConnectedUser = ({ handleCloseReceiver, showReceiver, children }) => {
+const ModalMessagesReceivedByConnectedUser = ({
+  handleCloseReceiver,
+  showReceiver,
+  children,
+}) => {
   const showHideClassNameReceiver = showReceiver
     ? "modal display-block"
     : "modal display-none";

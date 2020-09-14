@@ -1,105 +1,110 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
+class EditMaterialComponent extends React.Component {
+  constructor(props) {
+    super(props);
 
-class EditMaterialComponent extends React.Component
-{
-    constructor(props) {
-        super(props);
+    this.state = {
+      name: "",
+      description: "",
+      availability: Boolean(),
+      borrowed_date: "",
+      return_date: "",
+    };
 
-        this.state = {
-            name: "",
-            description: "",
-            availability: Boolean(),
-            borrowed_date: "",
-            return_date: ""
-        };
+    this.handleBorrowedDateChange = this.handleBorrowedDateChange.bind(this);
+    this.handleReturnDateChange = this.handleReturnDateChange.bind(this);
+  }
 
-        this.handleBorrowedDateChange = this.handleBorrowedDateChange.bind(this);
-        this.handleReturnDateChange = this.handleReturnDateChange.bind(this);
+  componentWillMount() {
+    this.getSingleMaterial();
+  }
 
-    }
-
-    componentWillMount() {
-        this.getSingleMaterial();
-    }
-
-    getSingleMaterial() {
-        let materialId = this.props.match.params.materialId;
-        fetch(`http://localhost:8000/api/single-material/` + materialId,{
-          method: "GET",
-          mode: "cors"
-        })
-        .then(res => res.json())
-        .then(resJson => {
-          console.log("resJson details", resJson)
-          this.setState({
+  getSingleMaterial() {
+    let materialId = this.props.match.params.materialId;
+    fetch(`http://localhost:8000/api/single-material/` + materialId, {
+      method: "GET",
+      mode: "cors",
+    })
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log("resJson details", resJson);
+        this.setState(
+          {
             name: resJson.name,
             description: resJson.description,
             availability: resJson.availability,
             borrowed_date: resJson.borrowed_date,
-            return_date: resJson.return_date
-          }, () => {
-              console.log(this.state);
-          });
-        })
-        .catch(error => console.log(error))
-    }
-
-    handleNameChange(nameEvent) {
-        this.setState({
-            name: nameEvent.target.value
-        })
-    }
-  
-    handleDescriptionChange(descriptionEvent) {
-      this.setState({
-          description: descriptionEvent.target.value
+            return_date: resJson.return_date,
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
       })
+      .catch((error) => console.log(error));
   }
-  
+
+  handleNameChange(nameEvent) {
+    this.setState({
+      name: nameEvent.target.value,
+    });
+  }
+
+  handleDescriptionChange(descriptionEvent) {
+    this.setState({
+      description: descriptionEvent.target.value,
+    });
+  }
+
   handleAvailabilityChange(availabilityEvent) {
-      this.setState({
-          availability: availabilityEvent.target.value
-      })
+    this.setState({
+      availability: availabilityEvent.target.value,
+    });
   }
 
   handleBorrowedDateChange(borrowedDateEvent) {
     this.setState({
-        borrowed_date: borrowedDateEvent.target.value
-    })
-  }
-  
-  handleReturnDateChange(returnDateEvent) {
-    this.setState({
-        return_date: returnDateEvent.target.value
-    })
+      borrowed_date: borrowedDateEvent.target.value,
+    });
   }
 
+  handleReturnDateChange(returnDateEvent) {
+    this.setState({
+      return_date: returnDateEvent.target.value,
+    });
+  }
+
+  cancelEditMaterial = () => {
+    window.history.back();
+  };
+
   editMaterial(newMaterial) {
-    let token = localStorage.getItem('token');
-    console.log("inside token: ", token)
-    fetch(`http://localhost:8000/api/edit-material/${this.props.match.params.materialId}`, {
-      method: "PUT",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ` + token
-      },
-      body: JSON.stringify(this.state)
-     
-    })
-    .then(response => {
-      console.log("response from getDetails: ", response)
-      this.props.history.push('/materials-list-by-user');
-    })
-    .catch(err => console.log(err));
+    let token = localStorage.getItem("token");
+    console.log("inside token: ", token);
+    fetch(
+      `http://localhost:8000/api/edit-material/${this.props.match.params.materialId}`,
+      {
+        method: "PUT",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + token,
+        },
+        body: JSON.stringify(this.state),
+      }
+    )
+      .then((response) => {
+        console.log("response from getDetails: ", response);
+        this.props.history.push("/materials-list-by-user");
+      })
+      .catch((err) => console.log(err));
   }
 
   handleSubmitAfterEditMaterial(e) {
     e.preventDefault();
-    
-    
-    console.log("uuuuuuuuuu", this.props.match.params.materialId)
+
+    console.log("uuuuuuuuuu", this.props.match.params.materialId);
     let newMaterial = {
       name: this.state.name,
       description: this.state.description,
@@ -108,13 +113,12 @@ class EditMaterialComponent extends React.Component
       return_date: this.state.return_date,
     };
     this.editMaterial(newMaterial);
-}
+  }
 
-
-    render() {
-      console.log("borrowed date: ", this.state.borrowed_date);
-        return (
-            <section id="material">
+  render() {
+    console.log("borrowed date: ", this.state.borrowed_date);
+    return (
+      <section id="material">
         <div class="section-content">
           <h1 class="section-header">
             <span
@@ -145,8 +149,10 @@ class EditMaterialComponent extends React.Component
                     />
                   </div>
                   <div class="form-check form-check-inline">
-                  <label class="form-check-label" for="inlineRadio2">Availability</label>&nbsp;&nbsp;
-                  &nbsp;
+                    <label class="form-check-label" for="inlineRadio2">
+                      Availability
+                    </label>
+                    &nbsp;&nbsp; &nbsp;
                     <input
                       class="form-check-input"
                       type="radio"
@@ -157,7 +163,9 @@ class EditMaterialComponent extends React.Component
                     />
                   </div>
                   <div className="form-group">
-                    <h3 className="create-material-borrowed-date">Borrowed Date</h3>
+                    <h3 className="create-material-borrowed-date">
+                      Borrowed Date
+                    </h3>
                     <input
                       type="date"
                       className="form-control"
@@ -194,6 +202,14 @@ class EditMaterialComponent extends React.Component
                     <button type="submit" className="btn btn-primary">
                       Save
                     </button>
+                    &nbsp;&nbsp;
+                    <button
+                      type="submit"
+                      className="btn btn-danger"
+                      onClick={this.cancelEditMaterial.bind(this)}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </div>
@@ -201,7 +217,7 @@ class EditMaterialComponent extends React.Component
           </div>
         </div>
       </section>
-        )
-    }
+    );
+  }
 }
-export {EditMaterialComponent};
+export { EditMaterialComponent };

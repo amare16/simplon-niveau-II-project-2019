@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./createUserProfile.css";
 
 class CreateUserProfileComponent extends React.Component {
   constructor(props) {
@@ -8,9 +9,10 @@ class CreateUserProfileComponent extends React.Component {
       content_about: "",
       content_aspiration: "",
       hobby: "",
-      created_on: "",
+      imageFile: null
     };
     console.log("state: ", this.state);
+    this.handleContentAboutChange = this.handleContentAboutChange.bind(this);
   }
 
   handleContentAboutChange(contentAboutEvent) {
@@ -29,32 +31,44 @@ class CreateUserProfileComponent extends React.Component {
       hobby: hobbyEvent.target.value,
     });
   }
-  handleCreatedOnChange(createdOnEvent) {
-    this.setState({
-      created_on: createdOnEvent.target.value,
-    })
+
+  handleImageFileOnChange(imageFileEvent) {
+    let imageFile = imageFileEvent.target.files[0];
+    this.setState({ imageFile: imageFile });
   }
 
   handleSubmitUserProfile(event) {
+    //console.log("file name: ", this.state.filename)
     event.preventDefault();
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem("token");
+    
+    let imageFile = this.state.imageFile;
+
+    let formData = new FormData();
+    
+    formData.append('content_about', this.state.content_about);
+    formData.append('content_aspiration', this.state.content_aspiration);
+    formData.append('hobby', this.state.hobby);
+    formData.append('imageFile', imageFile);
+    
+    
     fetch(`http://localhost:8000/api/add-user-profile`, {
-        method: "post",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ` + token },
-            body: JSON.stringify(this.state)
+      method: "post",
+      headers: {
+        "Authorization": `Bearer ` + token,},
+      body: formData,
     })
-    .then(data => data.json())
-    .then(dataJson => {
+      .then((data) => data.json())
+      .then((dataJson) => {
         console.log("data json: ", dataJson);
-        this.props.history.push("/e");
-    })
+        //this.props.history.push("/search-partner");
+      });
   }
 
   render() {
+    console.log("content about value: ", this.state.content_about)
     return (
-      <section id="material">
+      <section id="user-profile">
         <div class="section-content">
           <h1 class="section-header">
             <span
@@ -73,14 +87,14 @@ class CreateUserProfileComponent extends React.Component {
               <div className="row">
                 <div class="col-md-4 form-line">
                   <div class="form-group">
-                    <label for="content_about"> About</label>
+                    <label for="content_about"> About me</label>
                     <textarea
                       name="content_about"
                       class="form-control"
                       id="content_about"
                       value={this.state.content_about}
                       placeholder="Enter About yourself"
-                      onChange={this.handleContentAboutChange.bind(this)}
+                      onChange={this.handleContentAboutChange}
                     ></textarea>
                   </div>
                 </div>
@@ -97,7 +111,7 @@ class CreateUserProfileComponent extends React.Component {
                     ></textarea>
                   </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label for="hobby">Hobby</label>
                     <textarea
@@ -109,25 +123,22 @@ class CreateUserProfileComponent extends React.Component {
                       onChange={this.handleHobbyChange.bind(this)}
                     ></textarea>
                   </div>
-                </div>
-                <div class="col-md-2">
-                        <div class="form-group">
-                          <label for="createdOn">Created On</label>
-                          <input
-                            type="date"
-                            name="created_on"
-                            class="form-control"
-                            id="created_on"
-                            value={this.state.created_on}
-                            onChange={this.handleCreatedOnChange.bind(this)}
-                          />
-                        </div>
-                        <div>
+                  <div class="form-group">
+                    <label for="imageFile">Upload Your Picture</label>
+                    <input
+                      type="file"
+                      name="imageFile"
+                      class="form-control"
+                      id="imageFile"
+                      onChange={this.handleImageFileOnChange.bind(this)}
+                    />
+                  </div>
+                  <div className="create-button">
                     <button type="submit" className="btn btn-primary">
                       Create your profile
                     </button>
                   </div>
-                      </div>
+                </div>
               </div>
             </form>
           </div>
