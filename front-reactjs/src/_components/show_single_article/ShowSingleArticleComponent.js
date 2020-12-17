@@ -13,6 +13,7 @@ class ShowSingleArticleComponent extends React.Component {
       title: "",
       content: "",
       published_at: "",
+      imageFile: null,
       user: {
         firstName: "",
         lastName: "",
@@ -119,12 +120,13 @@ class ShowSingleArticleComponent extends React.Component {
             title: resJson.title,
             content: resJson.content,
             published_at: resJson.published_at,
+            imageFile: resJson.imageFile,
             user: resJson.user,
             commentArticles: resJson.commentArticles,
             likes: resJson.likes,
           },
           () => {
-            //console.log(this.state);
+            console.log("this state: ", this.state);
           }
         );
       })
@@ -147,6 +149,7 @@ class ShowSingleArticleComponent extends React.Component {
             title: resJson.title,
             content: resJson.content,
             published_at: resJson.published_at,
+            imageFile: resJson.imageFile,
             user: resJson.user,
             commentArticles: resJson.commentArticles,
             likes: resJson.likes,
@@ -193,10 +196,12 @@ class ShowSingleArticleComponent extends React.Component {
     const requiredItem = this.state.requiredItem;
     console.log("this.state.requiredItem: ", requiredItem)
     let modalData = this.state.commentArticles[requiredItem];
-    console.log("modal data: ", modalData);
-
+    //console.log("modal data: ", modalData["id"]);
+    
+    
     return (
-      <div className="container-fluid">
+      
+      <div className="container-fluid"> 
         <div className="row" style={{ marginBottom: "20px" }}>
           <div className="col-sm-12">
             <div className="text-center">
@@ -231,7 +236,7 @@ class ShowSingleArticleComponent extends React.Component {
             <a className="pull-left" href="#">
               <img
                 className="media-object"
-                src="https://previews.123rf.com/images/paylessimages/paylessimages1502/paylessimages150233243/40325604-potato-field.jpg"
+                src={this.state.imageFile}
                 width="150"
                 height="150"
               />
@@ -248,9 +253,9 @@ class ShowSingleArticleComponent extends React.Component {
               >
                 {moment(this.state.published_at).format("LLL")}
               </p> {" "}
-              <span className="react-like"></span>
+              {/* <span className="react-like"></span>
               <LikeButtonArticles test={this.props.likes}/>
-              <span>{this.state.likes.length}</span>
+              <span>{this.state.likes.length}</span> */}
 
 
               <p className="text-right">
@@ -335,16 +340,18 @@ class ShowSingleArticleComponent extends React.Component {
                     
                     
                   </p>
+                  <ModalEditArticleCommentComponent
+                 id={modalData.id}
+                 commentContent={modalData.commentContent}
+                 articleId = {this.props.match.params.articleId}          
+                 />
                 </div>
+                 
               );
             })}
           </div>
-          <ModalEditArticleCommentComponent
-          id={modalData.id}
-          commentContent={modalData.commentContent}
-          articleId = {this.props.match.params.articleId}
-          
-        />
+           
+         
       </div>
     );
   }

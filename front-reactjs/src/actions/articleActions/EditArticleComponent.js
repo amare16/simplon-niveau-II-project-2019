@@ -9,14 +9,13 @@ class EditArticleComponent extends React.Component {
       id: "",
       title: "",
       content: "",
-      published_at: "",
+      imageFile: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     //this.handleInputChange = this.handleInputChange.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
-    this.handlePublishedAtChange = this.handlePublishedAtChange.bind(this);
   }
 
   componentWillMount() {
@@ -37,7 +36,7 @@ class EditArticleComponent extends React.Component {
             id: resJson.id,
             title: resJson.title,
             content: resJson.content,
-            published_at: resJson.published_at,
+            imageFile: resJson.imageFile,
           },
           () => {
             console.log(this.state);
@@ -60,12 +59,11 @@ class EditArticleComponent extends React.Component {
     console.log("test content: ", this.state.content);
   }
 
-  handlePublishedAtChange(event) {
-    console.log("event value publish: ", event.target.value);
-    this.setState({
-      published_at: event.target.value,
-    });
+  handleImageFileArticleOnChange(imageArticleEvent) {
+    let imageFile = imageArticleEvent.target.files[0];
+    this.setState({ imageFile: imageFile });
   }
+
 
   cancelEditArticle = () => {
     window.history.back();
@@ -84,16 +82,27 @@ class EditArticleComponent extends React.Component {
   editArticle(newArticle) {
     let token = localStorage.getItem("token");
     console.log("inside token: ", token);
+
+    let title = this.state.title;
+    let content = this.state.content;
+    let imageFile = this.state.imageFile;
+    let formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("imageFile", imageFile);
+
+    console.log("form data: ", formData);
+
     fetch(
       `http://localhost:8000/api/edit-article/${this.props.match.params.articleId}`,
       {
-        method: "PUT",
+        method: "POST",
         mode: "cors",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ` + token,
+          "Authorization": `Bearer ` + token,
         },
-        body: JSON.stringify(this.state),
+        body: formData,
       }
     )
       .then((response) => {
@@ -110,7 +119,7 @@ class EditArticleComponent extends React.Component {
     let newArticle = {
       title: this.state.title,
       content: this.state.content,
-      published_at: this.state.published_at,
+      imageFile: this.state.imageFile
     };
     this.editArticle(newArticle);
   }
@@ -171,16 +180,16 @@ class EditArticleComponent extends React.Component {
                 ></textarea>
               </div>
 
-              <div className="form-group">
-                <h3 className="edit-article-h3">Published</h3>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="published_at"
-                  value={this.state.published_at}
-                  onChange={this.handlePublishedAtChange}
-                />
-              </div>
+              <div class="form-group">
+                    <label for="imageFile"><h3>Update Your Picture</h3></label>
+                    <input
+                      type="file"
+                      name="imageFile"
+                      class="form-control"
+                      id="imageFile"
+                      onChange={this.handleImageFileArticleOnChange.bind(this)}
+                    />
+                  </div>
 
               <div className="form-group btn-toolbar">
                 <button

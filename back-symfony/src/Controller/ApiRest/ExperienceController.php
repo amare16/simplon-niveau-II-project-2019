@@ -85,17 +85,21 @@ class ExperienceController extends AbstractFOSRestController
     public function newExperience(Request $request, EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $title = $data['title'];
-        $content = $data['content'];
-        $published_at = $data['published_at'];
+        //$data = json_decode($request->getContent(), true);
+        $title = $request->request->get('title');
+        $content = $request->request->get('content');
+        //$published_at = $data['published_at'];
+        $image_upload = $request->files->get('imageFile');
+        $filename = $image_upload->getClientOriginalName();
 
         $experience = new Experience();
         $experience->setTitle($title);
         $experience->setContent($content);
-        //$experience->setPublishedAt(\DateTime::createFromFormat(DateTimeInterface::ATOM, $published_at) ? : new \DateTime());
-        $experience->setPublishedAt(\DateTime::createFromFormat("Y-m-d",$published_at));
+        $experience->setPublishedAt(new \DateTime('now'));
+        $experience->setImageFile($image_upload);
+        $experience->setFilename($filename);
         $experience->setUser($user);
+        //dd($experience);
 
 
         if(in_array('ROLE_USER', $user->getRoles())) {
@@ -108,17 +112,16 @@ class ExperienceController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Put("/edit-experience/{experienceId<\d+>}")
+     * @Rest\Post("/edit-experience/{experienceId<\d+>}")
      * @Rest\View(serializerGroups={"group_experience"})
      */
-    public function editArticles(int $experienceId, Request $request,
+    public function editExperiences(int $experienceId, Request $request,
                                  EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $title = $data['title'];
-        $content = $data['content'];
-        $published_at = $data['published_at'];
+        $title = $request->request->get('title');
+        $content = $request->request->get('content');
+        $image_upload = $request->files->get('imageFile');
 
         $experience = $this->experienceRepository->find($experienceId);
 
@@ -128,8 +131,10 @@ class ExperienceController extends AbstractFOSRestController
 
         $experience->setTitle($title);
         $experience->setContent($content);
-        $experience->setPublishedAt(\DateTime::createFromFormat("Y-m-d", $published_at));
+        $experience->setUpdatedAt(new \DateTime('now'));
+        $experience->setImageFile($image_upload);
         $experience->setUser($user);
+        //dd($experience);
 
         if(in_array('ROLE_USER', $user->getRoles(), true)) {
             $entityManager->persist($experience);

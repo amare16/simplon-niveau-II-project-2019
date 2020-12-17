@@ -130,7 +130,7 @@ class ArticlesComponent extends React.Component {
           <a href="/dashboard">
           <i class="fa fa-arrow-circle-o-left fa-3x" aria-hidden="true" style={{color: "green"}}></i>
           </a>
-          <table className="table table-striped table-hover">
+          <table className="table table-striped table-hover table-responsive">
             <thead>
               <tr>
                 <th scope="col">Title</th>

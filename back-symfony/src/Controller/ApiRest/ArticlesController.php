@@ -110,10 +110,12 @@ class ArticlesController extends AbstractFOSRestController
     public function newArticle(Request $request, EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $title = $data['title'];
-        $content = $data['content'];
-        $published_at = $data['published_at'];
+        //$data = json_decode($request->getContent(), true);
+        $title = $request->request->get('title');
+        $content = $request->request->get('content');
+        //$published_at = $request->request->get('published_at');
+        $image_upload = $request->files->get('imageFile');
+        $filename = $image_upload->getClientOriginalName();
 
 //        $user_id = $data['user_id'];
 
@@ -136,7 +138,11 @@ class ArticlesController extends AbstractFOSRestController
         $article->setTitle($title);
         $article->setContent($content);
         //$article->setPublishedAt(\DateTime::createFromFormat(DateTimeInterface::ATOM, $published_at) ? : new \DateTime());
-        $article->setPublishedAt(\DateTime::createFromFormat("Y-m-d",$published_at));
+        //$article->setPublishedAt(\DateTime::createFromFormat("Y-m-d",$published_at));
+        $article->setPublishedAt(new \DateTime('now'));
+        $article->setImageFile($image_upload);
+        $article->setFilename($filename);
+        //dd($article);
         $article->setUser($user);
 
         // Todo: 400 response - Invalid input
@@ -152,17 +158,18 @@ class ArticlesController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Put("/edit-article/{articleId<\d+>}")
+     * @Rest\Post("/edit-article/{articleId<\d+>}")
      * @Rest\View(serializerGroups={"group_article"})
      */
     public function editArticles(int $articleId, Request $request,
                                  EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $title = $data['title'];
-        $content = $data['content'];
-        $published_at = $data['published_at'];
+        //$data = json_decode($request->getContent(), true);
+        $title = $request->request->get('title');
+        $content = $request->request->get('content');
+        $image_upload = $request->files->get('imageFile');
+        //$filename = $image_upload->getClientOriginalName();
         //$user_id = $data['user_id'];
 
         //$userId = $this->userRepository->findOneBy(['id' => $user_id['id']]);
@@ -174,8 +181,10 @@ class ArticlesController extends AbstractFOSRestController
 
         $article->setTitle($title);
         $article->setContent($content);
-        $article->setPublishedAt(\DateTime::createFromFormat("Y-m-d", $published_at));
+        $article->setImageFile($image_upload);
+        $article->setUpdatedAt(new \DateTime('now'));
         $article->setUser($user);
+        //dd($article);
         // Todo: 400 response - Invalid input
         // Todo: 404 response - Response not found
         // Incase our Post was a success we need to return a 201 HTTP CREATED response with the created object

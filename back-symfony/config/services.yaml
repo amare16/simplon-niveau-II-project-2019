@@ -32,3 +32,7 @@ services:
     App\EventListener\LoginListener:
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
+    App\EventListener\ImageCacheSubscriber:
+        tags:
+            - { name: 'doctrine.event_subscriber' }

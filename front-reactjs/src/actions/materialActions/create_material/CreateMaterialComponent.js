@@ -11,6 +11,7 @@ class CreateMaterialComponent extends React.Component {
       availability: Boolean(),
       borrowed_date: "",
       return_date: "",
+      imageFile: null
     };
   }
 
@@ -26,10 +27,10 @@ class CreateMaterialComponent extends React.Component {
     });
   }
 
-  handleAvailabilityChange(availabilityEvent) {
-    this.setState({
-      availability: availabilityEvent.target.value,
-    });
+  handleAvailabilityChange = () => {
+    this.setState(availabilityEvent => ({
+      availability: !availabilityEvent.availability,
+    }));
   }
 
   handleBorrowedDateChange(borrowedDateEvent) {
@@ -43,24 +44,39 @@ class CreateMaterialComponent extends React.Component {
       return_date: returnDateEvent.target.value,
     });
   }
+  handleImageFileArticleOnChange(imageFileCreateEvent) {
+    let imageFile = imageFileCreateEvent.target.files[0];
+    this.setState({ imageFile: imageFile });
+  }
 
   handleSubmit(e) {
     e.preventDefault();
     e.target.reset();
-    this.setState({ name: "" });
-    this.setState({ description: "" });
-    this.setState({ availability: false });
-    this.setState({ borrowed_date: "" });
-    this.setState({ return_date: "" });
+    // this.setState({ name: "" });
+    // this.setState({ description: "" });
+    // this.setState({ availability: false });
+    // this.setState({ borrowed_date: "" });
+    // this.setState({ return_date: "" });
+    // this.setState({imageFile: null });
+
+    let formData = new FormData();
+    
+    formData.append('name', this.state.name);
+    formData.append('description', this.state.description);
+    formData.append('availability', this.state.availability);
+    formData.append('borrowed_date', this.state.borrowed_date);
+    formData.append('return_date', this.state.return_date);
+    formData.append('imageFile', this.state.imageFile);
+
+    console.log("form data value: ", formData);
 
     let token = localStorage.getItem("token");
     fetch(`http://localhost:8000/api/add-material`, {
       method: "post",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ` + token,
+        "Authorization": `Bearer ` + token,
       },
-      body: JSON.stringify(this.state),
+      body: formData,
     })
       .then((data) => data.json())
       .then((dataJson) => {
@@ -109,12 +125,11 @@ class CreateMaterialComponent extends React.Component {
                     &nbsp;&nbsp; &nbsp;
                     <input
                       class="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio2"
-                      value={this.state.availability}
+                      type="checkbox"
+                      name="inlinecheckbox"
+                      id="inlinecheckbox"
+                      checked={this.state.availability}
                       onChange={this.handleAvailabilityChange.bind(this)}
-                      
                     />
                   </div>
                   <div className="form-group">
@@ -153,6 +168,16 @@ class CreateMaterialComponent extends React.Component {
                       placeholder="Enter Your Description"
                       onChange={this.handleDescriptionChange.bind(this)}
                     ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="imageFile"><h3>Upload Your Picture</h3></label>
+                    <input
+                      type="file"
+                      name="imageFile"
+                      class="form-control"
+                      id="imageFile"
+                      onChange={this.handleImageFileArticleOnChange.bind(this)}
+                    />
                   </div>
                   <div>
                     <button type="submit" className="btn btn-primary">

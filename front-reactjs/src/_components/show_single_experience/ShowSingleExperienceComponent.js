@@ -13,6 +13,7 @@ class ShowSingleExperienceComponent extends React.Component {
       title: "",
       content: "",
       published_at: "",
+      imageFile: null,
       user: {
         firstName: "",
         lastName: "",
@@ -68,6 +69,7 @@ class ShowSingleExperienceComponent extends React.Component {
             title: resJson.title,
             content: resJson.content,
             published_at: resJson.published_at,
+            imageFile: resJson.imageFile,
             commentExperiences: resJson.commentExperiences,
             user: resJson.user,
           },
@@ -147,6 +149,7 @@ class ShowSingleExperienceComponent extends React.Component {
               title: resJson.title,
               content: resJson.content,
               published_at: resJson.published_at,
+              imageFile: resJson.imageFile,
               commentExperiences: resJson.commentExperiences,
               user: resJson.user,
             },
@@ -245,7 +248,7 @@ class ShowSingleExperienceComponent extends React.Component {
             <a className="pull-left" href="#">
               <img
                 className="media-object"
-                src="https://previews.123rf.com/images/paylessimages/paylessimages1502/paylessimages150233243/40325604-potato-field.jpg"
+                src={this.state.imageFile}
                 width="150"
                 height="150"
               />
@@ -347,16 +350,17 @@ class ShowSingleExperienceComponent extends React.Component {
                     </span>
                   ) : null}
                 </p>
+                <ModalEditExperienceCommentComponent
+                  id={modalData.id}
+                  commentContent={modalData.commentContent}
+                  experienceId = {this.props.match.params.experienceId}
+                />
               </div>
             );
           })}
 
         </div>
-        <ModalEditExperienceCommentComponent
-          id={modalData.id}
-          commentContent={modalData.commentContent}
-          experienceId = {this.props.match.params.experienceId}
-        />
+        
       </div>
     );
   }

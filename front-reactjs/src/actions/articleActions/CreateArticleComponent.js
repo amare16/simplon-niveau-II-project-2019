@@ -7,14 +7,13 @@ class CreateArticleComponent extends React.Component {
     this.state = {
         title: "",
         content: "",
-        published_at: ""  
+        imageFile: null
     }
   
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
-    this.handlePublishedAtChange = this.handlePublishedAtChange.bind(this);
   }
 
   handleTitleChange(data) {
@@ -30,27 +29,28 @@ class CreateArticleComponent extends React.Component {
     console.log("test content: ", this.state.content)
   }
 
-  handlePublishedAtChange(event) {
-    console.log("event value publish: ", event.target.value)
-    this.setState({
-        published_at: event.target.value
-    })
+  handleImageFileArticleOnChange(imageFileCreateEvent) {
+    let imageFile = imageFileCreateEvent.target.files[0];
+    this.setState({ imageFile: imageFile });
   }
 
   handleSubmit(e) {
       e.preventDefault();
       e.target.reset();
-      let token = localStorage.getItem('token')
+      let token = localStorage.getItem('token');
 
-      console.log('state submit :', this.state);
-
+    let formData = new FormData();
+    
+    formData.append('title', this.state.title);
+    formData.append('content', this.state.content);
+    formData.append('imageFile', this.state.imageFile);
 
       fetch(`http://localhost:8000/api/add-article`, {
             method: "POST",
             headers: {
-            "Content-Type": "application/json",
             "Authorization": `Bearer ` + token },
-            body: JSON.stringify(this.state),  
+            body: formData,  
+          
         }).then(data => data.json())
         .then(dataJson => {
             //console.log("This article is successfully Inserted ", dataJson);
@@ -121,17 +121,16 @@ class CreateArticleComponent extends React.Component {
                 ></textarea>
               </div>
 
-              <div className="form-group">
-                <h3 className="create-article-h3">Published</h3>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="published_at"
-                  value={this.state.published_at}
-                  onChange={this.handlePublishedAtChange}
-                  required
-                />
-              </div>
+              <div class="form-group">
+                    <label for="imageFile"><h3>Upload Your Picture</h3></label>
+                    <input
+                      type="file"
+                      name="imageFile"
+                      class="form-control"
+                      id="imageFile"
+                      onChange={this.handleImageFileArticleOnChange.bind(this)}
+                    />
+                  </div>
 
               <div className="form-group btn-toolbar">
                 <button type="submit" className="btn btn-primary pull-left create-article-create">

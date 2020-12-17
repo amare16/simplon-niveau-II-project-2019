@@ -82,19 +82,23 @@ class MaterialController extends AbstractFOSRestController
     public function addMaterial(Request $request, EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $name = $data['name'];
-        $description = $data['description'];
-        $availability = $data['availability'];
-        $borrowed_date = $data['borrowed_date'];
-        $return_date = $data['return_date'];
+        $name = $request->request->get('name');
+        $description = $request->request->get('description');
+        $availability = $request->request->get('availability');
+        $borrowed_date = $request->request->get('borrowed_date');
+        $return_date = $request->request->get('return_date');
+        $image_upload = $request->files->get('imageFile');
+        $filename= $image_upload->getClientOriginalName();
 
         $material = new Material();
         $material->setName($name);
         $material->setDescription($description);
         $material->setAvailability($availability);
+        $material->setCreatedOn(new \DateTime('now'));
         $material->setBorrowedDate(\DateTime::createFromFormat('Y-m-d', $borrowed_date));
         $material->setReturnDate(\DateTime::createFromFormat('Y-m-d', $return_date));
+        $material->setImageFile($image_upload);
+        $material->setFilename($filename);
         $material->setUser($user);
 
         if(in_array('ROLE_USER', $user->getRoles())) {
@@ -108,18 +112,20 @@ class MaterialController extends AbstractFOSRestController
     }
 
     /**
-     * @Rest\Put("/edit-material/{materialId<\d+>}")
+     * @Rest\Post("/edit-material/{materialId<\d+>}")
      * @Rest\View(serializerGroups={"group_material"})
      */
     public function editMaterial(int $materialId, Request $request, EntityManagerInterface $entityManager): View
     {
         $user = $this->getUser();
-        $data = json_decode($request->getContent(), true);
-        $name = $data['name'];
-        $description = $data['description'];
-        $availability = $data['availability'];
-        $borrowed_date = $data['borrowed_date'];
-        $return_date = $data['return_date'];
+        //$data = json_decode($request->getContent(), true);
+        $name = $request->request->get('name');
+        $description = $request->request->get('description');
+        $availability_string = $request->request->get('availability');
+        $availability_boolean = filter_var($availability_string,FILTER_VALIDATE_BOOLEAN);
+        $borrowed_date = $request->request->get('borrowed_date');
+        $return_date = $request->request->get('return_date');
+        $image_upload = $request->files->get('imageFile');
 
 
         $material = $this->materialRepository->find($materialId);
@@ -130,10 +136,13 @@ class MaterialController extends AbstractFOSRestController
 
         $material->setName($name);
         $material->setDescription($description);
-        $material->setAvailability($availability);
+        $material->setAvailability($availability_boolean);
         $material->setBorrowedDate(\DateTime::createFromFormat('Y-m-d', $borrowed_date));
         $material->setReturnDate(\DateTime::createFromFormat('Y-m-d', $return_date));
-
+        $material->setUpdatedAt(new \DateTime('now'));
+        $material->setImageFile($image_upload);
+        $material->setUser($user);
+        //dd($material);
         if(in_array('ROLE_USER', $user->getRoles())) {
             $entityManager->persist($material);
             $entityManager->flush();

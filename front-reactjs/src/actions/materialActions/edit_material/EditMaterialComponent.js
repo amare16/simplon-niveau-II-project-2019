@@ -58,9 +58,16 @@ class EditMaterialComponent extends React.Component {
   }
 
   handleAvailabilityChange(availabilityEvent) {
-    this.setState({
-      availability: availabilityEvent.target.value,
-    });
+  
+    this.setState(initialState => ({
+      isApple: !initialState.isAvocado,
+    }));
+  }
+
+  handleAvailabilityChange = () => {
+    this.setState(availabilityEvent => ({
+      availability: !availabilityEvent.availability,
+    }));
   }
 
   handleBorrowedDateChange(borrowedDateEvent) {
@@ -75,6 +82,11 @@ class EditMaterialComponent extends React.Component {
     });
   }
 
+  handleImageFileMaterialOnChange(imageMaterialEvent) {
+    let imageFile = imageMaterialEvent.target.files[0];
+    this.setState({ imageFile: imageFile });
+  }
+
   cancelEditMaterial = () => {
     window.history.back();
   };
@@ -82,21 +94,39 @@ class EditMaterialComponent extends React.Component {
   editMaterial(newMaterial) {
     let token = localStorage.getItem("token");
     console.log("inside token: ", token);
+
+    let name = this.state.name;
+    let description = this.state.description;
+    let availability = this.state.availability;
+    let borrowed_date = this.state.borrowed_date;
+    let return_date = this.state.return_date;
+    let imageFile = this.state.imageFile;
+
+    let formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("availability", availability);
+    formData.append("borrowed_date", borrowed_date);
+    formData.append("return_date", return_date);
+    formData.append("imageFile", imageFile);
+
+    console.log("form data result: ", formData);
+
     fetch(
       `http://localhost:8000/api/edit-material/${this.props.match.params.materialId}`,
       {
-        method: "PUT",
+        method: "POST",
         mode: "cors",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ` + token,
+          "Authorization": `Bearer ` + token,
         },
-        body: JSON.stringify(this.state),
+        body: formData,
       }
     )
       .then((response) => {
         console.log("response from getDetails: ", response);
-        this.props.history.push("/materials-list-by-user");
+        //this.props.history.push("/materials-list-by-user");
       })
       .catch((err) => console.log(err));
   }
@@ -111,12 +141,13 @@ class EditMaterialComponent extends React.Component {
       availability: this.state.availability,
       borrowed_date: this.state.borrowed_date,
       return_date: this.state.return_date,
+      imageFile: this.state.imageFile
     };
     this.editMaterial(newMaterial);
   }
 
   render() {
-    console.log("borrowed date: ", this.state.borrowed_date);
+    console.log("availability: ", this.state);
     return (
       <section id="material">
         <div class="section-content">
@@ -155,10 +186,10 @@ class EditMaterialComponent extends React.Component {
                     &nbsp;&nbsp; &nbsp;
                     <input
                       class="form-check-input"
-                      type="radio"
-                      name="inlineRadioOptions"
-                      id="inlineRadio2"
-                      value={this.state.availability}
+                      type="checkbox"
+                      name="inlinecheckbox"
+                      id="inlinecheckbox"
+                      checked={this.state.availability}
                       onChange={this.handleAvailabilityChange.bind(this)}
                     />
                   </div>
@@ -172,7 +203,6 @@ class EditMaterialComponent extends React.Component {
                       name="borrowed_date"
                       value={this.state.borrowed_date}
                       onChange={this.handleBorrowedDateChange}
-                      required
                     />
                   </div>
                   <div className="form-group">
@@ -197,6 +227,16 @@ class EditMaterialComponent extends React.Component {
                       placeholder="Enter Your Description"
                       onChange={this.handleDescriptionChange.bind(this)}
                     ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="imageFile"><h3>Update Your Picture</h3></label>
+                    <input
+                      type="file"
+                      name="imageFile"
+                      class="form-control"
+                      id="imageFile"
+                      onChange={this.handleImageFileMaterialOnChange.bind(this)}
+                    />
                   </div>
                   <div>
                     <button type="submit" className="btn btn-primary">

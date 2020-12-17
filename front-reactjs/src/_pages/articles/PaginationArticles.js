@@ -9,7 +9,7 @@ const PaginationArticles = ({ itemsPerPage, totalItems, paginate }) => {
     console.log("page numbers: ", pageNumbers)
     return (
         
-    <nav className="navbar justify-content-center">
+    <nav className="navbar">
       <ul className='pagination'>
         {pageNumbers.map(number => (
           <li key={number} className='page-item'>

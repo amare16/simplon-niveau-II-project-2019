@@ -7,12 +7,11 @@ class CreateExperienceComponent extends React.Component {
         this.state = {
             title: "",
             content: "",
-            published_at: ""
+            imageFile: null
         }
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleContentChange = this.handleContentChange.bind(this);
-        this.handlePublishedAtChange = this.handlePublishedAtChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -29,23 +28,26 @@ class CreateExperienceComponent extends React.Component {
       console.log("test content: ", this.state.content)
     }
   
-    handlePublishedAtChange(event) {
-      console.log("event value publish: ", event.target.value)
-      this.setState({
-          published_at: event.target.value
-      })
+    handleImageFileExperienceOnChange(imageFileCreateEvent) {
+      let imageFile = imageFileCreateEvent.target.files[0];
+      this.setState({ imageFile: imageFile });
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        let token = localStorage.getItem('token')
+        let token = localStorage.getItem('token');
+
+        let formData = new FormData();
+    
+        formData.append('title', this.state.title);
+        formData.append('content', this.state.content);
+        formData.append('imageFile', this.state.imageFile);
 
         fetch(`http://localhost:8000/api/add-experience`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ` + token },
-            body: JSON.stringify(this.state),       
+            body: formData,       
         })
         .then(data => data.json())
         .then(dataJson => {
@@ -112,23 +114,21 @@ class CreateExperienceComponent extends React.Component {
                     ></textarea>
                   </div>
     
-                  <div className="form-group">
-                    <h3 className="create-experience-h3">Published</h3>
+                  <div class="form-group">
+                    <label for="imageFile"><h3>Upload Your Picture</h3></label>
                     <input
-                      type="date"
-                      className="form-control"
-                      name="published_at"
-                      value={this.state.published_at}
-                      onChange={this.handlePublishedAtChange}
-                      required
+                      type="file"
+                      name="imageFile"
+                      class="form-control"
+                      id="imageFile"
+                      onChange={this.handleImageFileExperienceOnChange.bind(this)}
                     />
                   </div>
     
                   <div className="form-group btn-toolbar">
                     <button type="submit" className="btn btn-primary pull-left create-experience-create">
                       Create
-                    </button>&nbsp;&nbsp;&nbsp;
-                    <button className="btn btn-secondary pull-left create-experience-back">Back</button>
+                    </button>
                   </div>
                 </form>
               </div>

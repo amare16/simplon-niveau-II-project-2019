@@ -153,6 +153,15 @@ class BorrowLendMaterialComponent extends React.Component {
               value="Back to Dashboard"
             />
           </a>
+          &nbsp;&nbsp;
+          <a href={"/materials-list-by-user"}>
+            <input
+              type="button"
+              className="btn btn-success"
+              style={{ marginTop: "30px" }}
+              value="User Materials List"
+            />
+          </a>
         </div>
         <div>
           <h2 className="title" style={{color: "#3333ff", textAlign: "center"}}>List of Materials</h2>

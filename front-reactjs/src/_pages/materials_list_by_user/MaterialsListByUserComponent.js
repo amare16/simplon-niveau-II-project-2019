@@ -115,7 +115,7 @@ class MaterialsListByUserComponent extends React.Component {
             </a>
           </div>
         </div>
-        <div className="back-to-dashboard" style={{ marginBottom: "10px" }}>
+        <div className="back-to-dashboard" style={{ marginBottom: "10px", marginLeft: "188px" }}>
         <a href={"/add-material"}>
             <input
               type="button"

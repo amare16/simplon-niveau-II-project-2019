@@ -70,7 +70,7 @@ const Router = () => {
           <Route path="/show-article/:articleId" component={ShowSingleArticleComponent}></Route>
           <Route path="/show-experience/:experienceId" component={ShowSingleExperienceComponent}></Route>
           <Route path="/single-material/:materialId" component={SingleMaterialComponent} />
-          <Route path="/borrow-lend-materials" component={BorrowLendMaterialComponent} />
+          {/* <Route path="/borrow-lend-materials" component={BorrowLendMaterialComponent} /> */}
           <Route path="/search-partner" component={SearchYourPartnerComponent} />
           {/* <Route path="/add-user-profile" component={CreateUserProfileComponent} /> */}
           <Route path="/list-of-materials-for-guest" component={ListOfMaterialsForGuestComponent} />
@@ -82,7 +82,7 @@ const Router = () => {
           {/* <ProtectedRoute path="/search-partner" component={SearchYourPartnerComponent} /> */}
           <ProtectedRoute path="/single-message-send" component={ReceiveMessageComponent} />
           <ProtectedRoute path="/single-user-profile/:userProfileId" component={SingleUserProfileComponent} />   
-          {/* <ProtectedRoute path="/borrow-lend-materials" component={BorrowLendMaterialComponent} />  */}
+          <ProtectedRoute path="/borrow-lend-materials" component={BorrowLendMaterialComponent} />
           {/* <ProtectedRoute path="/single-material/:materialId" component={SingleMaterialComponent} /> */}
           <ProtectedRoute path="/add-material" component={CreateMaterialComponent} />
           {/* <ProtectedRoute path="/add-borrow-material" component={CreateBorrowMaterialComponent} /> */}

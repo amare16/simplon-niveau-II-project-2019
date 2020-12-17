@@ -10,13 +10,12 @@ class EditExperienceComponent extends React.Component {
             id: "",
             title: "",
             content: "",
-            published_at: "" 
+            imageFile: null
         }
 
         //this.handleInputChange = this.handleInputChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleContentChange = this.handleContentChange.bind(this);
-        this.handlePublishedAtChange = this.handlePublishedAtChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -37,7 +36,7 @@ class EditExperienceComponent extends React.Component {
                 id: resJson.id,
                 title: resJson.title,
                 content: resJson.content,
-                published_at: resJson.published_at
+                imageFile: resJson.imageFile,
             }, () => {
                 console.log(this.state);
             })
@@ -58,12 +57,14 @@ class EditExperienceComponent extends React.Component {
     console.log("test content: ", this.state.content)
   }
 
-  handlePublishedAtChange(event) {
-    console.log("event value publish: ", event.target.value)
-    this.setState({
-        published_at: event.target.value
-    })
+  handleImageFileExperienceOnChange(imageExperienceEvent) {
+    let imageFile = imageExperienceEvent.target.files[0];
+    this.setState({ imageFile: imageFile });
   }
+
+  cancelEditExperience = () => {
+    window.history.back();
+  };
 
     // handleInputChange(e) {
     //     const target = e.target;
@@ -78,14 +79,23 @@ class EditExperienceComponent extends React.Component {
     editExperience(newExperience) {
         let token = localStorage.getItem('token');
         console.log("inside token: ", this.props.match.params.experienceId)
+
+        let title = this.state.title;
+        let content = this.state.content;
+        let imageFile = this.state.imageFile;
+        let formData = new FormData();
+
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("imageFile", imageFile);
+        console.log("form data value: ", formData)
         fetch(`http://localhost:8000/api/edit-experience/${this.props.match.params.experienceId}`, {
-            method: "PUT",
+            method: "POST",
             mode: "cors",
             headers: {
-                "Content-Type": "application/json",
                 "Authorization": `Bearer ` + token  
             },
-            body: JSON.stringify(this.state)
+            body: formData
         })
         .then(response => {
             console.log("response from getDetails: ", response)
@@ -100,7 +110,7 @@ class EditExperienceComponent extends React.Component {
         let newExperience = {
             titile: this.state.title,
             content: this.state.content,
-            published_at: this.state.published_at
+            imageFile: this.state.imageFile
         };
         this.editExperience(newExperience);
 
@@ -163,16 +173,16 @@ class EditExperienceComponent extends React.Component {
                 ></textarea>
               </div>
 
-              <div className="form-group">
-                <h3 className="edit-experience-h3">Published</h3>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="published_at"
-                  value={this.state.published_at}
-                  onChange={this.handlePublishedAtChange}
-                />
-              </div>
+              <div class="form-group">
+                    <label for="imageFile"><h3>Update Your Picture</h3></label>
+                    <input
+                      type="file"
+                      name="imageFile"
+                      class="form-control"
+                      id="imageFile"
+                      onChange={this.handleImageFileExperienceOnChange.bind(this)}
+                    />
+                  </div>
 
               <div className="form-group btn-toolbar">
                 <button
@@ -180,6 +190,14 @@ class EditExperienceComponent extends React.Component {
                   className="btn btn-primary pull-left edit-experience-create"
                 >
                   Save
+                </button>
+                &nbsp;&nbsp;
+                <button
+                  type="submit"
+                  className="btn btn-danger"
+                  onClick={this.cancelEditExperience.bind(this)}
+                >
+                  Cancel
                 </button>
               </div>
             </form>

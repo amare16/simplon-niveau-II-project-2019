@@ -5,12 +5,15 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ExperienceRepository")
+ * @Vich\Uploadable()
  */
-class Experience
+class Experience implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -41,6 +44,31 @@ class Experience
      * @Groups("group_comment_experience")
      */
     private $published_at;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("group_experience")
+     * @Groups("group_comment_experience")
+     */
+    private $filename;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="experience_image", fileNameProperty="filename")
+     * @Groups("group_experience")
+     * @Groups("group_comment_experience")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTimeInterface|null
+     * @Groups("group_experience")
+     * @Groups("group_comment_experience")
+     */
+    private $updated_at;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="experiences")
@@ -150,6 +178,78 @@ class Experience
         }
 
         return $this;
+    }
+
+    /**
+    * @return string|null
+    */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param string|null $filename
+     * @return Experience
+     */
+    public function setFilename(?string $filename): Experience
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updated_at = new \DateTimeImmutable();
+        }
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $updated_at
+     * @return Experience
+     */
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): Experience
+    {
+        $this->updated_at = $updated_at;
+        return $this;
+    }
+
+    public function serialize()
+    {
+        $this->imageFile = base64_encode($this->imageFile);
+    }
+
+    public function unserialize($serialized)
+    {
+        $this->imageFile = base64_decode($this->imageFile);
     }
 
     /**

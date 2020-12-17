@@ -8,10 +8,30 @@
   width: 450px;
   height: 450px;
   border-radius: 50%;
-  background: #e6ffe6;
+  /* background: #e6ffe6; */
   margin-top: 50px;
   margin: 0 auto;
 }
+.card:hover {
+  background-color: rgb(193, 231, 87);
+  cursor: pointer;
+}
+
+.card:hover .card-title {
+  display: none;
+}
+
+.card:hover:before {
+  content: "Go to \A Home page";
+  white-space: pre;
+  color: #bd0c9f;
+  font-family: Knewave;
+  font-weight: bold;
+  font-size: 60px;
+  cursor: pointer;
+  margin-top: 120px;
+}
+
 .card-title {
   color: #008000;
   font-family: Knewave;
@@ -21,21 +41,23 @@
   margin-top: 80px;
 }
 
-::-webkit-scrollbar {
+
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .App {
-  height: 100vh;
-	/* max-height: 600px; */
+  height: 553px;
+  /* max-height: 600px; */
 	width: 100%;
-	background-color: hsla(200,40%,30%,.4);
-	background-image:		
+  background-color: hsla(200,40%,30%,.4);
+  /* url('https://78.media.tumblr.com/8cd0a12b7d9d5ba2c7d26f42c25de99f/tumblr_p7n8kqHMuD1uy4lhuo2_1280.png'), */
+  background-image: 		
 		url('https://78.media.tumblr.com/cae86e76225a25b17332dfc9cf8b1121/tumblr_p7n8kqHMuD1uy4lhuo1_540.png'), 
 		url('https://78.media.tumblr.com/66445d34fe560351d474af69ef3f2fb0/tumblr_p7n908E1Jb1uy4lhuo1_1280.png'),
-		url('https://78.media.tumblr.com/8cd0a12b7d9d5ba2c7d26f42c25de99f/tumblr_p7n8kqHMuD1uy4lhuo2_1280.png'),
+		url('https://image.shutterstock.com/image-photo/peanut-plantation-fields-tree-bush-260nw-1262144539.jpg'),
 		url('https://78.media.tumblr.com/5ecb41b654f4e8878f59445b948ede50/tumblr_p7n8on19cV1uy4lhuo1_1280.png'),
-		url('https://78.media.tumblr.com/28bd9a2522fbf8981d680317ccbf4282/tumblr_p7n8kqHMuD1uy4lhuo3_1280.png');
+		url('https://lh3.googleusercontent.com/proxy/RpULISXbbv4spxjr06Z_XUXcpw-NyF3iUhmVfoRHNAWMhXrClibptff1dQESSxV3BVjk-lkwQh0NOJ0Eeu5cGTVXcgbzTk3069l70s9sJgV3Cw');
 	background-repeat: repeat-x;
 	background-position: 
 		0 20%,
@@ -172,7 +194,7 @@ html {
   margin-top: 100px;
 }
 .form {
-  margin-top: 115px;
+  margin-top: 75px;
 }
 .login_btn {
   width: 100%;

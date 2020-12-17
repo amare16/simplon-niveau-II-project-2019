@@ -8,6 +8,24 @@ vich_uploader:
             namer: Vich\UploaderBundle\Naming\UniqidNamer
 
             inject_on_load: true
+        article_image:
+            uri_prefix: /images/article
+            upload_destination: '%kernel.project_dir%/public/images/article'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+            inject_on_load: true
+        experience_image:
+            uri_prefix: /images/experience
+            upload_destination: '%kernel.project_dir%/public/images/experience'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+            inject_on_load: true
+        material_image:
+            uri_prefix: /images/material
+            upload_destination: '%kernel.project_dir%/public/images/material'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+            inject_on_load: true
 
     #mappings:
     #    products:

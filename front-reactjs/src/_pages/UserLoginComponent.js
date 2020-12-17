@@ -220,7 +220,7 @@ class UserLoginComponent extends React.Component {
                     required
                   ></input>
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <div className="custom-control custom-checkbox">
                     <input
                       type="checkbox"
@@ -234,7 +234,7 @@ class UserLoginComponent extends React.Component {
                       Rester connecté
                     </label>
                   </div>
-                </div>
+                </div> */}
                 <div className="d-flex justify-content-center mt-3 login_container">
                   {/* <button type="button" name="button" className="btn btn-success login_btn">
                     Login

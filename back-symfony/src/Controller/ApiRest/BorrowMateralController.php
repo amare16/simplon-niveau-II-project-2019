@@ -111,10 +111,16 @@ class BorrowMateralController extends AbstractFOSRestController
         $materialBorrowerLender->setMaterial($material_id);
         $materialBorrowerLender->setUser($user);
 
+
         if(in_array('ROLE_USER', $user->getRoles())) {
-            $entityManager->persist($materialBorrowerLender);
-            $entityManager->flush();
-            return View::create("You added borrowed information successfully!", Response::HTTP_OK);
+            if ($material_borrower != $material_lender) {
+                $entityManager->persist($materialBorrowerLender);
+                $entityManager->flush();
+                return View::create("You added borrowed information successfully!", Response::HTTP_OK);
+            } else {
+                return View::create("Sender and receiver cannot be the same", Response::HTTP_BAD_REQUEST);
+            }
+
         } else {
             return View::create(["You are not a user! So please register to add borrowed information!"], Response::HTTP_BAD_REQUEST);
         }
