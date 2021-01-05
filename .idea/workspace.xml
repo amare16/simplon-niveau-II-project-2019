@@ -20,13 +20,11 @@
       <change afterPath="$PROJECT_DIR$/front-reactjs/scripts/test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-symfony/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/packages/liip_imagine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/packages/liip_imagine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/config/packages/vich_uploader.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/packages/vich_uploader.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/public/images/user_profiles/5f5e92036a586205791359.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticleLikeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticleLikeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php" afterDir="false" />
@@ -44,7 +42,6 @@
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/UserMessage.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/Entity/UserProfile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-symfony/src/EventListener/ImageCacheSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/src/EventListener/ImageCacheSubscriber.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-symfony/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/back-symfony/symfony.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/package.json" afterDir="false" />
@@ -54,26 +51,12 @@
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/HomeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/HomeComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/LogoComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/LogoComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/NavbarComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/NavbarComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/Router.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/Router.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/WelcomePageComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/ShowSingleArticleComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_article/ShowSingleArticleComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_experience/ShowSingleExperienceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_components/show_single_experience/ShowSingleExperienceComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ArticlesComponent.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/ContactUsComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/ExperiencesComponent.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserLoginComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/UserRegisterComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/articles/ArticlesComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/articles/ArticlesComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/articles/PaginationArticles.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/articles/PaginationArticles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/borrow_lend_material/BorrowLendMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/borrow_lend_material/BorrowLendMaterialComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/materials_list_by_user/MaterialsListByUserComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/materials_list_by_user/MaterialsListByUserComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/_pages/single_material/SingleMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/_pages/single_material/SingleMaterialComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/articleActions/CreateArticleComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/articleActions/CreateArticleComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/articleActions/EditArticleComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/articleActions/EditArticleComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/create_experience/CreateExperienceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/create_experience/CreateExperienceComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/edit_experience/EditExperienceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/experienceActions/edit_experience/EditExperienceComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/create_material/CreateMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/create_material/CreateMaterialComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/edit_material/EditMaterialComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/actions/materialActions/edit_material/EditMaterialComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-reactjs/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/footer.less" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/front-reactjs/src/less/_components/home.less" beforeDir="false" />
@@ -120,11 +103,11 @@
     <favorites_list name="simplon-niveau-II-project-2019" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/composer.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
+            <state relative-caret-position="363">
               <caret line="11" column="37" selection-end-line="79" />
             </state>
           </provider>
@@ -133,8 +116,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/Material.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1163">
-              <caret line="94" column="7" selection-start-line="94" selection-start-column="7" selection-end-line="94" selection-end-column="7" />
+            <state relative-caret-position="-585">
+              <caret line="106" column="36" lean-forward="true" selection-start-line="106" selection-start-column="36" selection-end-line="106" selection-end-column="36" />
               <folding>
                 <element signature="e#30#62#0#PHP" expanded="true" />
               </folding>
@@ -145,7 +128,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3618">
+            <state relative-caret-position="4422">
               <caret line="144" column="10" selection-start-line="144" selection-start-column="10" selection-end-line="144" selection-end-column="10" />
             </state>
           </provider>
@@ -154,7 +137,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialBorrowerMessageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
+            <state relative-caret-position="264">
               <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
             </state>
           </provider>
@@ -163,7 +146,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/ArticleLike.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
+            <state relative-caret-position="759">
               <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
               <folding>
                 <element signature="e#30#62#0#PHP" expanded="true" />
@@ -175,7 +158,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticleLikeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1566">
+            <state relative-caret-position="1914">
               <caret line="67" column="34" selection-start-line="67" selection-start-column="34" selection-end-line="67" selection-end-column="34" />
               <folding>
                 <element signature="e#43#66#0#PHP" expanded="true" />
@@ -187,7 +170,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
+            <state relative-caret-position="3894">
               <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
               <folding>
                 <element signature="e#44#67#0#PHP" expanded="true" />
@@ -199,7 +182,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2943">
+            <state relative-caret-position="3597">
               <caret line="119" column="13" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
               <folding>
                 <element signature="e#44#82#0#PHP" expanded="true" />
@@ -211,7 +194,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4563">
+            <state relative-caret-position="712">
               <caret line="188" column="11" selection-start-line="188" selection-start-column="11" selection-end-line="188" selection-end-column="11" />
               <folding>
                 <element signature="e#44#69#0#PHP" expanded="true" />
@@ -223,7 +206,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/Experience.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1404">
+            <state relative-caret-position="712">
               <caret line="57" column="85" selection-start-line="57" selection-start-column="7" selection-end-line="57" selection-end-column="85" />
               <folding>
                 <element signature="e#30#78#0#PHP" expanded="true" />
@@ -473,6 +456,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -524,14 +508,14 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Agro-interest-api" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -713,17 +697,18 @@
       <workItem from="1600540774935" duration="7591000" />
       <workItem from="1600692932168" duration="2595000" />
       <workItem from="1602355886803" duration="50000" />
+      <workItem from="1609877218183" duration="1170000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1022343000" />
+    <option name="totallyTimeSpent" value="1023513000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="2432" y="47" width="335" height="633" id="Project" order="0" sideWeight="0.48609078" visible="true" weight="0.19395973" />
+      <window_info content_ui="combo" x="2432" y="47" width="335" height="633" id="Project" order="0" sideWeight="0.48609078" weight="0.19664429" />
       <window_info id="Structure" order="1" sideWeight="0.5139092" side_tool="true" weight="0.18322147" />
       <window_info id="Favorites" order="2" sideWeight="0.5124451" side_tool="true" weight="0.12416107" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
@@ -747,6 +732,31 @@
       <window_info anchor="right" id="Codota" order="6" weight="0.32885906" />
       <window_info anchor="right" id="SQL Formatter" order="7" weight="0.3295302" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" x="2432" y="47" width="335" height="633" id="Project" order="0" sideWeight="0.48609078" visible="true" weight="0.19664429" />
+      <window_info id="Structure" order="1" sideWeight="0.5139092" side_tool="true" weight="0.18322147" />
+      <window_info id="Favorites" order="2" sideWeight="0.5124451" side_tool="true" weight="0.12416107" />
+      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="1" weight="0.3286119" />
+      <window_info anchor="bottom" id="Message" order="2" />
+      <window_info anchor="bottom" id="Database Changes" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" weight="0.32650074" />
+      <window_info anchor="bottom" id="Version Control" order="5" weight="0.3286119" />
+      <window_info anchor="bottom" id="Find" order="6" weight="0.32796487" />
+      <window_info anchor="bottom" id="Run" order="7" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="PHP Inspections" order="3" weight="0.32902735" />
+      <window_info anchor="right" id="Api Debugger" order="4" weight="0.3295302" />
+      <window_info anchor="right" id="Database" order="5" weight="0.3295302" />
+      <window_info anchor="right" id="Codota" order="6" weight="0.32885906" />
+      <window_info anchor="right" id="SQL Formatter" order="7" weight="0.3295302" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -763,9 +773,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../jokajobs/wp-content/themes/index.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../jokajobs/wp-content/themes/index.php" />
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/ExperienceLike.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -1051,70 +1059,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="37" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3618">
-          <caret line="144" column="10" selection-start-line="144" selection-start-column="10" selection-end-line="144" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialBorrowerMessageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/ArticleLike.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
-          <folding>
-            <element signature="e#30#62#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticleLikeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="67" column="34" selection-start-line="67" selection-start-column="34" selection-end-line="67" selection-end-column="34" />
-          <folding>
-            <element signature="e#43#66#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2943">
-          <caret line="119" column="13" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
-          <folding>
-            <element signature="e#44#82#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4563">
-          <caret line="188" column="11" selection-start-line="188" selection-start-column="11" selection-end-line="188" selection-end-column="11" />
-          <folding>
-            <element signature="e#44#69#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/Experience.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1404">
+        <state relative-caret-position="712">
           <caret line="57" column="85" selection-start-line="57" selection-start-column="7" selection-end-line="57" selection-end-column="85" />
           <folding>
             <element signature="e#30#78#0#PHP" expanded="true" />
@@ -1122,9 +1069,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="712">
+          <caret line="188" column="11" selection-start-line="188" selection-start-column="11" selection-end-line="188" selection-end-column="11" />
+          <folding>
+            <element signature="e#44#69#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/BorrowMateralController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3597">
+          <caret line="119" column="13" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="13" />
+          <folding>
+            <element signature="e#44#82#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticlesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
+        <state relative-caret-position="3894">
           <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
           <folding>
             <element signature="e#44#67#0#PHP" expanded="true" />
@@ -1132,10 +1099,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/ArticleLikeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1914">
+          <caret line="67" column="34" selection-start-line="67" selection-start-column="34" selection-end-line="67" selection-end-column="34" />
+          <folding>
+            <element signature="e#43#66#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/ArticleLike.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="759">
+          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+          <folding>
+            <element signature="e#30#62#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialBorrowerMessageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/src/Controller/ApiRest/MaterialController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4422">
+          <caret line="144" column="10" selection-start-line="144" selection-start-column="10" selection-end-line="144" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/back-symfony/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="11" column="37" selection-end-line="79" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/back-symfony/src/Entity/Material.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1163">
-          <caret line="94" column="7" selection-start-line="94" selection-start-column="7" selection-end-line="94" selection-end-column="7" />
+        <state relative-caret-position="-585">
+          <caret line="106" column="36" lean-forward="true" selection-start-line="106" selection-start-column="36" selection-end-line="106" selection-end-column="36" />
           <folding>
             <element signature="e#30#62#0#PHP" expanded="true" />
           </folding>

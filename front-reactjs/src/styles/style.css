@@ -1,27 +1,69 @@
+/* body */
+
+/*Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  body {
+    
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  body {
+    background-color: blue;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  body {
+    background-color: green;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  body {
+    background-color: yellow;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  body {
+    background-color: violet;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+
+
 /* logo */
 .img-logo {
   display: block;
   margin: 0 auto;
 }
-/* App Component */
-.card {
-  width: 450px;
-  height: 450px;
-  border-radius: 50%;
-  /* background: #e6ffe6; */
-  margin-top: 50px;
-  margin: 0 auto;
-}
-.card:hover {
+/* App Component --- card --- circle--- loading page */
+
+/* .card:hover {
   background-color: rgb(193, 231, 87);
   cursor: pointer;
 }
 
 .card:hover .card-title {
   display: none;
-}
+} */
 
-.card:hover:before {
+/* .card:hover:before {
   content: "Go to \A Home page";
   white-space: pre;
   color: #bd0c9f;
@@ -30,60 +72,23 @@
   font-size: 60px;
   cursor: pointer;
   margin-top: 120px;
-}
+} */
 
-.card-title {
+/* .card-title {
   color: #008000;
   font-family: Knewave;
   font-weight: bold;
   font-size: 60px;
   cursor: pointer;
   margin-top: 80px;
-}
+} */
 
 
 /* ::-webkit-scrollbar {
   display: none;
 } */
 
-.App {
-  height: 553px;
-  /* max-height: 600px; */
-	width: 100%;
-  background-color: hsla(200,40%,30%,.4);
-  /* url('https://78.media.tumblr.com/8cd0a12b7d9d5ba2c7d26f42c25de99f/tumblr_p7n8kqHMuD1uy4lhuo2_1280.png'), */
-  background-image: 		
-		url('https://78.media.tumblr.com/cae86e76225a25b17332dfc9cf8b1121/tumblr_p7n8kqHMuD1uy4lhuo1_540.png'), 
-		url('https://78.media.tumblr.com/66445d34fe560351d474af69ef3f2fb0/tumblr_p7n908E1Jb1uy4lhuo1_1280.png'),
-		url('https://image.shutterstock.com/image-photo/peanut-plantation-fields-tree-bush-260nw-1262144539.jpg'),
-		url('https://78.media.tumblr.com/5ecb41b654f4e8878f59445b948ede50/tumblr_p7n8on19cV1uy4lhuo1_1280.png'),
-		url('https://lh3.googleusercontent.com/proxy/RpULISXbbv4spxjr06Z_XUXcpw-NyF3iUhmVfoRHNAWMhXrClibptff1dQESSxV3BVjk-lkwQh0NOJ0Eeu5cGTVXcgbzTk3069l70s9sJgV3Cw');
-	background-repeat: repeat-x;
-	background-position: 
-		0 20%,
-		0 100%,
-		0 50%,
-		0 100%,
-		0 0;
-	background-size: 
-		2500px,
-		800px,
-		500px 200px,
-		1000px,
-		400px 260px;
-	animation: 50s para infinite linear;
-	}
 
-@keyframes para {
-	100% {
-		background-position: 
-			-5000px 20%,
-			-800px 95%,
-			500px 50%,
-			1000px 100%,
-			400px 0;
-		}
-	}
 
 
 /* Home Component */
