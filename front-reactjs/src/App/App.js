@@ -35,11 +35,11 @@ class App extends React.Component {
     }
   render() {
     return (
-      <div className="App">
-        <div className="card mb-3" onClick={this.routeChange}>
+      <div className="App landing-page">
+        <div className="card card-landing-page mb-3" onClick={this.routeChange}>
               
               <div className="card-body">
-                <h1 className="card-title">Welcome <br></br>to <br></br>Agro Interest</h1>
+                <h1 className="card-title card-title-landing-page">Welcome <br></br>to <br></br>Agro Interest</h1>
                 
               </div>
             </div>

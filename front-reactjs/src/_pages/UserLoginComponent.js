@@ -242,9 +242,9 @@ class UserLoginComponent extends React.Component {
                   <input className="form-submit btn btn-success" type="submit" value="Login"/>
                 </div>
                 <div className="d-flex justify-content-center links">
-              Pas encore de compte ?{" "}
+              Don't have an account yet? {" "}
                 <a href="/register" className="ml-2">
-                S'inscrire!
+                Register!
                 </a>
               </div>
               </form>  

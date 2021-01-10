@@ -435,7 +435,7 @@ class UserRegisterComponent extends React.Component {
               <p>
                 <b>Vous avez déjà un compte? </b>
               </p>
-              <a href="/login" className="float-right" style={{fontWeight: "bold"}}>Se Connecter</a>
+              <a href="/login" className="float-right" style={{fontWeight: "bold"}}>Log In</a>
             </div>
                 </div>
             </div>

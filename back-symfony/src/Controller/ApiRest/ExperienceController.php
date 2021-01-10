@@ -171,54 +171,5 @@ class ExperienceController extends AbstractFOSRestController
 
     }
 
-    /**
-     * @Rest\Get("/single-experience-like/{id<\d+>}/like", name="experience_like");
-     *
-     * @param Experience $experience
-     * @param EntityManagerInterface $entityManager
-     * @param ExperienceLikeRepository $experienceLikeRepository
-     * @return View
-     */
-    public function likeExperience(Experience $experience,
-                                   EntityManagerInterface $entityManager,
-                                   ExperienceLikeRepository $experienceLikeRepository): View
-    {
-        $user = $this->getUser();
 
-        if (!$user) {
-            return View::create([
-                'code' => 403,
-                'message' => 'Unauthorized!'
-            ], 403);
-        }
-
-        if ($experience->isLikedByUser($user)) {
-            $like = $this->experienceLikeRepository->findOneBy([
-                'experience' => $experience,
-                'user' => $user
-            ]);
-
-            $entityManager->remove($like);
-            $entityManager->flush();
-
-            return View::create([
-                'code' => 200,
-                'message' => 'Like well deleted',
-                'likes' => $experienceLikeRepository->count(['experience' => $experience])
-            ], 200);
-        }
-
-        $like = new ExperienceLike();
-        $like->setExperience($experience)
-            ->setUser($user);
-
-        $entityManager->persist($like);
-        $entityManager->flush();
-
-        return View::create([
-            'code' => 200,
-            'message' => 'Like well added',
-            'likes' => $experienceLikeRepository->count(['experience' => $experience])
-        ], 200);
-    }
 }

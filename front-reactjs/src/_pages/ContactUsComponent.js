@@ -91,7 +91,7 @@ class ContactUsComponent extends React.Component {
                   <div className="card-header p-0">
                     <div className="bg-info text-white text-center py-y">
                       <h3>
-                        <i className="fa fa-envelope"></i> Contact us
+                        <i className="fa fa-envelope"></i> Contact
                       </h3>
                     </div>
                   </div>

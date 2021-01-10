@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as moment from "moment";
-import {LikeButtonArticles} from "./../like_button_articles/LikeButtonArticles";
+import axios from "axios";
 import "./showSingleArticle.css";
 import ModalEditArticleCommentComponent from "./editArticleComment/ModalEditArticleCommentComponent.js";
 
@@ -28,14 +28,17 @@ class ShowSingleArticleComponent extends React.Component {
             id: "",
             firstName: "",
             lastName: "",
-            username: ""
+            username: "",
           },
         },
       ],
       likes: [
         {
-          id: ""
-        }
+          id: "",
+          data: {
+            likes: "",
+          },
+        },
       ],
       commentContent: "",
       article: {
@@ -46,7 +49,11 @@ class ShowSingleArticleComponent extends React.Component {
         lastName: "",
         username: "",
       },
-      requiredItem: 0
+      requiredItem: 0,
+      data: {
+        likes: "",
+      },
+      liked: false,
     };
     this.replaceModalItem = this.replaceModalItem.bind(this);
   }
@@ -61,10 +68,54 @@ class ShowSingleArticleComponent extends React.Component {
     });
   }
 
+  handleArticleLikeCount(eLike) {
+    this.setState({
+      likes: eLike.target.value,
+    });
+  }
+
   replaceModalItem(index) {
     this.setState({
-      requiredItem: index
+      requiredItem: index,
     });
+  }
+
+  submitLike(e) {
+    e.preventDefault();
+    let body = {
+      likes: {
+        id: this.state.id,
+      },
+    };
+
+    let token = localStorage.getItem("token");
+
+    if (token) {
+      let articleId = this.props.match.params.articleId;
+      const headers = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + token,
+        },
+      };
+
+      axios
+        .get(
+          `http://localhost:8000/api/likes-of-article/${articleId}/like`,
+          headers,
+          body
+        )
+        .then((res) => {
+          this.setState({
+            data: res.data,
+          });
+        })
+        .catch((error) => {
+          console.error("Like error: ", error);
+        });
+    } else {
+      this.props.history.push("/login");
+    }
   }
 
   submitComment(e) {
@@ -103,7 +154,6 @@ class ShowSingleArticleComponent extends React.Component {
       this.props.history.push("/login");
     }
   }
-
 
   getArticleDetails() {
     let articleId = this.props.match.params.articleId;
@@ -145,14 +195,14 @@ class ShowSingleArticleComponent extends React.Component {
           console.log("res json: ", resJson);
           this.setState(
             {
-            id: resJson.id,
-            title: resJson.title,
-            content: resJson.content,
-            published_at: resJson.published_at,
-            imageFile: resJson.imageFile,
-            user: resJson.user,
-            commentArticles: resJson.commentArticles,
-            likes: resJson.likes,
+              id: resJson.id,
+              title: resJson.title,
+              content: resJson.content,
+              published_at: resJson.published_at,
+              imageFile: resJson.imageFile,
+              user: resJson.user,
+              commentArticles: resJson.commentArticles,
+              likes: resJson.likes,
             },
             () => {
               console.log(this.state);
@@ -188,20 +238,24 @@ class ShowSingleArticleComponent extends React.Component {
     }
   }
 
+  toggleLike = (x) => {
+    this.setState({
+      liked: !this.state.liked,
+    });
+  };
+
   render() {
     console.log("username author of article: ", this.state.user.username);
     let tokenRedirect = localStorage.getItem("token");
     console.log("articles comment: ", this.state.commentArticles);
 
     const requiredItem = this.state.requiredItem;
-    console.log("this.state.requiredItem: ", requiredItem)
+    console.log("this.state.requiredItem: ", requiredItem);
     let modalData = this.state.commentArticles[requiredItem];
     //console.log("modal data: ", modalData["id"]);
-    
-    
+
     return (
-      
-      <div className="container-fluid"> 
+      <div className="container-fluid">
         <div className="row" style={{ marginBottom: "20px" }}>
           <div className="col-sm-12">
             <div className="text-center">
@@ -252,12 +306,55 @@ class ShowSingleArticleComponent extends React.Component {
                 style={{ fontStyle: "italic", color: "green" }}
               >
                 {moment(this.state.published_at).format("LLL")}
-              </p> {" "}
-              {/* <span className="react-like"></span>
-              <LikeButtonArticles test={this.props.likes}/>
-              <span>{this.state.likes.length}</span> */}
-
-
+              </p>{" "}
+              <form onSubmit={this.submitLike.bind(this)}>
+                <button
+                  className="likeBtn"
+                  style={{ border: "none" }}
+                  onClick={this.handleArticleLikeCount.bind(this)}
+                  onClick={this.toggleLike.bind(this)}
+                >
+                  {this.state.liked ? (
+                    <div>
+                      <i
+                        className="fa fa-thumbs-up fa-lg"
+                        aria-hidden="true"
+                        style={{ color: "blue" }}
+                      ></i>
+                      &nbsp;&nbsp;
+                      <span
+                        className="like-count"
+                        style={{
+                          display: "inline-block",
+                          fontWeight: "bold",
+                          color: "blue",
+                        }}
+                      >
+                        {this.state.data.likes}
+                      </span>
+                    </div>
+                  ) : (
+                    <div>
+                      <i
+                        className="fa fa-thumbs-o-up fa-lg"
+                        aria-hidden="true"
+                        style={{ color: "red" }}
+                      ></i>
+                      &nbsp;&nbsp;
+                      <span
+                        className="like-count"
+                        style={{
+                          display: "inline-block",
+                          fontWeight: "bold",
+                          color: "red",
+                        }}
+                      >
+                        {this.state.data.likes}
+                      </span>
+                    </div>
+                  )}
+                </button>
+              </form>
               <p className="text-right">
                 <strong style={{ color: "green" }}>
                   {this.state.user.firstName + " " + this.state.user.lastName}
@@ -287,71 +384,70 @@ class ShowSingleArticleComponent extends React.Component {
               </button>
             </div>
           </div>
-          
         </form>
+
         <div className="comment-div-article col-lg-6">
-            {this.state.commentArticles.map((comment, index) => {
-              return (
-                <div className="container-article-comment">
-                  <div class="text">
-                    <p>{comment.commentContent}</p>
-                  </div>
-                  <p class="attribution">
+          {this.state.commentArticles.map((comment, index) => {
+            return (
+              <div className="container-article-comment">
+                <div class="text">
+                  <p>{comment.commentContent}</p>
+                </div>
+                <p class="attribution">
                   {comment.authorName.username ==
-                  localStorage.getItem("username") && (
-                    <div style={{float: "left"}}>
+                    localStorage.getItem("username") && (
+                    <div style={{ float: "left" }}>
                       <i
-                      title="Edit your comment"
-                      className="fa fa-edit fa-lg"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      style={{color: "green" }}
-                      aria-hidden="true"
-                      onClick={() => this.replaceModalItem(index)}
-                    ></i>&nbsp;&nbsp;&nbsp;
-                     
-                  <i
-                      title="Delete your comment"
-                      className="fa fa-trash-o fa-lg del-btn"
-                      style={{color: "red" }}
-                      aria-hidden="true"
-                      onClick={(e) =>
-                        this.deleteCommentArticle(e, comment.id)
-                      }
-                    ></i>
+                        title="Edit your comment"
+                        className="fa fa-edit fa-lg"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        style={{ color: "green" }}
+                        aria-hidden="true"
+                        onClick={() => this.replaceModalItem(index)}
+                      ></i>
+                      &nbsp;&nbsp;&nbsp;
+                      <i
+                        title="Delete your comment"
+                        className="fa fa-trash-o fa-lg del-btn"
+                        style={{ color: "red" }}
+                        aria-hidden="true"
+                        onClick={(e) =>
+                          this.deleteCommentArticle(e, comment.id)
+                        }
+                      ></i>
                     </div>
-                  )
-                  }
-                    by{" "}
-                    {
-                      this.state.user.username != comment.authorName.username ? (<a href="#">
+                  )}
+                  by{" "}
+                  {this.state.user.username != comment.authorName.username ? (
+                    <a href="#">
                       {comment.authorName.firstName}{" "}
                       {comment.authorName.lastName}
-                    </a>) : (<strong style={{color: "green"}}>Author of this article</strong>)
-                    }
-                    {" "}
-                    {
-                      comment.commented_at ? (
+                    </a>
+                  ) : (
+                    <strong style={{ color: "green" }}>
+                      Author of this article
+                    </strong>
+                  )}{" "}
+                  {comment.commented_at ? (
                     //     <span>at {moment(comment.commented_at).format("LT")},{" "}
                     // {moment(comment.commented_at).format("LL")}</span>
-                        <span>{moment(comment.commented_at).startOf("minutes").fromNow()}</span>
-                      ) : null
-                    }
-                    
-                    
-                  </p>
-                  <ModalEditArticleCommentComponent
-                 id={modalData.id}
-                 commentContent={modalData.commentContent}
-                 articleId = {this.props.match.params.articleId}          
-                 />
-                </div>
-                 
-              );
-            })}
-          </div>
-           
-         
+                    <span>
+                      {moment(comment.commented_at)
+                        .startOf("minutes")
+                        .fromNow()}
+                    </span>
+                  ) : null}
+                </p>
+                <ModalEditArticleCommentComponent
+                  id={modalData.id}
+                  commentContent={modalData.commentContent}
+                  articleId={this.props.match.params.articleId}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

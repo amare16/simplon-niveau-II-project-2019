@@ -26,7 +26,7 @@
 /*Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
   .App {
-    height: 100vh;
+    height: 503px;
     /* max-height: 600px; */
     width: 100vh;
     background-color: hsla(200,40%,30%,.4);
@@ -68,7 +68,7 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
   .App {
-    height: 100vh;
+    height: 503px;
     /* max-height: 600px; */
     width: 100vw;
     background-color: hsla(200,40%,30%,.4);
@@ -110,7 +110,7 @@
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
   .App {
-    height: 100vh;
+    height: 503px;
     /* max-height: 600px; */
     width: 100vw;
     background-color: hsla(200,40%,30%,.4);
@@ -152,7 +152,7 @@
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .App {
-    height: 100vh;
+    height: 503px;
     /* max-height: 600px; */
     width: 100vw;
     background-color: hsla(200,40%,30%,.4);
@@ -194,7 +194,7 @@
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
   .App {
-    height: 100vh;
+    height: 503px;
     /* max-height: 600px; */
     width: 100vw;
     background-color: hsla(200,40%,30%,.4);
@@ -237,7 +237,7 @@
 /* App Component --- card --- circle--- loading page */
 
 @media (max-width: 575.98px) {
-  .card {
+  .card-landing-page {
     width: 250px;
     height: 250px;
     border-radius: 50%;
@@ -246,7 +246,7 @@
     margin: 0 auto;
   }
 
-  .card-title {
+  .card-title-landing-page {
     color: #008000;
     font-family: Knewave;
     font-weight: bold;
@@ -255,7 +255,7 @@
     margin-top: 35px;
   }
 
-  .card:hover:before {
+  .card-landing-page:hover:before {
     content: "Go to \A Home page";
     white-space: pre;
     color: #bd0c9f;
@@ -266,19 +266,19 @@
     margin-top: 70px;
   }
 
-  .card:hover {
+  .card-landing-page:hover {
     background-color: rgb(193, 231, 87);
     cursor: pointer;
   }
   
-  .card:hover .card-title {
+  .card-landing-page:hover .card-title-landing-page {
     display: none;
   }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .card {
+  .card-landing-page {
     width: 300px;
     height: 300px;
     border-radius: 50%;
@@ -287,7 +287,7 @@
     margin: 0 auto;
   }
 
-  .card-title {
+  .card-title-landing-page {
     color: #008000;
     font-family: Knewave;
     font-weight: bold;
@@ -296,7 +296,7 @@
     margin-top: 40px;
   }
 
-  .card:hover:before {
+  .card-landing-page:hover:before {
     content: "Go to \A Home page";
     white-space: pre;
     color: #bd0c9f;
@@ -307,19 +307,19 @@
     margin-top: 70px;
   }
 
-  .card:hover {
+  .card-landing-page:hover {
     background-color: rgb(193, 231, 87);
     cursor: pointer;
   }
   
-  .card:hover .card-title {
+  .card-landing-page:hover .card-title-landing-page {
     display: none;
   }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .card {
+  .card-landing-page {
     width: 350px;
     height: 350px;
     border-radius: 50%;
@@ -328,7 +328,7 @@
     margin: 0 auto;
   }
 
-  .card-title {
+  .card-title-landing-page {
     color: #008000;
     font-family: Knewave;
     font-weight: bold;
@@ -337,7 +337,7 @@
     margin-top: 55px;
   }
 
-  .card:hover:before {
+  .card-landing-page:hover:before {
     content: "Go to \A Home page";
     white-space: pre;
     color: #bd0c9f;
@@ -348,19 +348,19 @@
     margin-top: 85px;
   }
 
-  .card:hover {
+  .card-landing-page:hover {
     background-color: rgb(193, 231, 87);
     cursor: pointer;
   }
   
-  .card:hover .card-title {
+  .card-landing-pagecard-landing-pagecard-landing-page:hover .card-title-landing-page {
     display: none;
   }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
-  .card {
+  .card-landing-page {
     width: 400px;
     height: 400px;
     border-radius: 50%;
@@ -369,7 +369,7 @@
     margin: 0 auto;
   }
 
-  .card-title {
+  .card-title-landing-page {
     color: #008000;
     font-family: Knewave;
     font-weight: bold;
@@ -378,7 +378,7 @@
     margin-top: 75px;
   }
 
-  .card:hover:before {
+  .card-landing-pagecard-landing-page:hover:before {
     content: "Go to \A Home page";
     white-space: pre;
     color: #bd0c9f;
@@ -389,19 +389,19 @@
     margin-top: 100px;
   }
 
-  .card:hover {
+  .card-landing-pagecard-landing-page:hover {
     background-color: rgb(193, 231, 87);
     cursor: pointer;
   }
   
-  .card:hover .card-title {
+  .card-landing-pagecard-landing-page:hover .card-title-landing-page {
     display: none;
   }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .card {
+  .card-landing-page {
     width: 450px;
     height: 450px;
     border-radius: 50%;
@@ -410,7 +410,7 @@
     margin: 0 auto;
   }
 
-  .card-title {
+  .card-title-landing-page {
     color: #008000;
     font-family: Knewave;
     font-weight: bold;
@@ -419,7 +419,7 @@
     margin-top: 70px;
   }
 
-  .card:hover:before {
+  .card-landing-page:hover:before {
     content: "Go to \A Home page";
     white-space: pre;
     color: #bd0c9f;
@@ -430,12 +430,12 @@
     margin-top: 120px;
   }
 
-  .card:hover {
+  .card-landing-page:hover {
     background-color: rgb(193, 231, 87);
     cursor: pointer;
   }
   
-  .card:hover .card-title {
+  .card-landing-page:hover .card-title-landing-page {
     display: none;
   }
 }

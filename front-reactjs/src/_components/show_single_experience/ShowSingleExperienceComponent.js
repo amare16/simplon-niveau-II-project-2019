@@ -2,6 +2,7 @@ import React, { Component } from "react";
 //import { EditCommentExperienceComponent } from "../../actions/commentExperienceActions/edit_comment_experience/EditCommentExperienceComponent";
 import "./showSingleExperience.css";
 import moment from "moment";
+import axios from "axios";
 import ModalEditExperienceCommentComponent from "./editExperienceComment/ModalEditExperienceCommentComponent";
 
 class ShowSingleExperienceComponent extends React.Component {
@@ -31,6 +32,14 @@ class ShowSingleExperienceComponent extends React.Component {
           },
         },
       ],
+      likes: [
+        {
+          id: "",
+          data: {
+            likes: "",
+          },
+        },
+      ],
       commentExperience: {
         id: "",
         commentContent: "",
@@ -43,11 +52,14 @@ class ShowSingleExperienceComponent extends React.Component {
           username: "",
         },
       },
-      requiredItem: 0
+      requiredItem: 0,
+      data: {
+        likes: "",
+      },
+      liked: false
     };
     //console.log("test: ", this.state)
-     this.replaceModalItem = this.replaceModalItem.bind(this);
-    
+    this.replaceModalItem = this.replaceModalItem.bind(this);
   }
 
   componentWillMount() {
@@ -89,6 +101,50 @@ class ShowSingleExperienceComponent extends React.Component {
     });
   }
 
+  handleExperienceLikeCount(eLike) {
+    this.setState({
+      likes: eLike.target.value,
+    });
+  }
+
+  submitLikeExperience(e) {
+    e.preventDefault();
+    let body = {
+      likes: {
+        id: this.state.id,
+      },
+    };
+
+    let token = localStorage.getItem("token");
+
+    if (token) {
+      let experienceId = this.props.match.params.experienceId;
+      const headers = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ` + token,
+        },
+      };
+
+      axios
+        .get(
+          `http://localhost:8000/api/single-experience-like/${experienceId}/like`,
+          headers,
+          body
+        )
+        .then((res) => {
+          this.setState({
+            data: res.data,
+          });
+        })
+        .catch((error) => {
+          console.error("Like error: ", error);
+        });
+    } else {
+      this.props.history.push("/login");
+    }
+  }
+
   submitComment(e) {
     e.preventDefault();
     e.target.reset();
@@ -128,11 +184,10 @@ class ShowSingleExperienceComponent extends React.Component {
 
   replaceModalItem(index) {
     this.setState({
-      requiredItem: index
+      requiredItem: index,
     });
   }
 
-  
   showSingleExperienceAfterCommentDelete() {
     setTimeout(() => {
       let experienceId = this.props.match.params.experienceId;
@@ -188,6 +243,12 @@ class ShowSingleExperienceComponent extends React.Component {
     }
   }
 
+  toggleLike = (x) => {
+    this.setState({
+      liked: !this.state.liked,
+    });
+  };
+
   render() {
     console.log(
       "I do not know why: ",
@@ -196,13 +257,12 @@ class ShowSingleExperienceComponent extends React.Component {
     let tokenRedirect = localStorage.getItem("token");
     let username = localStorage.getItem("username");
     console.log("username username: ", username);
-    
+
     /* EditModaExperienceComment variables */
     const requiredItem = this.state.requiredItem;
-    console.log("this.state.requiredItem: ", requiredItem)
+    console.log("this.state.requiredItem: ", requiredItem);
     let modalData = this.state.commentExperiences[requiredItem];
     console.log("modal data: ", modalData);
-
 
     return (
       <div className="container-fluid">
@@ -265,6 +325,54 @@ class ShowSingleExperienceComponent extends React.Component {
               >
                 {moment(this.state.published_at).format("LLL")}
               </p>
+              <form onSubmit={this.submitLikeExperience.bind(this)}>
+                <button
+                  className="likeBtn"
+                  style={{ border: "none" }}
+                  onClick={this.handleExperienceLikeCount.bind(this)}
+                  onClick={this.toggleLike.bind(this)}
+                >
+                  {this.state.liked ? (
+                    <div>
+                      <i
+                        className="fa fa-thumbs-up fa-lg"
+                        aria-hidden="true"
+                        style={{ color: "blue" }}
+                      ></i>
+                      &nbsp;&nbsp;
+                      <span
+                        className="like-count"
+                        style={{
+                          display: "inline-block",
+                          fontWeight: "bold",
+                          color: "blue",
+                        }}
+                      >
+                        {this.state.data.likes}
+                      </span>
+                    </div>
+                  ) : (
+                    <div>
+                      <i
+                        className="fa fa-thumbs-o-up fa-lg"
+                        aria-hidden="true"
+                        style={{ color: "red" }}
+                      ></i>
+                      &nbsp;&nbsp;
+                      <span
+                        className="like-count"
+                        style={{
+                          display: "inline-block",
+                          fontWeight: "bold",
+                          color: "red",
+                        }}
+                      >
+                        {this.state.data.likes}
+                      </span>
+                    </div>
+                  )}
+                </button>
+              </form>
               <p className="text-right">
                 <strong style={{ color: "green" }}>
                   {this.state.user.firstName + " " + this.state.user.lastName}
@@ -305,32 +413,30 @@ class ShowSingleExperienceComponent extends React.Component {
                   <p>{comment.commentContent}</p>
                 </div>
                 <p class="attribution">
-
                   {comment.authorName.username ==
-                  localStorage.getItem("username") && (
-                    <div style={{float: "left"}}>
+                    localStorage.getItem("username") && (
+                    <div style={{ float: "left" }}>
                       <i
-                      title="Edit your comment"
-                      className="fa fa-edit fa-lg"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      style={{color: "green" }}
-                      aria-hidden="true"
-                      onClick={() => this.replaceModalItem(index)}
-                    ></i>&nbsp;&nbsp;&nbsp;
-                     
-                  <i
-                      title="Delete your comment"
-                      className="fa fa-trash-o fa-lg del-btn"
-                      style={{color: "red" }}
-                      aria-hidden="true"
-                      onClick={(e) =>
-                        this.deleteCommentExperience(e, comment.id)
-                      }
-                    ></i>
+                        title="Edit your comment"
+                        className="fa fa-edit fa-lg"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        style={{ color: "green" }}
+                        aria-hidden="true"
+                        onClick={() => this.replaceModalItem(index)}
+                      ></i>
+                      &nbsp;&nbsp;&nbsp;
+                      <i
+                        title="Delete your comment"
+                        className="fa fa-trash-o fa-lg del-btn"
+                        style={{ color: "red" }}
+                        aria-hidden="true"
+                        onClick={(e) =>
+                          this.deleteCommentExperience(e, comment.id)
+                        }
+                      ></i>
                     </div>
-                    
-                  ) }
+                  )}
                   by{" "}
                   {this.state.user.username != comment.authorName.username ? (
                     <a href="#">
@@ -353,14 +459,12 @@ class ShowSingleExperienceComponent extends React.Component {
                 <ModalEditExperienceCommentComponent
                   id={modalData.id}
                   commentContent={modalData.commentContent}
-                  experienceId = {this.props.match.params.experienceId}
+                  experienceId={this.props.match.params.experienceId}
                 />
               </div>
             );
           })}
-
         </div>
-        
       </div>
     );
   }
