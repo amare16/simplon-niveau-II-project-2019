@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityNotFoundException;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,27 +39,48 @@ class ExperienceController extends AbstractFOSRestController
      * @var ExperienceLikeRepository
      */
     private $experienceLikeRepository;
+    /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
 
     public function __construct(ExperienceService $experienceService,
                                 ExperienceRepository $experienceRepository,
                                 EntityManagerInterface $entityManager,
-                                ExperienceLikeRepository $experienceLikeRepository)
+                                ExperienceLikeRepository $experienceLikeRepository,
+                                PaginatorInterface $paginator)
     {
         $this->experienceService = $experienceService;
         $this->experienceRepository = $experienceRepository;
         $this->entityManager = $entityManager;
         $this->experienceLikeRepository = $experienceLikeRepository;
+        $this->paginator = $paginator;
     }
 
     /**
      * @Rest\Get("/experiences")
      * @Rest\View(serializerGroups={"group_experience"})
      */
-    public function getAllExperiences(): View
+    public function getAllExperiences(Request $request): View
     {
         $all_experiences = $this->experienceService->getAllExperiences();
-
         return View::create($all_experiences, Response::HTTP_OK);
+
+//        $all_experiences = $this->experienceService->getAllExperiences();
+//        $experiences = $this->paginator->paginate(
+//            $all_experiences,
+//            $request->query->getInt('page', 1),
+//            5
+//        );
+//
+//        return View::create(
+//            [
+//            $experiences->getItems(),
+//            $experiences->getTotalItemCount()
+//            ],
+//            Response::HTTP_OK
+//        );
+
     }
 
     /**

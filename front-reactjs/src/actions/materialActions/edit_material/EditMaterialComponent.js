@@ -126,7 +126,9 @@ class EditMaterialComponent extends React.Component {
     )
       .then((response) => {
         console.log("response from getDetails: ", response);
-        //this.props.history.push("/materials-list-by-user");
+        if(response.status !== 500) {
+        this.props.history.push("/materials-list-by-user");
+        }
       })
       .catch((err) => console.log(err));
   }

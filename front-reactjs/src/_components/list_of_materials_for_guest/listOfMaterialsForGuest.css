@@ -1,0 +1,10 @@
+
+.back-to-dashboard {
+    margin-left: 190px;
+}
+
+@media screen and (max-width: 768px) {
+    .back-to-dashboard {
+        margin-left: 10px;
+    }
+}

@@ -46,7 +46,8 @@ class ContactUsComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    e.target.reset();
+    console.log("reset: ", e.target.value)
+    
     //console.log("handle submit value: ",this.state)
     fetch("http://localhost:8000/api/send-email", {
       method: "POST",
@@ -89,13 +90,13 @@ class ContactUsComponent extends React.Component {
               >
                 <div className="card round-0='true'">
                   <div className="card-header p-0">
-                    <div className="bg-info text-white text-center py-y">
-                      <h3>
+                    <div className="text-white text-center py-y" style={{height: "55px", backgroundColor: "rgb(80 83 100)"}}>
+                      <h3 style={{margin: "0", transform: "translateY(20%)"}}>
                         <i className="fa fa-envelope"></i> Contact
                       </h3>
                     </div>
                   </div>
-                  <div className="card-body p-3">
+                  <div className="card-body p-3" style={{backgroundColor: "#57235c"}}>
                     <div className="input-group mb-2">
                       <div className="input-group-prepend">
                         <div className="input-group-text">

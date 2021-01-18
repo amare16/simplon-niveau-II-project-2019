@@ -4,10 +4,8 @@
 namespace App\Controller\ApiRest;
 
 
-use App\Entity\Addresses;
 use App\Entity\User;
 use App\Entity\UserType;
-use App\Repository\AddressesRepository;
 use App\Repository\UserRepository;
 use App\Repository\UserTypeRepository;
 use App\Service\UserService;
@@ -41,10 +39,7 @@ class UserController extends AbstractFOSRestController
      * @var UserPasswordEncoderInterface
      */
     private $passwordEncoder;
-    /**
-     * @var AddressesRepository
-     */
-    private $addressesRepository;
+
     /**
      * @var UserTypeRepository
      */
@@ -62,8 +57,7 @@ class UserController extends AbstractFOSRestController
      */
     private $userRepository;
 
-    public function __construct(AddressesRepository $addressesRepository,
-                                UserTypeRepository $userTypeRepository,
+    public function __construct(UserTypeRepository $userTypeRepository,
                                 UserPasswordEncoderInterface $passwordEncoder,
                                 UserService $userService,
                                 JWTEncoderInterface $jwt_encoder,
@@ -75,7 +69,6 @@ class UserController extends AbstractFOSRestController
 
         $this->logger = $logger;
         $this->passwordEncoder = $passwordEncoder;
-        $this->addressesRepository = $addressesRepository;
         $this->userTypeRepository = $userTypeRepository;
         $this->jwt_encoder = $jwt_encoder;
         $this->entityManager = $entityManager;
@@ -112,8 +105,7 @@ class UserController extends AbstractFOSRestController
      * @Rest\Post("/register", name="api.register")
      * @Rest\View(serializerGroups={"group_user"})
      */
-    public function registerUser(AddressesRepository $addressesRepository,
-                                 UserTypeRepository $userTypeRepository,
+    public function registerUser(UserTypeRepository $userTypeRepository,
                                  Request $request,
                                  EntityManagerInterface $entityManager)
     {

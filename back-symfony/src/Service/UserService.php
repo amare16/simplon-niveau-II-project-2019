@@ -14,11 +14,6 @@ class UserService
 {
 
     /**
-     * @var AddressesRepository
-     */
-    private $addressesRepository;
-
-    /**
      * @var UserRepository
      */
     private $userRepository;
@@ -28,10 +23,9 @@ class UserService
     private $managerRegistry;
 
 
-    public function __construct(UserRepository $userRepository, AddressesRepository $addressesRepository,
+    public function __construct(UserRepository $userRepository,
                                 \Doctrine\Common\Persistence\ManagerRegistry $managerRegistry)
     {
-        $this->addressesRepository = $addressesRepository;
         $this->userRepository = $userRepository;
 
         $this->managerRegistry = $managerRegistry;

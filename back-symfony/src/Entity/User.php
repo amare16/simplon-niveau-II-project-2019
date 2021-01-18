@@ -256,11 +256,6 @@ class User implements UserInterface
     private $borrowLenderMaterials;
 
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="App\Entity\Addresses", inversedBy="users")
-//     */
-//    private $addresses;
-
     public function __construct()
     {
         //$this->articles = new ArrayCollection();
@@ -974,15 +969,4 @@ class User implements UserInterface
     }
 
 
-//    public function getAddresses(): ?Addresses
-//    {
-//        return $this->addresses;
-//    }
-//
-//    public function setAddresses(?Addresses $addresses): self
-//    {
-//        $this->addresses = $addresses;
-//
-//        return $this;
-//    }
 }

@@ -9,7 +9,7 @@ class LogoComponent extends React.Component {
         let token = localStorage.getItem("token");
         if (token) {
             return(
-                <div className="logo">
+                <div className="logo" style={{marginTop: '13px'}}>
                     <a href="/home"><img className="img-logo" src="http://localhost:3000/logo.png" width="170" height="170" alt="logo"></img></a>
                 
                 </div>

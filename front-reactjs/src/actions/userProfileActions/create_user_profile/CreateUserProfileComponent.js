@@ -61,7 +61,7 @@ class CreateUserProfileComponent extends React.Component {
       .then((data) => data.json())
       .then((dataJson) => {
         console.log("data json: ", dataJson);
-        //this.props.history.push("/search-partner");
+        this.props.history.push("/search-partner");
       });
   }
 
