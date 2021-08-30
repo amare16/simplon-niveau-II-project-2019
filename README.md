@@ -3,11 +3,11 @@ Table of Contents <br>
 Introduction <br>
 Technologies <br>
 Set up <br>
-Status <br>
-Introduction
+Status <br><br>
+<h1>Introduction</h1> <br>
 Agro Interest is a site that meet a farmer with gardener, who has a hobby to cultivate, and also to meet a lender with giver of agricultural equipment. (it will update)
 
-Technoligies
+<h1>Technoligies</h1>
 Project is creating with the following technos:
 
 Front-end
@@ -20,8 +20,9 @@ PHP 7.2.10
 SYMFONY 4.3.5
 Database
 Mysql 5.7
-SQL
-Setup
+SQL <br>
+
+<h1>Setup</h1>
 To run this project, install it locally,
 
 front-end
