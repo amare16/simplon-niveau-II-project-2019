@@ -56,7 +56,7 @@
     "react": "^16.11.0",
     "react-app-polyfill": "^1.0.4",
     "react-bootstrap": "^1.0.0-beta.16",
-    "react-dev-utils": "^9.1.0",
+    "react-dev-utils": "^12.0.1",
     "react-dom": "^16.11.0",
     "react-filter-search": "^1.0.9",
     "react-geosuggest": "^2.12.1",
